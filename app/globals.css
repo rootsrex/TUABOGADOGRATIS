@@ -45,3 +45,12 @@ body {
 .prose-legal strong {
   @apply font-semibold text-slate-900;
 }
+.prose-legal pre {
+  @apply my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100;
+}
+.prose-legal code {
+  @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm text-slate-800;
+}
+.prose-legal pre code {
+  @apply bg-transparent p-0 text-slate-100;
+}
