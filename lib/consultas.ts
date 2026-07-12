@@ -64,18 +64,15 @@ export const consultas: Consulta[] = [
       "Copia la cédula y pégala en las opciones de consulta ciudadana del portal del Registro Civil.",
   },
   {
-    slug: "cedula-con-nombres",
-    name: "Cédula con nombres y apellidos",
+    slug: "nombre-por-cedula",
+    name: "Nombre asociado a una cédula (RUC)",
     icon: "🔍",
-    description: "Busca el número de cédula de una persona a partir de sus nombres y apellidos.",
-    campos: [
-      { key: "apellidos", label: "Apellidos completos", placeholder: "Ej: Pérez García" },
-      { key: "nombres", label: "Nombres completos", placeholder: "Ej: Juan Carlos" },
-    ],
-    entidad: "Registro Civil del Ecuador",
-    entidadUrl: "https://www.registrocivil.gob.ec",
+    description: "Consulta el nombre del titular de una cédula a través del RUC en el SRI.",
+    campos: [{ key: "cedula", label: "Número de cédula", placeholder: "Ej: 1712345678" }],
+    entidad: "SRI · Servicio de Rentas Internas",
+    entidadUrl: "https://www.sri.gob.ec",
     instrucciones:
-      "Copia los nombres y apellidos y pégalos en la opción de consulta ciudadana por nombres del portal del Registro Civil.",
+      "Copia la cédula, y en el portal del SRI busca la opción \"Consulta de RUC\" (dentro de SRI en línea → Consultas públicas) para ver el nombre asociado. Por ley, el nombre de un contribuyente es información pública para fines de facturación.",
   },
 ];
 
