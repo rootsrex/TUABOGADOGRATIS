@@ -14,7 +14,8 @@ export default function ConsultaBuscador({ consulta }: { consulta: Consulta }) {
   async function handleConsultar() {
     const valorPrincipal = consulta.campos
       .map((c) => valores[c.key]?.trim())
-      .find((v) => v);
+      .filter((v): v is string => Boolean(v))
+      .join(" ");
 
     if (valorPrincipal) {
       try {

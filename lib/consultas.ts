@@ -63,6 +63,20 @@ export const consultas: Consulta[] = [
     instrucciones:
       "Copia la cédula y pégala en las opciones de consulta ciudadana del portal del Registro Civil.",
   },
+  {
+    slug: "cedula-con-nombres",
+    name: "Cédula con nombres y apellidos",
+    icon: "🔍",
+    description: "Busca el número de cédula de una persona a partir de sus nombres y apellidos.",
+    campos: [
+      { key: "apellidos", label: "Apellidos completos", placeholder: "Ej: Pérez García" },
+      { key: "nombres", label: "Nombres completos", placeholder: "Ej: Juan Carlos" },
+    ],
+    entidad: "Registro Civil del Ecuador",
+    entidadUrl: "https://www.registrocivil.gob.ec",
+    instrucciones:
+      "Copia los nombres y apellidos y pégalos en la opción de consulta ciudadana por nombres del portal del Registro Civil.",
+  },
 ];
 
 export function getConsulta(slug: string): Consulta | undefined {
