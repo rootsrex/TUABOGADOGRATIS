@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { categories } from "@/lib/categories";
 import { calculadoras } from "@/lib/calculadoras";
+import { consultas } from "@/lib/consultas";
 import { getAllArticles } from "@/lib/content";
 import CategoryCard from "@/components/CategoryCard";
 import ArticleCard from "@/components/ArticleCard";
@@ -38,6 +39,38 @@ export default function HomePage() {
             >
               Hacer una consulta
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Consultas en línea */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900">Consultas en línea 🔎</h2>
+              <p className="mt-2 text-slate-600">
+                Placa, cédula o nombre: busca el dato y te llevamos al portal oficial.
+              </p>
+            </div>
+            <Link href="/consultas" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
+              Ver todas →
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {consultas.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/consultas/${c.slug}`}
+                className="flex flex-col items-start gap-2 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand-300 hover:shadow-sm"
+              >
+                <span className="grid h-11 w-11 place-items-center rounded-lg bg-brand-50 text-2xl">
+                  {c.icon}
+                </span>
+                <span className="font-semibold text-slate-800">{c.name}</span>
+                <span className="text-xs text-slate-500">{c.description}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

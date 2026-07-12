@@ -38,6 +38,9 @@ export default function Navbar() {
               ))}
             </div>
           </div>
+          <Link href="/consultas" className="text-sm font-medium text-slate-700 hover:text-brand-700">
+            Consultas
+          </Link>
           <Link href="/calculadoras" className="text-sm font-medium text-slate-700 hover:text-brand-700">
             Calculadoras
           </Link>
@@ -78,6 +81,9 @@ export default function Navbar() {
               {c.icon} {c.name}
             </Link>
           ))}
+          <Link href="/consultas" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
+            🔎 Consultas
+          </Link>
           <Link href="/calculadoras" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
             🧮 Calculadoras
           </Link>
