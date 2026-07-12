@@ -1,0 +1,45 @@
+import type { Metadata } from "next";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://tuabogadogratis.ec"),
+  title: {
+    default: "Tu Abogado Gratis | Trámites y consultas legales del Ecuador",
+    template: "%s | Tu Abogado Gratis",
+  },
+  description:
+    "Guías claras y gratuitas sobre trámites legales del Ecuador: IESS, pensión alimenticia, multas ANT, Registro Civil, bonos y modelos de documentos.",
+  keywords: [
+    "trámites Ecuador",
+    "consultas legales Ecuador",
+    "IESS",
+    "pensión alimenticia",
+    "multas ANT",
+    "Registro Civil",
+    "bono desarrollo humano",
+  ],
+  openGraph: {
+    title: "Tu Abogado Gratis",
+    description: "Tu asesor legal en casa. Trámites y consultas del Ecuador explicados fácil.",
+    type: "website",
+    locale: "es_EC",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="es-EC">
+      <body>
+        <Navbar />
+        <main className="min-h-[60vh]">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}

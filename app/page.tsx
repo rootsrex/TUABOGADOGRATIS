@@ -1,0 +1,97 @@
+import Link from "next/link";
+import { categories } from "@/lib/categories";
+import { getAllArticles } from "@/lib/content";
+import CategoryCard from "@/components/CategoryCard";
+import ArticleCard from "@/components/ArticleCard";
+
+export default function HomePage() {
+  const articles = getAllArticles();
+  const featured = articles.slice(0, 6);
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800 text-white">
+        <div className="mx-auto max-w-6xl px-4 py-20 text-center">
+          <span className="inline-block rounded-full bg-white/15 px-4 py-1 text-sm font-medium">
+            ⚖️ Tu asesor legal en casa
+          </span>
+          <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold leading-tight md:text-5xl">
+            Trámites y consultas legales del Ecuador, explicados fácil y gratis
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-brand-100">
+            Desde el IESS y las multas de la ANT hasta la pensión alimenticia y
+            los bonos del Estado. Encuentra guías paso a paso y modelos de
+            documentos listos para usar.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/blog"
+              className="rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 hover:bg-brand-50"
+            >
+              Explorar guías
+            </Link>
+            <Link
+              href="/contacto"
+              className="rounded-lg border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white/10"
+            >
+              Hacer una consulta
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Categorías */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold text-slate-900">Explora por categoría</h2>
+          <p className="mt-2 text-slate-600">
+            Organizamos los trámites del Ecuador por temas para que encuentres lo que buscas rápido.
+          </p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((c) => (
+            <CategoryCard key={c.slug} category={c} />
+          ))}
+        </div>
+      </section>
+
+      {/* Artículos destacados */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900">Guías recientes</h2>
+              <p className="mt-2 text-slate-600">Lo último en trámites y consultas.</p>
+            </div>
+            <Link href="/blog" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
+              Ver todo →
+            </Link>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((a) => (
+              <ArticleCard key={a.slug} article={a} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 px-8 py-12 text-center text-white">
+          <h2 className="text-2xl font-bold md:text-3xl">¿Tienes una duda legal?</h2>
+          <p className="mx-auto mt-3 max-w-xl text-brand-100">
+            Cuéntanos tu caso y te orientamos con información clara sobre el
+            trámite que necesitas realizar.
+          </p>
+          <Link
+            href="/contacto"
+            className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 hover:bg-brand-50"
+          >
+            Consulta gratis
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
