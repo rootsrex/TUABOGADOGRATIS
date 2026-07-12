@@ -38,6 +38,23 @@ export default async function OperativosPage() {
         </p>
       </header>
 
+      <a
+        href="https://t.me/radarcuenca"
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        className="mb-8 flex items-center gap-4 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 p-5 text-white shadow-sm transition hover:shadow-md"
+      >
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/15 text-2xl">
+          📡
+        </span>
+        <span className="min-w-0">
+          <span className="block font-bold">Únete al grupo de alertas en Telegram</span>
+          <span className="block text-sm text-sky-50">
+            Reportes en tiempo real de la comunidad — toca para abrir Telegram ↗
+          </span>
+        </span>
+      </a>
+
       <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-800">
         <strong>Uso responsable:</strong> esta información es referencial y
         colaborativa, pensada para tu **seguridad y planificación de ruta**.
