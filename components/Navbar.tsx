@@ -38,6 +38,9 @@ export default function Navbar() {
               ))}
             </div>
           </div>
+          <Link href="/categoria/ecu911" className="text-sm font-semibold text-red-600 hover:text-red-700">
+            🚨 ECU911
+          </Link>
           <Link href="/consultas" className="text-sm font-medium text-slate-700 hover:text-brand-700">
             Consultas
           </Link>
@@ -81,6 +84,9 @@ export default function Navbar() {
               {c.icon} {c.name}
             </Link>
           ))}
+          <Link href="/categoria/ecu911" onClick={() => setOpen(false)} className="block py-2 font-semibold text-red-600">
+            🚨 ECU911
+          </Link>
           <Link href="/consultas" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
             🔎 Consultas
           </Link>

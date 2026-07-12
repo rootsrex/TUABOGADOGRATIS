@@ -8,6 +8,14 @@ export type Category = {
 
 export const categories: Category[] = [
   {
+    slug: "ecu911",
+    name: "ECU911 y Emergencias",
+    icon: "🚨",
+    description:
+      "Qué es el ECU911, cuándo llamar al 911, qué esperar durante la atención y otros números de ayuda.",
+    color: "from-red-600 to-orange-600",
+  },
+  {
     slug: "laboral-iess",
     name: "Laboral e IESS",
     icon: "💼",

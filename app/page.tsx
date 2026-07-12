@@ -1,14 +1,16 @@
 import Link from "next/link";
-import { categories } from "@/lib/categories";
+import { categories, getCategory } from "@/lib/categories";
 import { calculadoras } from "@/lib/calculadoras";
 import { consultas } from "@/lib/consultas";
-import { getAllArticles } from "@/lib/content";
+import { getAllArticles, getArticlesByCategory } from "@/lib/content";
 import CategoryCard from "@/components/CategoryCard";
 import ArticleCard from "@/components/ArticleCard";
 
 export default function HomePage() {
   const articles = getAllArticles();
   const featured = articles.slice(0, 6);
+  const ecu911Category = getCategory("ecu911");
+  const ecu911Articles = getArticlesByCategory("ecu911");
 
   return (
     <>
@@ -42,6 +44,43 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ECU911 - Destacado */}
+      {ecu911Category && (
+        <section className="bg-gradient-to-br from-red-700 via-red-600 to-orange-600 py-16 text-white">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <span className="inline-block rounded-full bg-white/15 px-4 py-1 text-sm font-semibold">
+                  🚨 Destacado
+                </span>
+                <h2 className="mt-3 text-3xl font-extrabold">ECU911 y Emergencias</h2>
+                <p className="mt-2 max-w-xl text-red-50">
+                  Todo lo que debes saber para actuar rápido: qué es el ECU911,
+                  cuándo llamar al 911 y qué esperar durante la atención.
+                </p>
+              </div>
+              <Link
+                href="/categoria/ecu911"
+                className="rounded-lg bg-white px-6 py-3 font-semibold text-red-700 hover:bg-red-50"
+              >
+                Ver toda la guía →
+              </Link>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {ecu911Articles.map((a) => (
+                <Link
+                  key={a.slug}
+                  href={`/articulo/${a.slug}`}
+                  className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur transition hover:bg-white/20"
+                >
+                  <span className="font-semibold leading-snug">{a.title}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Consultas en línea */}
       <section className="bg-white py-16">
