@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800 antialiased;
+}
+
+/* Article prose styling */
+.prose-legal h2 {
+  @apply mt-10 mb-3 text-2xl font-bold text-slate-900;
+}
+.prose-legal h3 {
+  @apply mt-8 mb-2 text-xl font-semibold text-slate-900;
+}
+.prose-legal p {
+  @apply mb-4 leading-relaxed text-slate-700;
+}
+.prose-legal ul {
+  @apply mb-4 list-disc space-y-2 pl-6 text-slate-700;
+}
+.prose-legal ol {
+  @apply mb-4 list-decimal space-y-2 pl-6 text-slate-700;
+}
+.prose-legal a {
+  @apply font-medium text-brand-600 underline underline-offset-2 hover:text-brand-700;
+}
+.prose-legal blockquote {
+  @apply my-6 border-l-4 border-brand-400 bg-brand-50 px-5 py-3 text-slate-700;
+}
+.prose-legal table {
+  @apply my-6 w-full border-collapse text-sm;
+}
+.prose-legal th,
+.prose-legal td {
+  @apply border border-slate-200 px-3 py-2 text-left;
+}
+.prose-legal th {
+  @apply bg-slate-100 font-semibold;
+}
+.prose-legal strong {
+  @apply font-semibold text-slate-900;
+}
+.prose-legal pre {
+  @apply my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100;
+}
+.prose-legal code {
+  @apply rounded bg-slate-100 px-1.5 py-0.5 text-sm text-slate-800;
+}
+.prose-legal pre code {
+  @apply bg-transparent p-0 text-slate-100;
+}
