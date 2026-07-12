@@ -3,6 +3,11 @@ title: "Certificado de antecedentes penales en línea: requisitos y pasos"
 excerpt: "Obtén tu certificado de antecedentes penales del Ministerio del Interior de forma gratuita y sin salir de casa."
 category: "registro-civil"
 date: "2026-06-10"
+sources:
+  - label: "Ministerio del Interior · Certificado de antecedentes penales"
+    url: "https://certificados.ministeriodegobierno.gob.ec"
+  - label: "Registro Civil del Ecuador"
+    url: "https://www.registrocivil.gob.ec"
 ---
 
 El **certificado de antecedentes penales** es un documento que indica si una

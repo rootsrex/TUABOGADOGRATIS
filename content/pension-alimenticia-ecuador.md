@@ -3,6 +3,11 @@ title: "Pensión alimenticia en Ecuador: cómo se calcula y cómo solicitarla"
 excerpt: "Guía sobre la tabla de pensiones alimenticias, quién tiene derecho, cómo iniciar el juicio y qué pasa si no se paga."
 category: "familia"
 date: "2026-06-20"
+sources:
+  - label: "SUPA · Sistema Único de Pensiones Alimenticias"
+    url: "https://supa.funcionjudicial.gob.ec"
+  - label: "Función Judicial del Ecuador"
+    url: "https://www.funcionjudicial.gob.ec"
 ---
 
 La **pensión alimenticia** es el aporte económico que un progenitor debe entregar

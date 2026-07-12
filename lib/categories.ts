@@ -49,10 +49,10 @@ export const categories: Category[] = [
   },
   {
     slug: "documentos",
-    name: "Documentos y Contratos",
+    name: "Modelos y Documentos",
     icon: "📄",
     description:
-      "Modelos de contratos, cartas, poderes y formatos legales listos para descargar y usar.",
+      "Modelos de demandas, contratos, cartas y certificados listos para copiar, editar y usar.",
     color: "from-sky-500 to-cyan-600",
   },
 ];

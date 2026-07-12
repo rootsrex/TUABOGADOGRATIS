@@ -3,6 +3,11 @@ title: "Bono de Desarrollo Humano: requisitos, monto y cómo consultar si lo rec
 excerpt: "Conoce quién califica para el Bono de Desarrollo Humano, cuánto se paga y cómo consultar tu estado por cédula."
 category: "bonos"
 date: "2026-06-05"
+sources:
+  - label: "MIES · Ministerio de Inclusión Económica y Social"
+    url: "https://www.inclusion.gob.ec"
+  - label: "Registro Social del Ecuador"
+    url: "https://www.registrosocial.gob.ec"
 ---
 
 El **Bono de Desarrollo Humano (BDH)** es una transferencia monetaria del Estado

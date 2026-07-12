@@ -33,6 +33,7 @@ export default function Footer() {
           <h4 className="mb-3 font-semibold text-white">Enlaces</h4>
           <ul className="space-y-2 text-sm">
             <li><Link href="/" className="hover:text-white">Inicio</Link></li>
+            <li><Link href="/calculadoras" className="hover:text-white">Calculadoras</Link></li>
             <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
             <li><Link href="/contacto" className="hover:text-white">Contacto</Link></li>
             <li><Link href="/aviso-legal" className="hover:text-white">Aviso legal</Link></li>

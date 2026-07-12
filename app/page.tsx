@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { categories } from "@/lib/categories";
+import { calculadoras } from "@/lib/calculadoras";
 import { getAllArticles } from "@/lib/content";
 import CategoryCard from "@/components/CategoryCard";
 import ArticleCard from "@/components/ArticleCard";
@@ -73,6 +74,36 @@ export default function HomePage() {
               <ArticleCard key={a.slug} article={a} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Calculadoras */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="mb-8 flex items-end justify-between">
+          <div>
+            <h2 className="text-3xl font-bold text-slate-900">Calculadoras 🧮</h2>
+            <p className="mt-2 text-slate-600">Estima tus derechos laborales en segundos.</p>
+          </div>
+          <Link href="/calculadoras" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
+            Ver todas →
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {calculadoras.map((c) => (
+            <Link
+              key={c.slug}
+              href={`/calculadoras/${c.slug}`}
+              className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand-300 hover:shadow-sm"
+            >
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-50 text-2xl">
+                {c.icon}
+              </span>
+              <span>
+                <span className="block font-semibold text-slate-800">{c.name}</span>
+                <span className="block text-xs text-slate-500">{c.description}</span>
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 

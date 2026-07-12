@@ -46,14 +46,21 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       </nav>
 
       <header className="mb-8">
-        {category && (
-          <Link
-            href={`/categoria/${category.slug}`}
-            className="mb-3 inline-block rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700"
-          >
-            {category.icon} {category.name}
-          </Link>
-        )}
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          {category && (
+            <Link
+              href={`/categoria/${category.slug}`}
+              className="inline-block rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700"
+            >
+              {category.icon} {category.name}
+            </Link>
+          )}
+          {article.type === "modelo" && (
+            <span className="inline-block rounded-full bg-accent-500 px-3 py-1 text-xs font-semibold text-white">
+              📝 Modelo de documento
+            </span>
+          )}
+        </div>
         <h1 className="text-3xl font-extrabold leading-tight text-slate-900 md:text-4xl">
           {article.title}
         </h1>
@@ -76,10 +83,37 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
       </div>
 
-      <div className="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-800">
-        <strong>Aviso:</strong> esta guía es informativa y puede cambiar según
-        actualizaciones de las instituciones. No sustituye la asesoría de un
-        profesional del derecho para tu caso particular.
+      {article.sources.length > 0 && (
+        <div className="mt-10 rounded-2xl border border-brand-200 bg-brand-50 p-6">
+          <h2 className="flex items-center gap-2 text-lg font-bold text-brand-900">
+            🔗 Enlaces oficiales
+          </h2>
+          <p className="mt-1 text-sm text-brand-800">
+            Realiza tu trámite directamente en los portales oficiales de las instituciones:
+          </p>
+          <ul className="mt-4 space-y-2">
+            {article.sources.map((s) => (
+              <li key={s.url}>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="inline-flex items-center gap-2 font-medium text-brand-700 underline underline-offset-2 hover:text-brand-900"
+                >
+                  {s.label}
+                  <span aria-hidden className="text-xs">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-800">
+        <strong>Aviso:</strong>{" "}
+        {article.type === "modelo"
+          ? "este es un modelo referencial y editable. Adáptalo a tu caso y, para procesos judiciales, valida el formato con un abogado o con la unidad judicial competente."
+          : "esta guía es informativa y puede cambiar según actualizaciones de las instituciones. No sustituye la asesoría de un profesional del derecho para tu caso particular."}
       </div>
 
       {related.length > 0 && (

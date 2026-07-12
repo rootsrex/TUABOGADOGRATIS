@@ -2,6 +2,7 @@
 title: "Modelo de contrato de arrendamiento de vivienda en Ecuador"
 excerpt: "Descarga un modelo de contrato de arriendo con las cláusulas esenciales según la Ley de Inquilinato del Ecuador."
 category: "documentos"
+type: "modelo"
 date: "2026-05-30"
 ---
 

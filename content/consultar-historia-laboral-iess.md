@@ -3,6 +3,11 @@ title: "Cómo consultar tu historia laboral en el IESS paso a paso"
 excerpt: "Aprende a revisar tus aportaciones al IESS en línea, verificar tus empleadores y detectar si te faltan aportes."
 category: "laboral-iess"
 date: "2026-06-28"
+sources:
+  - label: "IESS · Servicios en línea para afiliados"
+    url: "https://www.iess.gob.ec"
+  - label: "IESS · Historia laboral y certificado de afiliación"
+    url: "https://www.iess.gob.ec/afiliado-web/"
 ---
 
 La **historia laboral** es el registro de todas tus aportaciones al Instituto

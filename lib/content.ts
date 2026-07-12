@@ -4,6 +4,11 @@ import matter from "gray-matter";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
+export type SourceLink = {
+  label: string;
+  url: string;
+};
+
 export type Article = {
   slug: string;
   title: string;
@@ -12,6 +17,8 @@ export type Article = {
   date: string;
   readingTime: number;
   updated?: string;
+  type: "guia" | "modelo";
+  sources: SourceLink[];
   content: string;
 };
 
@@ -34,6 +41,8 @@ export function getAllArticles(): Article[] {
       category: data.category ?? "",
       date: data.date ?? "",
       updated: data.updated ?? undefined,
+      type: (data.type as "guia" | "modelo") ?? "guia",
+      sources: Array.isArray(data.sources) ? (data.sources as SourceLink[]) : [],
       readingTime: estimateReadingTime(content),
       content,
     } as Article;
@@ -47,4 +56,12 @@ export function getArticle(slug: string): Article | undefined {
 
 export function getArticlesByCategory(categorySlug: string): Article[] {
   return getAllArticles().filter((a) => a.category === categorySlug);
+}
+
+export function getModels(): Article[] {
+  return getAllArticles().filter((a) => a.type === "modelo");
+}
+
+export function getGuides(): Article[] {
+  return getAllArticles().filter((a) => a.type === "guia");
 }
