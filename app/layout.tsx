@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { buildSearchIndex } from "@/lib/search";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tuabogadogratis.ec"),
@@ -33,10 +34,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const searchIndex = buildSearchIndex();
+
   return (
     <html lang="es-EC">
       <body>
-        <Navbar />
+        <Navbar searchIndex={searchIndex} />
         <main className="min-h-[60vh]">{children}</main>
         <Footer />
       </body>

@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { categories } from "@/lib/categories";
+import SearchBox from "@/components/SearchBox";
+import type { SearchItem } from "@/lib/search-types";
 
-export default function Navbar() {
+export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -16,6 +18,10 @@ export default function Navbar() {
             Tu Abogado <span className="text-accent-600">Gratis</span>
           </span>
         </Link>
+
+        <div className="flex items-center gap-3">
+          <SearchBox items={searchIndex} />
+        </div>
 
         <nav className="hidden items-center gap-6 md:flex">
           <Link href="/" className="text-sm font-medium text-slate-700 hover:text-brand-700">
