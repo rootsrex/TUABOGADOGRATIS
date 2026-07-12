@@ -45,6 +45,66 @@ export const calculadoras: Calculadora[] = [
     icon: "🧾",
     description: "Suma los rubros proporcionales al terminar tu relación laboral.",
   },
+  {
+    slug: "desahucio",
+    name: "Bonificación por desahucio",
+    icon: "📤",
+    description: "El 25 % de tu último sueldo por cada año de servicio, al terminar la relación laboral.",
+  },
+  {
+    slug: "despido-intempestivo",
+    name: "Despido intempestivo",
+    icon: "⚖️",
+    description: "Indemnización estimada según el Código del Trabajo por despido sin causa justa.",
+  },
+  {
+    slug: "utilidades",
+    name: "Utilidades",
+    icon: "📈",
+    description: "Estimación simplificada de tu participación en las utilidades de la empresa.",
+  },
+  {
+    slug: "valor-hora",
+    name: "Valor de la hora de trabajo",
+    icon: "🕐",
+    description: "Cuánto vale cada hora de tu jornada según tu sueldo mensual.",
+  },
+  {
+    slug: "aportes-iess",
+    name: "Aportes al IESS",
+    icon: "🧮",
+    description: "Calcula el aporte personal y patronal al IESS según tu sueldo.",
+  },
+  {
+    slug: "salario-jornada-parcial",
+    name: "Salario en jornada parcial",
+    icon: "🕓",
+    description: "Sueldo mínimo proporcional si trabajas menos de 40 horas semanales.",
+  },
+  {
+    slug: "subsidio-enfermedad",
+    name: "Subsidio por enfermedad",
+    icon: "🤒",
+    description: "Estima el subsidio del IESS por incapacidad médica temporal.",
+  },
+  {
+    slug: "subsidio-maternidad",
+    name: "Subsidio por maternidad",
+    icon: "🤱",
+    description: "Calcula el subsidio del IESS durante las 12 semanas de licencia de maternidad.",
+  },
+  {
+    slug: "credito-hipotecario",
+    name: "Crédito hipotecario BIESS",
+    icon: "🏠",
+    description: "Simula la cuota mensual de un préstamo hipotecario según monto, plazo y tasa.",
+  },
+  {
+    slug: "jubilacion-iess",
+    name: "Pensión de jubilación IESS",
+    icon: "👴",
+    description: "Estimación educativa de tu pensión según tus años de aportación.",
+  },
 ];
 
 export function getCalculadora(slug: string): Calculadora | undefined {

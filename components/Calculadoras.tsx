@@ -189,6 +189,198 @@ function Finiquito() {
   );
 }
 
+function Desahucio() {
+  const [sueldo, setSueldo] = useState("470");
+  const [anios, setAnios] = useState("1");
+  const total = num(sueldo) * 0.25 * num(anios);
+  return (
+    <Shell note="Fórmula: sueldo mensual × 25 % × años de servicio (Art. 185 Código del Trabajo). Se paga junto con la liquidación, sin importar la causa de salida.">
+      <Field label="Último sueldo mensual" value={sueldo} onChange={setSueldo} suffix="USD" />
+      <Field label="Años de servicio" value={anios} onChange={setAnios} step="0.1" />
+      <Result total={{ label: "Bonificación por desahucio", value: total }} />
+    </Shell>
+  );
+}
+
+function DespidoIntempestivo() {
+  const [sueldo, setSueldo] = useState("470");
+  const [anios, setAnios] = useState("1");
+  const aniosNum = num(anios);
+  const meses = aniosNum < 3 ? 3 : aniosNum;
+  const total = num(sueldo) * meses;
+  return (
+    <Shell note="Fórmula (Art. 188 Código del Trabajo): hasta 3 años de servicio, 3 remuneraciones; más de 3 años, 1 remuneración por cada año. No incluye la bonificación por desahucio, que se calcula aparte.">
+      <Field label="Último sueldo mensual" value={sueldo} onChange={setSueldo} suffix="USD" />
+      <Field label="Años de servicio" value={anios} onChange={setAnios} step="0.1" />
+      <p className="text-sm text-slate-500">
+        Meses de indemnización: <strong className="text-slate-700">{meses.toFixed(1)}</strong>
+      </p>
+      <Result total={{ label: "Indemnización estimada", value: total }} />
+    </Shell>
+  );
+}
+
+function Utilidades() {
+  const [utilidad, setUtilidad] = useState("10000");
+  const [trabajadores, setTrabajadores] = useState("10");
+  const [dias, setDias] = useState("360");
+  const [cargas, setCargas] = useState("0");
+  const nTrab = Math.max(1, num(trabajadores));
+  const parte1 = ((num(utilidad) * 0.10) / nTrab) * (num(dias) / 360);
+  const parte2 = ((num(utilidad) * 0.05) / nTrab) * (1 + 0.1 * num(cargas));
+  const total = parte1 + parte2;
+  return (
+    <Shell note="Estimación simplificada: 10 % de la utilidad se reparte según días trabajados y 5 % según cargas familiares. El cálculo real lo hace la empresa con la nómina completa; esto es solo una referencia aproximada.">
+      <Field label="Utilidad total de la empresa" value={utilidad} onChange={setUtilidad} suffix="USD" />
+      <Field label="Número de trabajadores" value={trabajadores} onChange={setTrabajadores} step="1" />
+      <Field label="Días trabajados en el año" value={dias} onChange={setDias} step="1" hint="Máximo 360." />
+      <Field label="Cargas familiares" value={cargas} onChange={setCargas} step="1" />
+      <Result
+        items={[
+          { label: "Parte por días trabajados (10 %)", value: parte1 },
+          { label: "Parte por cargas familiares (5 %)", value: parte2 },
+        ]}
+        total={{ label: "Participación estimada", value: total }}
+      />
+    </Shell>
+  );
+}
+
+function ValorHora() {
+  const [sueldo, setSueldo] = useState("470");
+  const valorHora = num(sueldo) / 240;
+  return (
+    <Shell note="Fórmula: sueldo mensual ÷ 240 (30 días × 8 horas). Referencia base para calcular horas suplementarias y extraordinarias.">
+      <Field label="Sueldo mensual" value={sueldo} onChange={setSueldo} suffix="USD" />
+      <Result
+        items={[
+          { label: "Con recargo 50 % (suplementaria)", value: valorHora * 1.5 },
+          { label: "Con recargo 100 % (extraordinaria)", value: valorHora * 2 },
+        ]}
+        total={{ label: "Valor de la hora normal", value: valorHora }}
+      />
+    </Shell>
+  );
+}
+
+function AportesIESS() {
+  const [sueldo, setSueldo] = useState("470");
+  const personal = num(sueldo) * 0.0945;
+  const patronal = num(sueldo) * 0.1215;
+  return (
+    <Shell note="Tasas de referencia: 9,45 % aporte personal y 12,15 % aporte patronal sobre el sueldo. Verifica el porcentaje vigente en el IESS, ya que puede variar según el régimen.">
+      <Field label="Sueldo mensual" value={sueldo} onChange={setSueldo} suffix="USD" />
+      <Result
+        items={[
+          { label: "Aporte personal (9,45 %)", value: personal },
+          { label: "Aporte patronal (12,15 %)", value: patronal },
+        ]}
+        total={{ label: "Aporte total al IESS", value: personal + patronal }}
+      />
+    </Shell>
+  );
+}
+
+function SalarioJornadaParcial() {
+  const [sbu, setSbu] = useState(String(SBU_DEFAULT));
+  const [horas, setHoras] = useState("20");
+  const total = num(sbu) * (num(horas) / 40);
+  return (
+    <Shell note="Fórmula: SBU × (horas semanales trabajadas ÷ 40). La jornada completa en Ecuador es de 40 horas semanales.">
+      <Field label="Salario Básico Unificado (SBU)" value={sbu} onChange={setSbu} suffix="USD" />
+      <Field label="Horas trabajadas por semana" value={horas} onChange={setHoras} step="1" hint="Máximo 40." />
+      <Result total={{ label: "Salario mínimo proporcional", value: total }} />
+    </Shell>
+  );
+}
+
+function SubsidioEnfermedad() {
+  const [promedio, setPromedio] = useState("470");
+  const [dias, setDias] = useState("5");
+  const diasPagados = Math.max(0, num(dias) - 3);
+  const total = (num(promedio) / 30) * diasPagados * 0.75;
+  return (
+    <Shell note="Regla de referencia: los primeros 3 días de incapacidad no los cubre el IESS; desde el 4.º día, el subsidio es aproximadamente 75 % del promedio de tu remuneración. Confirma el porcentaje vigente con el IESS.">
+      <Field label="Promedio de remuneración mensual" value={promedio} onChange={setPromedio} suffix="USD" />
+      <Field label="Días de incapacidad médica" value={dias} onChange={setDias} step="1" />
+      <Result
+        items={[{ label: "Días pagados por el IESS", value: diasPagados }]}
+        total={{ label: "Subsidio estimado", value: total }}
+      />
+    </Shell>
+  );
+}
+
+function SubsidioMaternidad() {
+  const [promedio, setPromedio] = useState("470");
+  const total = (num(promedio) / 30) * 84; // 12 semanas ≈ 84 días
+  return (
+    <Shell note="El IESS cubre el 100 % del promedio de tu remuneración durante las 12 semanas (84 días) de licencia de maternidad.">
+      <Field label="Promedio de remuneración mensual" value={promedio} onChange={setPromedio} suffix="USD" />
+      <Result total={{ label: "Subsidio estimado (12 semanas)", value: total }} />
+    </Shell>
+  );
+}
+
+function CreditoHipotecario() {
+  const [monto, setMonto] = useState("50000");
+  const [tasa, setTasa] = useState("9");
+  const [plazo, setPlazo] = useState("20");
+  const r = num(tasa) / 100 / 12;
+  const n = num(plazo) * 12;
+  const cuota = r > 0 && n > 0 ? (num(monto) * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) : 0;
+  const totalPagado = cuota * n;
+  const totalIntereses = totalPagado - num(monto);
+  return (
+    <Shell note="Simulador de amortización (sistema francés). La tasa y condiciones reales del BIESS pueden variar; usa esto solo como referencia para planificar.">
+      <Field label="Monto del préstamo" value={monto} onChange={setMonto} suffix="USD" />
+      <Field label="Tasa de interés anual" value={tasa} onChange={setTasa} suffix="%" />
+      <Field label="Plazo" value={plazo} onChange={setPlazo} suffix="años" step="1" />
+      <Result
+        items={[
+          { label: "Total de intereses", value: totalIntereses },
+          { label: "Total a pagar", value: totalPagado },
+        ]}
+        total={{ label: "Cuota mensual estimada", value: cuota }}
+      />
+    </Shell>
+  );
+}
+
+function JubilacionIESS() {
+  const [promedio, setPromedio] = useState("470");
+  const [anios, setAnios] = useState("30");
+  const aniosNum = num(anios);
+  let coeficiente = 0;
+  if (aniosNum >= 40) coeficiente = 0.8;
+  else if (aniosNum >= 35) coeficiente = 0.7;
+  else if (aniosNum >= 30) coeficiente = 0.6;
+  else if (aniosNum >= 25) coeficiente = 0.5;
+  else if (aniosNum >= 20) coeficiente = 0.45;
+
+  const total = num(promedio) * coeficiente;
+  return (
+    <Shell note="Estimación educativa muy general: el cálculo real del IESS depende del tipo de jubilación (vejez, edad avanzada, invalidez), tu edad y los topes legales vigentes. Consulta tu caso directamente con el IESS.">
+      <Field label="Promedio de tus mejores sueldos" value={promedio} onChange={setPromedio} suffix="USD" />
+      <Field label="Años de aportación" value={anios} onChange={setAnios} step="1" hint="Mínimo 20 años para jubilación por vejez con requisitos reducidos." />
+      {coeficiente === 0 ? (
+        <div className="mt-6 rounded-xl bg-amber-50 p-5 text-sm text-amber-800">
+          Con menos de 20 años de aportación, generalmente no calificas aún para
+          la jubilación por vejez. Consulta con el IESS otras modalidades
+          (invalidez, edad avanzada) que podrían aplicar a tu caso.
+        </div>
+      ) : (
+        <>
+          <p className="text-sm text-slate-500">
+            Coeficiente estimado: <strong className="text-slate-700">{(coeficiente * 100).toFixed(0)}%</strong>
+          </p>
+          <Result total={{ label: "Pensión mensual estimada", value: total }} />
+        </>
+      )}
+    </Shell>
+  );
+}
+
 const registry: Record<string, () => JSX.Element> = {
   "decimo-tercer-sueldo": DecimoTercero,
   "decimo-cuarto-sueldo": DecimoCuarto,
@@ -196,6 +388,16 @@ const registry: Record<string, () => JSX.Element> = {
   vacaciones: Vacaciones,
   "horas-extras": HorasExtras,
   finiquito: Finiquito,
+  desahucio: Desahucio,
+  "despido-intempestivo": DespidoIntempestivo,
+  utilidades: Utilidades,
+  "valor-hora": ValorHora,
+  "aportes-iess": AportesIESS,
+  "salario-jornada-parcial": SalarioJornadaParcial,
+  "subsidio-enfermedad": SubsidioEnfermedad,
+  "subsidio-maternidad": SubsidioMaternidad,
+  "credito-hipotecario": CreditoHipotecario,
+  "jubilacion-iess": JubilacionIESS,
 };
 
 export default function CalculadoraWidget({ slug }: { slug: string }) {
