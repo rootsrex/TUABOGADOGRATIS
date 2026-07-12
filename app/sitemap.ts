@@ -2,12 +2,13 @@ import type { MetadataRoute } from "next";
 import { categories } from "@/lib/categories";
 import { calculadoras } from "@/lib/calculadoras";
 import { consultas } from "@/lib/consultas";
+import { simuladores } from "@/lib/simuladores";
 import { getAllArticles } from "@/lib/content";
 
 const BASE_URL = "https://tuabogadogratis.ec";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/blog", "/calculadoras", "/consultas", "/contacto", "/aviso-legal"].map((path) => ({
+  const staticRoutes = ["", "/blog", "/calculadoras", "/consultas", "/simuladores", "/contacto", "/aviso-legal"].map((path) => ({
     url: `${BASE_URL}${path}`,
     lastModified: new Date(),
   }));
@@ -27,10 +28,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const simuladorRoutes = simuladores.map((s) => ({
+    url: `${BASE_URL}/simuladores/${s.slug}`,
+    lastModified: new Date(),
+  }));
+
   const articleRoutes = getAllArticles().map((a) => ({
     url: `${BASE_URL}/articulo/${a.slug}`,
     lastModified: a.date ? new Date(a.date) : new Date(),
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...calculadoraRoutes, ...consultaRoutes, ...articleRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...calculadoraRoutes, ...consultaRoutes, ...simuladorRoutes, ...articleRoutes];
 }

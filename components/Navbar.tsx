@@ -53,6 +53,9 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
           <Link href="/consultas" className="text-sm font-medium text-slate-700 hover:text-brand-700">
             Consultas
           </Link>
+          <Link href="/simuladores" className="text-sm font-medium text-slate-700 hover:text-brand-700">
+            🚘 Simulador
+          </Link>
           <Link href="/calculadoras" className="text-sm font-medium text-slate-700 hover:text-brand-700">
             Calculadoras
           </Link>
@@ -101,6 +104,9 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
           </Link>
           <Link href="/consultas" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
             🔎 Consultas
+          </Link>
+          <Link href="/simuladores" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
+            🚘 Simulador de examen
           </Link>
           <Link href="/calculadoras" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
             🧮 Calculadoras

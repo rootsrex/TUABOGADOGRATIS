@@ -2,6 +2,7 @@ import Link from "next/link";
 import { categories, getCategory } from "@/lib/categories";
 import { calculadoras } from "@/lib/calculadoras";
 import { consultas } from "@/lib/consultas";
+import { simuladores } from "@/lib/simuladores";
 import { getAllArticles, getArticlesByCategory } from "@/lib/content";
 import CategoryCard from "@/components/CategoryCard";
 import ArticleCard from "@/components/ArticleCard";
@@ -81,6 +82,41 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Simuladores */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span className="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+              🚘 Nuevo
+            </span>
+            <h2 className="mt-3 text-3xl font-bold text-slate-900">Simuladores de examen</h2>
+            <p className="mt-2 text-slate-600">
+              Practica gratis para tu examen teórico de manejo antes de ir a la ANT.
+            </p>
+          </div>
+          <Link href="/simuladores" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
+            Ver todos →
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {simuladores.map((s) => (
+            <Link
+              key={s.slug}
+              href={`/simuladores/${s.slug}`}
+              className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand-300 hover:shadow-sm"
+            >
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-50 text-2xl">
+                {s.icon}
+              </span>
+              <span>
+                <span className="block font-semibold text-slate-800">{s.name}</span>
+                <span className="block text-xs text-slate-500">{s.description}</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* Consultas en línea */}
       <section className="bg-white py-16">
