@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { buildSearchIndex } from "@/lib/search";
-import Script from "next/script"; // 1. Importamos el componente nativo de Next.js
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tuabogadogratis.ec"),
@@ -40,13 +39,12 @@ export default function RootLayout({
   return (
     <html lang="es-EC">
       <head>
-        {/* 2. Usamos el componente <Script> optimizado para evitar parpadeos y errores */}
-        <Script 
+        {/* Tu código tal cual, corregido para cumplir con las reglas de JSX */}
+        <script 
           async 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1826839411838372"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        ></script>
       </head>
       <body>
         <Navbar searchIndex={searchIndex} />
