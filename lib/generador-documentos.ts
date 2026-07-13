@@ -1143,6 +1143,348 @@ Usted puede ejercer sus derechos de acceso, rectificación, eliminación y oposi
 6. CONTACTO
 Para consultas sobre esta política, contáctenos en: ${f(d.correoContacto)}`,
   },
+  {
+    slug: "convenio-regulatorio-divorcio",
+    nombre: "Convenio regulatorio de divorcio",
+    icon: "🤝",
+    descripcion: "Genera el convenio que acompaña un divorcio por mutuo acuerdo cuando hay hijos y/o bienes.",
+    campos: [
+      { key: "conyuge1", label: "Nombre cónyuge 1", tipo: "text" },
+      { key: "cedula1", label: "Cédula cónyuge 1", tipo: "text" },
+      { key: "conyuge2", label: "Nombre cónyuge 2", tipo: "text" },
+      { key: "cedula2", label: "Cédula cónyuge 2", tipo: "text" },
+      { key: "hijos", label: "Hijos en común (nombres y edades, o 'No tenemos hijos menores')", tipo: "textarea" },
+      { key: "tenencia", label: "Acuerdo de tenencia", tipo: "textarea", placeholder: "Ej: tenencia a cargo de la madre" },
+      { key: "regimenVisitas", label: "Régimen de visitas acordado", tipo: "textarea" },
+      { key: "pension", label: "Pensión alimenticia acordada (USD/mes)", tipo: "number" },
+      { key: "bienes", label: "Distribución de bienes de la sociedad conyugal", tipo: "textarea", placeholder: "O 'No existen bienes'" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+    ],
+    generar: (d) => `CONVENIO REGULATORIO DE DIVORCIO
+
+En la ciudad de ${f(d.lugar)}, ${fechaLarga(d.fecha)}, comparecen ${f(d.conyuge1)}, con cédula N.º ${f(d.cedula1)}, y ${f(d.conyuge2)}, con cédula N.º ${f(d.cedula2)}, quienes de común acuerdo celebran el presente CONVENIO REGULATORIO, para acompañar su demanda de divorcio por mutuo consentimiento, conforme a las siguientes cláusulas:
+
+PRIMERA - HIJOS EN COMÚN: ${f(d.hijos, "No tenemos hijos menores de edad producto de esta unión.")}
+
+SEGUNDA - TENENCIA: ${f(d.tenencia, "No aplica.")}
+
+TERCERA - RÉGIMEN DE VISITAS: ${f(d.regimenVisitas, "No aplica.")}
+
+CUARTA - PENSIÓN ALIMENTICIA: Se acuerda una pensión alimenticia mensual de USD ${f(d.pension, "0.00")}, a favor de los hijos en común, a cargo del progenitor no conviviente.
+
+QUINTA - BIENES DE LA SOCIEDAD CONYUGAL: ${f(d.bienes, "No existen bienes de la sociedad conyugal por liquidar.")}
+
+SEXTA - ACEPTACIÓN: Las partes declaran conocer y aceptar íntegramente el contenido de este convenio, el cual será presentado ante el/la Juez/a de Familia para su aprobación dentro del proceso de divorcio.
+
+Para constancia, firman:
+
+
+______________________            ______________________
+      CÓNYUGE 1                          CÓNYUGE 2
+   C.I.: ${f(d.cedula1)}                C.I.: ${f(d.cedula2)}`,
+  },
+  {
+    slug: "demanda-aumento-pension-alimenticia",
+    nombre: "Demanda de aumento de pensión alimenticia",
+    icon: "📈",
+    descripcion: "Genera la demanda para solicitar el incremento de una pensión alimenticia ya fijada.",
+    campos: [
+      { key: "unidad", label: "Unidad Judicial de Familia de", tipo: "text" },
+      { key: "actor", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "hijo", label: "Nombre del hijo/a beneficiario", tipo: "text" },
+      { key: "demandado", label: "Nombre del demandado/a", tipo: "text" },
+      { key: "cedulaDemandado", label: "Cédula del demandado/a", tipo: "text" },
+      { key: "numeroProceso", label: "N.º de proceso original", tipo: "text" },
+      { key: "pensionActual", label: "Pensión actual (USD/mes)", tipo: "number" },
+      { key: "razones", label: "Razones del aumento solicitado", tipo: "textarea" },
+      { key: "pensionPropuesta", label: "Nuevo monto propuesto (USD/mes)", tipo: "number" },
+      { key: "pruebas", label: "Pruebas que adjuntas", tipo: "textarea" },
+    ],
+    generar: (d) => `SEÑOR/A JUEZ/A DE LA UNIDAD JUDICIAL DE FAMILIA DE ${f(d.unidad)}
+
+Yo, ${f(d.actor)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, en calidad de representante de mi hijo/a ${f(d.hijo)}, comparezco y presento la siguiente DEMANDA DE AUMENTO DE PENSIÓN ALIMENTICIA:
+
+1. IDENTIFICACIÓN DEL DEMANDADO/A: ${f(d.demandado)}, con cédula N.º ${f(d.cedulaDemandado)}.
+
+2. ANTECEDENTES: Mediante resolución dictada dentro del proceso N.º ${f(d.numeroProceso)}, se fijó una pensión alimenticia mensual de USD ${f(d.pensionActual)} a favor de mi hijo/a.
+
+3. FUNDAMENTOS DE HECHO: Desde aquella resolución, las circunstancias han variado por lo siguiente: ${f(d.razones)}
+
+4. PRETENSIÓN: Solicito que se INCREMENTE la pensión alimenticia al valor de USD ${f(d.pensionPropuesta)} mensuales, acorde a las nuevas circunstancias.
+
+5. PRUEBA: ${f(d.pruebas)}
+
+Firmo con mi abogado/a patrocinador/a.
+
+
+______________________            ______________________
+        ACTOR/A                       ABOGADO/A (Mat. ____)`,
+  },
+  {
+    slug: "acuerdo-terminacion-mutuo-acuerdo",
+    nombre: "Acuerdo de terminación laboral por mutuo acuerdo",
+    icon: "🤝",
+    descripcion: "Genera el acuerdo de terminación laboral cuando empleador y trabajador acuerdan finalizar la relación de forma amistosa.",
+    campos: [
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "empresa", label: "Razón social del empleador", tipo: "text" },
+      { key: "ruc", label: "RUC del empleador", tipo: "text" },
+      { key: "trabajador", label: "Nombre del trabajador", tipo: "text" },
+      { key: "cedula", label: "Cédula del trabajador", tipo: "text" },
+      { key: "fechaIngreso", label: "Fecha de ingreso", tipo: "date" },
+      { key: "cargo", label: "Cargo", tipo: "text" },
+      { key: "fechaTerminacion", label: "Fecha efectiva de terminación", tipo: "date" },
+      { key: "liquidacion", label: "Valor total de liquidación (USD)", tipo: "number" },
+      { key: "formaPago", label: "Forma de pago de la liquidación", tipo: "text", placeholder: "Transferencia / cheque" },
+    ],
+    generar: (d) => `ACUERDO DE TERMINACIÓN LABORAL POR MUTUO ACUERDO
+
+En la ciudad de ${f(d.lugar)}, ${fechaLarga(d.fecha)}, comparecen por una parte ${f(d.empresa)}, con RUC N.º ${f(d.ruc)}, a quien se denominará EL EMPLEADOR; y por otra parte ${f(d.trabajador)}, con cédula N.º ${f(d.cedula)}, a quien se denominará EL TRABAJADOR, quienes de mutuo acuerdo celebran el presente convenio, al tenor de las siguientes cláusulas:
+
+PRIMERA - ANTECEDENTES: EL TRABAJADOR ha prestado sus servicios para EL EMPLEADOR desde el ${fechaLarga(d.fechaIngreso)}, en el cargo de ${f(d.cargo)}.
+
+SEGUNDA - TERMINACIÓN: Las partes acuerdan dar por terminada la relación laboral de mutuo acuerdo, con efecto a partir del ${fechaLarga(d.fechaTerminacion)}.
+
+TERCERA - LIQUIDACIÓN: EL EMPLEADOR cancelará a EL TRABAJADOR la liquidación correspondiente a sueldos pendientes, décimos, vacaciones no gozadas y demás valores de ley, por un total de USD ${f(d.liquidacion)}, mediante ${f(d.formaPago)}.
+
+CUARTA - DECLARACIÓN: Ambas partes declaran que, con la suscripción del presente acuerdo y el pago de la liquidación correspondiente, no existe reclamo laboral pendiente alguno entre ellas.
+
+Para constancia, firman las partes:
+
+
+______________________            ______________________
+      EL EMPLEADOR                       EL TRABAJADOR
+   RUC: ${f(d.ruc)}                  C.I.: ${f(d.cedula)}`,
+  },
+  {
+    slug: "denuncia-acoso-laboral",
+    nombre: "Denuncia por acoso laboral",
+    icon: "🚫",
+    descripcion: "Genera la denuncia por acoso o violencia psicológica en el trabajo ante el Ministerio del Trabajo.",
+    campos: [
+      { key: "inspectoria", label: "Inspectoría del Trabajo de", tipo: "text" },
+      { key: "denunciante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "empresa", label: "Nombre de la empresa", tipo: "text" },
+      { key: "ruc", label: "RUC de la empresa", tipo: "text" },
+      { key: "cargo", label: "Tu cargo", tipo: "text" },
+      { key: "acosador", label: "Nombre y cargo del acosador", tipo: "text" },
+      { key: "hechos", label: "Descripción de las conductas de acoso", tipo: "textarea" },
+      { key: "impacto", label: "Impacto sufrido", tipo: "text", placeholder: "Salud física, emocional, desempeño laboral" },
+      { key: "gestionesPrevias", label: "Gestiones previas realizadas", tipo: "textarea" },
+      { key: "pruebas", label: "Pruebas que adjuntas", tipo: "textarea" },
+    ],
+    generar: (d) => `SEÑOR/A INSPECTOR/A DEL TRABAJO DE ${f(d.inspectoria)}
+
+Yo, ${f(d.denunciante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, quien presto mis servicios para ${f(d.empresa)}, con RUC N.º ${f(d.ruc)}, en el cargo de ${f(d.cargo)}, comparezco y presento la siguiente DENUNCIA POR ACOSO LABORAL en contra de: ${f(d.acosador)}.
+
+1. HECHOS: ${f(d.hechos)}
+
+2. IMPACTO: Estas conductas han afectado mi ${f(d.impacto)}.
+
+3. GESTIONES PREVIAS: ${f(d.gestionesPrevias)}
+
+4. PRUEBA: ${f(d.pruebas)}
+
+5. PETICIÓN: Solicito se investigue la presente denuncia y se adopten las medidas correctivas y de protección correspondientes.
+
+__________, ____ de __________ de 20__
+
+
+______________________
+Nombre: ${f(d.denunciante)}
+C.I.: ${f(d.cedula)}`,
+  },
+  {
+    slug: "solicitud-visa-residencia",
+    nombre: "Solicitud de visa de residencia",
+    icon: "🛂",
+    descripcion: "Genera la carta de acompañamiento para solicitar una visa de residencia en Ecuador.",
+    campos: [
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "solicitante", label: "Tu nombre completo", tipo: "text" },
+      { key: "nacionalidad", label: "Tu nacionalidad", tipo: "text" },
+      { key: "pasaporte", label: "Número de pasaporte", tipo: "text" },
+      { key: "domicilio", label: "Domicilio actual en Ecuador", tipo: "text" },
+      { key: "tipoVisa", label: "Tipo de visa solicitada", tipo: "text", placeholder: "Temporal, permanente, rentista, inversión" },
+      { key: "motivo", label: "Motivo de la solicitud", tipo: "textarea" },
+      { key: "fechaIngreso", label: "Fecha de ingreso al país", tipo: "date" },
+      { key: "estatus", label: "Estatus migratorio actual", tipo: "text" },
+      { key: "documentos", label: "Documentos que adjuntas", tipo: "textarea" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "telefono", label: "Tu teléfono", tipo: "text" },
+    ],
+    generar: (d) => `SOLICITUD DE VISA DE RESIDENCIA
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+Señor/a
+DIRECTOR/A DE MIGRACIÓN Y EXTRANJERÍA
+Ministerio de Relaciones Exteriores y Movilidad Humana
+Presente.-
+
+Yo, ${f(d.solicitante)}, de nacionalidad ${f(d.nacionalidad)}, portador/a del pasaporte N.º ${f(d.pasaporte)}, con domicilio actual en ${f(d.domicilio)}, por medio de la presente solicito respetuosamente la VISA DE RESIDENCIA de tipo ${f(d.tipoVisa)}.
+
+MOTIVO DE LA SOLICITUD: ${f(d.motivo)}
+
+SITUACIÓN ACTUAL EN ECUADOR: Me encuentro en el país desde el ${fechaLarga(d.fechaIngreso)}, con estatus migratorio ${f(d.estatus)}.
+
+DOCUMENTOS QUE ADJUNTO: ${f(d.documentos)}
+
+Quedo atento/a a cualquier requerimiento adicional que se me solicite para completar el trámite.
+
+Atentamente,
+
+
+______________________
+Nombre: ${f(d.solicitante)}
+Pasaporte N.º: ${f(d.pasaporte)}
+Correo: ${f(d.correo)}
+Teléfono: ${f(d.telefono)}`,
+  },
+  {
+    slug: "recurso-negacion-visa",
+    nombre: "Recurso contra negación de visa",
+    icon: "📩",
+    descripcion: "Genera el recurso administrativo para impugnar la negación de una visa de residencia o trabajo.",
+    campos: [
+      { key: "solicitante", label: "Tu nombre completo", tipo: "text" },
+      { key: "nacionalidad", label: "Tu nacionalidad", tipo: "text" },
+      { key: "pasaporte", label: "Número de pasaporte", tipo: "text" },
+      { key: "numeroResolucion", label: "N.º de resolución de negación", tipo: "text" },
+      { key: "fechaResolucion", label: "Fecha de la resolución", tipo: "date" },
+      { key: "tipoVisa", label: "Tipo de visa solicitada", tipo: "text" },
+      { key: "fechaSolicitud", label: "Fecha de la solicitud original", tipo: "date" },
+      { key: "motivoNegacion", label: "Motivo de la negación señalado", tipo: "textarea" },
+      { key: "fundamentos", label: "Fundamentos del recurso", tipo: "textarea" },
+      { key: "documentosAdicionales", label: "Documentación adicional que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `RECURSO ADMINISTRATIVO CONTRA NEGACIÓN DE VISA
+
+Señor/a
+DIRECTOR/A DE MIGRACIÓN Y EXTRANJERÍA
+Presente.-
+
+Yo, ${f(d.solicitante)}, de nacionalidad ${f(d.nacionalidad)}, portador/a del pasaporte N.º ${f(d.pasaporte)}, comparezco respecto de la resolución N.º ${f(d.numeroResolucion)}, de fecha ${fechaLarga(d.fechaResolucion)}, mediante la cual se negó mi solicitud de visa de tipo ${f(d.tipoVisa)}, y presento el siguiente RECURSO:
+
+1. ANTECEDENTES: Con fecha ${fechaLarga(d.fechaSolicitud)}, presenté mi solicitud de visa, la cual fue negada por el siguiente motivo señalado en la resolución: ${f(d.motivoNegacion)}
+
+2. FUNDAMENTOS DEL RECURSO: Considero que la negación debe reconsiderarse por lo siguiente: ${f(d.fundamentos)}
+
+3. DOCUMENTACIÓN ADICIONAL: Adjunto los siguientes documentos que respaldan mi recurso: ${f(d.documentosAdicionales)}
+
+4. PETICIÓN: Solicito se reconsidere la negación y se apruebe mi solicitud de visa de tipo ${f(d.tipoVisa)}.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.solicitante)}
+Pasaporte N.º: ${f(d.pasaporte)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "reclamo-institucion-financiera",
+    nombre: "Reclamo ante institución financiera",
+    icon: "🏦",
+    descripcion: "Genera un reclamo formal a tu banco o cooperativa por cobros indebidos o fallas en el servicio.",
+    campos: [
+      { key: "entidad", label: "Nombre de la entidad financiera", tipo: "text" },
+      { key: "reclamante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "cuenta", label: "N.º de cuenta o producto", tipo: "text" },
+      { key: "fechaHecho", label: "Fecha del hecho reclamado", tipo: "date" },
+      { key: "descripcion", label: "Descripción del hecho", tipo: "textarea" },
+      { key: "valor", label: "Valor reclamado (USD)", tipo: "number" },
+      { key: "concepto", label: "Concepto del valor reclamado", tipo: "text" },
+      { key: "gestionesPrevias", label: "Gestiones previas realizadas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "telefono", label: "Tu teléfono", tipo: "text" },
+    ],
+    generar: (d) => `RECLAMO FORMAL ANTE INSTITUCIÓN FINANCIERA
+
+Señor/a
+GERENTE DE ATENCIÓN AL CLIENTE
+${f(d.entidad)}
+Presente.-
+
+Yo, ${f(d.reclamante)}, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, titular de la cuenta/producto N.º ${f(d.cuenta)} en su institución, presento el siguiente RECLAMO:
+
+1. DESCRIPCIÓN DEL HECHO: Con fecha ${fechaLarga(d.fechaHecho)}, se presentó la siguiente situación en mi cuenta/producto: ${f(d.descripcion)}
+
+2. VALOR RECLAMADO: USD ${f(d.valor)}, correspondiente a ${f(d.concepto)}.
+
+3. GESTIONES PREVIAS: ${f(d.gestionesPrevias)}
+
+4. PETICIÓN: Solicito se investigue lo señalado y se disponga la reversión/corrección del valor reclamado, así como una respuesta por escrito dentro del plazo legal establecido.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.reclamante)}
+C.I.: ${f(d.cedula)}
+Correo: ${f(d.correo)}
+Teléfono: ${f(d.telefono)}`,
+  },
+  {
+    slug: "solicitud-reestructuracion-deuda",
+    nombre: "Solicitud de reestructuración de deuda bancaria",
+    icon: "📊",
+    descripcion: "Genera la solicitud para pedir a tu banco nuevas condiciones de pago de un crédito.",
+    campos: [
+      { key: "entidad", label: "Nombre de la entidad financiera", tipo: "text" },
+      { key: "solicitante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "operacion", label: "N.º de operación de crédito", tipo: "text" },
+      { key: "situacion", label: "Situación actual (motivo de la dificultad de pago)", tipo: "textarea" },
+      { key: "saldo", label: "Saldo pendiente (USD)", tipo: "number" },
+      { key: "cuotaActual", label: "Cuota mensual actual (USD)", tipo: "number" },
+      { key: "propuesta", label: "Propuesta de nueva condición de pago", tipo: "textarea" },
+      { key: "documentos", label: "Documentación de respaldo que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "telefono", label: "Tu teléfono", tipo: "text" },
+    ],
+    generar: (d) => `SOLICITUD DE REESTRUCTURACIÓN DE DEUDA
+
+Señor/a
+GERENTE DE CRÉDITO / COBRANZAS
+${f(d.entidad)}
+Presente.-
+
+Yo, ${f(d.solicitante)}, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, titular de la operación de crédito N.º ${f(d.operacion)}, por medio de la presente solicito la REESTRUCTURACIÓN de mi deuda, por las siguientes razones:
+
+1. SITUACIÓN ACTUAL: ${f(d.situacion)}
+
+2. CONDICIÓN ACTUAL DEL CRÉDITO: Saldo pendiente de USD ${f(d.saldo)}, con cuota mensual actual de USD ${f(d.cuotaActual)}.
+
+3. PROPUESTA: Solicito se me conceda una nueva condición de pago consistente en ${f(d.propuesta)}
+
+4. DOCUMENTACIÓN DE RESPALDO: Adjunto los siguientes documentos que sustentan mi solicitud: ${f(d.documentos)}
+
+Quedo atento/a a la respuesta de su institución y a cualquier requerimiento adicional.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.solicitante)}
+C.I.: ${f(d.cedula)}
+Correo: ${f(d.correo)}
+Teléfono: ${f(d.telefono)}`,
+  },
 ];
 
 export function getDocumentoGenerable(slug: string): DocumentoGenerable | undefined {
