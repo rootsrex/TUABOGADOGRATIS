@@ -862,6 +862,287 @@ ______________________
 Nombre: ${f(d.solicitante)}
 C.I.: ${f(d.cedula)}`,
   },
+  {
+    slug: "acta-constitucion-compania",
+    nombre: "Acta de constitución de compañía limitada",
+    icon: "🏢",
+    descripcion: "Genera el acta base para constituir una compañía de responsabilidad limitada.",
+    campos: [
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "socio1", label: "Nombre del socio 1", tipo: "text" },
+      { key: "cedulaSocio1", label: "Cédula del socio 1", tipo: "text" },
+      { key: "socio2", label: "Nombre del socio 2", tipo: "text" },
+      { key: "cedulaSocio2", label: "Cédula del socio 2", tipo: "text" },
+      { key: "razonSocial", label: "Nombre de la compañía", tipo: "text" },
+      { key: "objeto", label: "Objeto social", tipo: "textarea" },
+      { key: "capital", label: "Capital social (USD)", tipo: "number" },
+      { key: "gerente", label: "Nombre del Gerente General", tipo: "text" },
+      { key: "duracion", label: "Duración (años)", tipo: "number" },
+    ],
+    generar: (d) => `ACTA DE CONSTITUCIÓN DE COMPAÑÍA DE RESPONSABILIDAD LIMITADA
+
+En la ciudad de ${f(d.lugar)}, ${fechaLarga(d.fecha)}, comparecen los señores ${f(d.socio1)}, con cédula N.º ${f(d.cedulaSocio1)}, y ${f(d.socio2)}, con cédula N.º ${f(d.cedulaSocio2)}, quienes acuerdan constituir una compañía de responsabilidad limitada.
+
+PRIMERA - DENOMINACIÓN: La compañía se denominará "${f(d.razonSocial)} CÍA. LTDA.".
+
+SEGUNDA - OBJETO SOCIAL: ${f(d.objeto)}
+
+TERCERA - DOMICILIO: El domicilio principal será la ciudad de ${f(d.lugar)}.
+
+CUARTA - CAPITAL SOCIAL: El capital social es de USD ${f(d.capital)}, distribuido entre los socios fundadores.
+
+QUINTA - ADMINISTRACIÓN: La administración y representación legal estará a cargo de ${f(d.gerente)}, en calidad de Gerente General.
+
+SEXTA - DURACIÓN: La compañía tendrá una duración de ${f(d.duracion)} años, contados desde su inscripción en el Registro Mercantil.
+
+Para constancia, firman los socios fundadores:
+
+
+______________________            ______________________
+      SOCIO 1                            SOCIO 2
+   C.I.: ${f(d.cedulaSocio1)}                C.I.: ${f(d.cedulaSocio2)}`,
+  },
+  {
+    slug: "acuerdo-socios",
+    nombre: "Acuerdo de socios",
+    icon: "🤝",
+    descripcion: "Genera un acuerdo que regula la relación entre los socios de una empresa.",
+    campos: [
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "empresa", label: "Nombre de la compañía", tipo: "text" },
+      { key: "socio1", label: "Nombre del socio 1", tipo: "text" },
+      { key: "cedulaSocio1", label: "Cédula del socio 1", tipo: "text" },
+      { key: "socio2", label: "Nombre del socio 2", tipo: "text" },
+      { key: "cedulaSocio2", label: "Cédula del socio 2", tipo: "text" },
+      { key: "mayoria", label: "% de capital requerido para decisiones clave", tipo: "text", placeholder: "75" },
+      { key: "plazoPreferencia", label: "Días para ejercer derecho de preferencia", tipo: "text", placeholder: "30" },
+      { key: "resolucion", label: "Mecanismo de resolución de conflictos", tipo: "text", placeholder: "Mediación / arbitraje" },
+    ],
+    generar: (d) => `ACUERDO DE SOCIOS
+
+En la ciudad de ${f(d.lugar)}, ${fechaLarga(d.fecha)}, los socios de ${f(d.empresa)}, a saber: ${f(d.socio1)} y ${f(d.socio2)}, acuerdan celebrar el presente ACUERDO DE SOCIOS.
+
+PRIMERA - OBJETO: El presente acuerdo regula las relaciones entre los socios respecto a la gestión, decisiones y eventual salida de la sociedad.
+
+SEGUNDA - DECISIONES RELEVANTES: Las decisiones relevantes requerirán el voto favorable de al menos el ${f(d.mayoria)} % del capital social.
+
+TERCERA - DERECHO DE PREFERENCIA: Ningún socio podrá vender su participación sin antes ofrecerla a los demás socios, quienes tendrán ${f(d.plazoPreferencia)} días para ejercer su derecho de preferencia.
+
+CUARTA - RESOLUCIÓN DE CONFLICTOS: Cualquier controversia se resolverá mediante ${f(d.resolucion)}.
+
+Para constancia, firman los socios:
+
+
+______________________            ______________________
+      SOCIO 1                            SOCIO 2
+   C.I.: ${f(d.cedulaSocio1)}                C.I.: ${f(d.cedulaSocio2)}`,
+  },
+  {
+    slug: "denuncia-robo",
+    nombre: "Denuncia por robo",
+    icon: "🚔",
+    descripcion: "Genera la denuncia por el delito de robo con el relato de los hechos.",
+    campos: [
+      { key: "denunciante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "fechaHecho", label: "Fecha del hecho", tipo: "date" },
+      { key: "hora", label: "Hora aproximada", tipo: "text" },
+      { key: "lugar", label: "Lugar del hecho", tipo: "text" },
+      { key: "bienes", label: "Bienes sustraídos", tipo: "textarea" },
+      { key: "modoOperar", label: "Modo de operar / violencia empleada", tipo: "textarea" },
+      { key: "valor", label: "Valor aproximado (USD)", tipo: "number" },
+    ],
+    generar: (d) => `SEÑOR/A FISCAL DE TURNO
+
+Yo, ${f(d.denunciante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, comparezco y presento la siguiente DENUNCIA POR EL DELITO DE ROBO:
+
+1. HECHOS: Con fecha ${fechaLarga(d.fechaHecho)}, aproximadamente a las ${f(d.hora)}, en ${f(d.lugar)}, fui víctima del robo de ${f(d.bienes)}, mediante el siguiente modo de operar: ${f(d.modoOperar)}.
+
+2. VALOR APROXIMADO DE LOS BIENES SUSTRAÍDOS: USD ${f(d.valor)}.
+
+3. PETICIÓN: Solicito iniciar la investigación correspondiente por el delito de robo, y disponer las diligencias necesarias para la identificación del responsable y recuperación de mis bienes.
+
+
+______________________
+Nombre: ${f(d.denunciante)}
+C.I.: ${f(d.cedula)}`,
+  },
+  {
+    slug: "acusacion-particular",
+    nombre: "Acusación particular",
+    icon: "⚖️",
+    descripcion: "Genera la acusación particular para participar activamente en un proceso penal.",
+    campos: [
+      { key: "unidad", label: "Unidad de Garantías Penales de", tipo: "text" },
+      { key: "acusador", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "numeroProceso", label: "N.º del proceso penal", tipo: "text" },
+      { key: "acusado", label: "Nombre del acusado", tipo: "text" },
+      { key: "delito", label: "Delito imputado", tipo: "text" },
+      { key: "fundamentos", label: "Fundamentos adicionales", tipo: "textarea" },
+      { key: "prueba", label: "Prueba que anuncias", tipo: "textarea" },
+    ],
+    generar: (d) => `SEÑOR/A JUEZ/A DE GARANTÍAS PENALES DE ${f(d.unidad)}
+
+Yo, ${f(d.acusador)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, comparezco dentro del proceso penal N.º ${f(d.numeroProceso)}, seguido en contra de ${f(d.acusado)}, por el presunto delito de ${f(d.delito)}, y presento la siguiente ACUSACIÓN PARTICULAR:
+
+1. FUNDAMENTOS: ${f(d.fundamentos)}
+
+2. PRUEBA: ${f(d.prueba)}
+
+3. PETICIÓN: Solicito tener por presentada la presente acusación particular, reconocerme como acusador/a particular dentro del proceso, y disponer la reparación integral del daño causado.
+
+Firmo con mi abogado/a patrocinador/a.
+
+
+______________________            ______________________
+    ACUSADOR/A PARTICULAR              ABOGADO/A (Mat. ____)`,
+  },
+  {
+    slug: "contrato-compraventa-inmueble",
+    nombre: "Contrato de compraventa de bien inmueble",
+    icon: "🏘️",
+    descripcion: "Genera el contrato base de compraventa de una casa, terreno o departamento.",
+    campos: [
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "vendedor", label: "Nombre del vendedor", tipo: "text" },
+      { key: "cedulaVendedor", label: "Cédula del vendedor", tipo: "text" },
+      { key: "comprador", label: "Nombre del comprador", tipo: "text" },
+      { key: "cedulaComprador", label: "Cédula del comprador", tipo: "text" },
+      { key: "direccion", label: "Dirección del inmueble", tipo: "text" },
+      { key: "superficie", label: "Superficie (m²)", tipo: "text" },
+      { key: "claveCatastral", label: "Clave catastral", tipo: "text" },
+      { key: "precio", label: "Precio (USD)", tipo: "number" },
+      { key: "formaPago", label: "Forma de pago", tipo: "text" },
+    ],
+    generar: (d) => `CONTRATO DE COMPRAVENTA DE BIEN INMUEBLE
+
+En la ciudad de ${f(d.lugar)}, ${fechaLarga(d.fecha)}, comparecen por una parte ${f(d.vendedor)}, con cédula N.º ${f(d.cedulaVendedor)}, a quien se denominará EL VENDEDOR; y por otra parte ${f(d.comprador)}, con cédula N.º ${f(d.cedulaComprador)}, a quien se denominará EL COMPRADOR.
+
+PRIMERA - OBJETO: EL VENDEDOR da en venta el inmueble ubicado en ${f(d.direccion)}, con una superficie de ${f(d.superficie)} m², clave catastral N.º ${f(d.claveCatastral)}.
+
+SEGUNDA - PRECIO: El precio pactado es de USD ${f(d.precio)}, que se pagará de la siguiente forma: ${f(d.formaPago)}.
+
+TERCERA - ESTADO DEL INMUEBLE: EL VENDEDOR declara que el inmueble se encuentra libre de gravámenes, hipotecas, embargos y deudas de impuesto predial.
+
+CUARTA - ESCRITURACIÓN: Las partes se comprometen a elevar el presente contrato a escritura pública e inscribirlo en el Registro de la Propiedad.
+
+Para constancia, firman las partes:
+
+
+______________________            ______________________
+      EL VENDEDOR                       EL COMPRADOR
+   C.I.: ${f(d.cedulaVendedor)}                C.I.: ${f(d.cedulaComprador)}`,
+  },
+  {
+    slug: "demanda-desahucio",
+    nombre: "Demanda de desahucio por falta de pago",
+    icon: "🏠",
+    descripcion: "Genera la demanda para terminar un arriendo y recuperar el inmueble por falta de pago.",
+    campos: [
+      { key: "unidad", label: "Unidad Judicial Civil de", tipo: "text" },
+      { key: "arrendador", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "direccion", label: "Dirección del inmueble arrendado", tipo: "text" },
+      { key: "arrendatario", label: "Nombre del arrendatario", tipo: "text" },
+      { key: "cedulaArrendatario", label: "Cédula del arrendatario", tipo: "text" },
+      { key: "fechaContrato", label: "Fecha del contrato de arriendo", tipo: "date" },
+      { key: "canon", label: "Canon mensual (USD)", tipo: "number" },
+      { key: "mesesAdeudados", label: "Meses adeudados", tipo: "text" },
+      { key: "totalAdeudado", label: "Total adeudado (USD)", tipo: "number" },
+    ],
+    generar: (d) => `SEÑOR/A JUEZ/A DE LA UNIDAD JUDICIAL CIVIL DE ${f(d.unidad)}
+
+Yo, ${f(d.arrendador)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, en mi calidad de arrendador/a del inmueble ubicado en ${f(d.direccion)}, comparezco y presento la siguiente DEMANDA DE DESAHUCIO POR FALTA DE PAGO en contra de ${f(d.arrendatario)}, con cédula N.º ${f(d.cedulaArrendatario)}.
+
+1. ANTECEDENTES: Con fecha ${fechaLarga(d.fechaContrato)}, celebré con el/la demandado/a un contrato de arrendamiento, pactando un canon mensual de USD ${f(d.canon)}.
+
+2. INCUMPLIMIENTO: El/la arrendatario/a ha dejado de pagar el canon correspondiente a los meses de ${f(d.mesesAdeudados)}, adeudando un total de USD ${f(d.totalAdeudado)}.
+
+3. PETICIÓN: Solicito declarar terminado el contrato de arrendamiento por falta de pago, ordenar la restitución del inmueble a mi favor, y disponer el pago de los cánones adeudados.
+
+Firmo con mi abogado/a patrocinador/a.
+
+
+______________________            ______________________
+        ACTOR/A                       ABOGADO/A (Mat. ____)`,
+  },
+  {
+    slug: "reclamo-consumidor",
+    nombre: "Reclamo ante la Defensoría del Consumidor",
+    icon: "🛒",
+    descripcion: "Genera un reclamo por producto defectuoso, servicio deficiente o publicidad engañosa.",
+    campos: [
+      { key: "reclamante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "proveedor", label: "Nombre de la empresa", tipo: "text" },
+      { key: "rucProveedor", label: "RUC de la empresa", tipo: "text" },
+      { key: "fechaCompra", label: "Fecha de compra", tipo: "date" },
+      { key: "producto", label: "Producto o servicio", tipo: "text" },
+      { key: "valor", label: "Valor pagado (USD)", tipo: "number" },
+      { key: "motivo", label: "Motivo del reclamo", tipo: "textarea" },
+      { key: "peticion", label: "Qué solicitas", tipo: "text", placeholder: "Reparación / cambio / devolución del dinero" },
+    ],
+    generar: (d) => `RECLAMO DE CONSUMIDOR
+
+Yo, ${f(d.reclamante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, correo electrónico ${f(d.correo)}, presento el siguiente RECLAMO en contra de ${f(d.proveedor)}, con RUC N.º ${f(d.rucProveedor)}.
+
+1. DESCRIPCIÓN: Con fecha ${fechaLarga(d.fechaCompra)}, adquirí/contraté ${f(d.producto)}, por un valor de USD ${f(d.valor)}.
+
+2. MOTIVO DEL RECLAMO: ${f(d.motivo)}
+
+3. PETICIÓN: Solicito se disponga: ${f(d.peticion)}.
+
+
+______________________
+Nombre: ${f(d.reclamante)}
+C.I.: ${f(d.cedula)}`,
+  },
+  {
+    slug: "politica-privacidad",
+    nombre: "Política de privacidad para sitio web",
+    icon: "🔒",
+    descripcion: "Genera una política de privacidad básica para tu sitio web o negocio.",
+    campos: [
+      { key: "empresa", label: "Nombre de la empresa", tipo: "text" },
+      { key: "ruc", label: "RUC", tipo: "text" },
+      { key: "sitioWeb", label: "URL del sitio web", tipo: "text" },
+      { key: "fecha", label: "Fecha de actualización", tipo: "date" },
+      { key: "finalidad", label: "Para qué usas los datos", tipo: "textarea", placeholder: "Responder consultas, procesar pedidos, etc." },
+      { key: "comparticion", label: "¿Compartes datos con terceros?", tipo: "textarea", placeholder: "No compartimos datos / Compartimos con..." },
+      { key: "correoContacto", label: "Correo de contacto para consultas", tipo: "text" },
+    ],
+    generar: (d) => `POLÍTICA DE PRIVACIDAD
+
+Última actualización: ${fechaLarga(d.fecha)}
+
+${f(d.empresa)}, con RUC N.º ${f(d.ruc)}, es responsable del tratamiento de los datos personales que usted proporciona a través del sitio web ${f(d.sitioWeb)}.
+
+1. DATOS QUE RECOPILAMOS
+Podemos recopilar: nombre, correo electrónico, número de teléfono, y datos de navegación, según el formulario que usted utilice.
+
+2. FINALIDAD DEL TRATAMIENTO
+Utilizamos sus datos para: ${f(d.finalidad)}
+
+3. BASE LEGAL
+El tratamiento se realiza con base en su consentimiento, conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.
+
+4. COMPARTICIÓN DE DATOS
+${f(d.comparticion, "No compartimos sus datos con terceros sin su consentimiento, salvo obligación legal.")}
+
+5. DERECHOS DEL TITULAR
+Usted puede ejercer sus derechos de acceso, rectificación, eliminación y oposición escribiendo a ${f(d.correoContacto)}.
+
+6. CONTACTO
+Para consultas sobre esta política, contáctenos en: ${f(d.correoContacto)}`,
+  },
 ];
 
 export function getDocumentoGenerable(slug: string): DocumentoGenerable | undefined {
