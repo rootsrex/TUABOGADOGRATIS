@@ -1828,6 +1828,329 @@ ______________________            ______________________
       EL CEDENTE                        EL CESIONARIO
    C.I./RUC: ${f(d.cedulaCedente)}            C.I./RUC: ${f(d.cedulaCesionario)}`,
   },
+  {
+    slug: "denuncia-ambiental",
+    nombre: "Denuncia ambiental",
+    icon: "🌱",
+    descripcion: "Genera una denuncia por contaminación, tala, descargas o ruido ante la autoridad ambiental.",
+    campos: [
+      { key: "autoridad", label: "Autoridad ambiental de", tipo: "text", placeholder: "MAATE / GAD de..." },
+      { key: "denunciante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "hecho", label: "Hecho denunciado", tipo: "textarea" },
+      { key: "ubicacion", label: "Ubicación del hecho", tipo: "text" },
+      { key: "responsable", label: "Presunto responsable (si se conoce)", tipo: "text" },
+      { key: "afectacion", label: "Qué afecta el daño", tipo: "text" },
+      { key: "prueba", label: "Prueba que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+    ],
+    generar: (d) => `SEÑOR/A DIRECTOR/A DE LA AUTORIDAD AMBIENTAL DE ${f(d.autoridad)}
+
+Yo, ${f(d.denunciante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, correo ${f(d.correo)}, comparezco y presento la siguiente DENUNCIA AMBIENTAL:
+
+1. HECHO DENUNCIADO: ${f(d.hecho)}
+
+2. UBICACIÓN: El hecho ocurre en ${f(d.ubicacion)}.
+
+3. PRESUNTO RESPONSABLE: ${f(d.responsable, "No identificado")}.
+
+4. AFECTACIÓN: El daño afecta ${f(d.afectacion)}.
+
+5. PRUEBA: Adjunto ${f(d.prueba)}
+
+6. PETICIÓN: Solicito se investigue el hecho denunciado, se realicen las inspecciones necesarias y se adopten las medidas correctivas y sanciones que correspondan conforme a la normativa ambiental.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.denunciante)}
+C.I.: ${f(d.cedula)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "reclamo-sercop",
+    nombre: "Reclamo en contratación pública (SERCOP)",
+    icon: "📑",
+    descripcion: "Genera un reclamo u observación dentro de un proceso de contratación pública.",
+    campos: [
+      { key: "entidad", label: "Entidad contratante", tipo: "text" },
+      { key: "oferente", label: "Tu nombre / razón social", tipo: "text" },
+      { key: "ruc", label: "RUC", tipo: "text" },
+      { key: "numeroProceso", label: "N.º del procedimiento", tipo: "text" },
+      { key: "nombreProceso", label: "Nombre del proceso", tipo: "text" },
+      { key: "antecedentes", label: "Antecedentes (etapa y hecho)", tipo: "textarea" },
+      { key: "fundamentos", label: "Fundamentos del reclamo", tipo: "textarea" },
+      { key: "prueba", label: "Prueba que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `SEÑOR/A MÁXIMA AUTORIDAD DE ${f(d.entidad)}
+
+Yo, ${f(d.oferente)}, en calidad de oferente/persona natural, con RUC N.º ${f(d.ruc)}, dentro del procedimiento de contratación N.º ${f(d.numeroProceso)}, denominado "${f(d.nombreProceso)}", comparezco y presento el siguiente RECLAMO:
+
+1. ANTECEDENTES: ${f(d.antecedentes)}
+
+2. FUNDAMENTOS: Considero que se ha vulnerado ${f(d.fundamentos)}
+
+3. PRUEBA: Adjunto ${f(d.prueba)}
+
+4. PETICIÓN: Solicito se corrija la irregularidad señalada y/o se suspenda la etapa correspondiente hasta su resolución, conforme a la normativa de contratación pública.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.oferente)}
+RUC/C.I.: ${f(d.ruc)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "contrato-arrendamiento-agricola",
+    nombre: "Contrato de arrendamiento de predio agrícola",
+    icon: "🌾",
+    descripcion: "Genera un contrato de arriendo de un terreno rústico para cultivo o ganadería.",
+    campos: [
+      { key: "lugar", label: "Ciudad/localidad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "arrendador", label: "Nombre del arrendador", tipo: "text" },
+      { key: "cedulaArrendador", label: "Cédula del arrendador", tipo: "text" },
+      { key: "arrendatario", label: "Nombre del arrendatario", tipo: "text" },
+      { key: "cedulaArrendatario", label: "Cédula del arrendatario", tipo: "text" },
+      { key: "ubicacion", label: "Ubicación del predio", tipo: "text" },
+      { key: "superficie", label: "Superficie (hectáreas)", tipo: "text" },
+      { key: "linderos", label: "Linderos", tipo: "textarea" },
+      { key: "destino", label: "Destino/actividad", tipo: "text", placeholder: "Cultivo de..., pastoreo, ganadería" },
+      { key: "plazo", label: "Plazo", tipo: "text", placeholder: "Ej: 2 años / 3 ciclos" },
+      { key: "fechaInicio", label: "Fecha de inicio", tipo: "date" },
+      { key: "canon", label: "Canon (USD)", tipo: "number" },
+      { key: "formaCanon", label: "Periodicidad y forma de pago del canon", tipo: "text" },
+    ],
+    generar: (d) => `CONTRATO DE ARRENDAMIENTO DE PREDIO AGRÍCOLA
+
+En ${f(d.lugar)}, ${fechaLarga(d.fecha)}, comparecen por una parte ${f(d.arrendador)}, con cédula N.º ${f(d.cedulaArrendador)}, a quien se denominará EL ARRENDADOR; y por otra parte ${f(d.arrendatario)}, con cédula N.º ${f(d.cedulaArrendatario)}, a quien se denominará EL ARRENDATARIO.
+
+PRIMERA - OBJETO: EL ARRENDADOR entrega en arriendo el predio rústico ubicado en ${f(d.ubicacion)}, con una superficie de ${f(d.superficie)} hectáreas, cuyos linderos son: ${f(d.linderos)}
+
+SEGUNDA - DESTINO: El predio se destinará exclusivamente a ${f(d.destino)}, sin poder cambiar su uso sin autorización escrita del ARRENDADOR.
+
+TERCERA - PLAZO: El contrato tendrá una duración de ${f(d.plazo)}, desde el ${fechaLarga(d.fechaInicio)}.
+
+CUARTA - CANON: EL ARRENDATARIO pagará un canon de USD ${f(d.canon)}, ${f(d.formaCanon)}.
+
+QUINTA - CONSERVACIÓN: EL ARRENDATARIO se obliga a mantener el predio y sus mejoras en buen estado, y a no realizar prácticas que degraden el suelo o las fuentes de agua.
+
+SEXTA - DEVOLUCIÓN: Al término del contrato, EL ARRENDATARIO devolverá el predio en las condiciones recibidas, salvo el desgaste propio del uso normal.
+
+Para constancia, firman las partes:
+
+
+______________________            ______________________
+      EL ARRENDADOR                     EL ARRENDATARIO
+   C.I.: ${f(d.cedulaArrendador)}                C.I.: ${f(d.cedulaArrendatario)}`,
+  },
+  {
+    slug: "declaracion-juramentada",
+    nombre: "Declaración juramentada",
+    icon: "✍️",
+    descripcion: "Genera una declaración juramentada general para realizar ante notario.",
+    campos: [
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "canton", label: "Cantón de la notaría", tipo: "text" },
+      { key: "declarante", label: "Tu nombre completo", tipo: "text" },
+      { key: "estadoCivil", label: "Tu estado civil", tipo: "text" },
+      { key: "ocupacion", label: "Tu ocupación", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "declaracion", label: "Lo que declaras (en primera persona)", tipo: "textarea" },
+    ],
+    generar: (d) => `DECLARACIÓN JURAMENTADA
+
+En la ciudad de ${f(d.lugar)}, ${fechaLarga(d.fecha)}, ante el/la Notario/a del cantón ${f(d.canton)}, comparece el/la señor/a ${f(d.declarante)}, de nacionalidad ecuatoriana, mayor de edad, de estado civil ${f(d.estadoCivil)}, de ocupación ${f(d.ocupacion)}, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, y advertido/a de la gravedad del juramento y de las penas del falso testimonio y perjurio, bajo juramento DECLARA:
+
+Que ${f(d.declaracion)}
+
+El/la compareciente se afirma y ratifica en lo declarado por ser la verdad, y firma con el/la Notario/a que da fe.
+
+
+______________________
+DECLARANTE
+Nombre: ${f(d.declarante)}
+C.I.: ${f(d.cedula)}`,
+  },
+  {
+    slug: "queja-salud-acess",
+    nombre: "Queja por atención en salud (ACESS)",
+    icon: "🏥",
+    descripcion: "Genera una queja por mala atención, negligencia o cobro indebido en un establecimiento de salud.",
+    campos: [
+      { key: "denunciante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "establecimiento", label: "Establecimiento de salud (nombre y ubicación)", tipo: "text" },
+      { key: "fechaHecho", label: "Fecha de la atención", tipo: "date" },
+      { key: "hechos", label: "Descripción de lo ocurrido", tipo: "textarea" },
+      { key: "afectacion", label: "Afectación sufrida", tipo: "text" },
+      { key: "prueba", label: "Prueba que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+    ],
+    generar: (d) => `SEÑOR/A DIRECTOR/A DE LA ACESS / MINISTERIO DE SALUD PÚBLICA
+
+Yo, ${f(d.denunciante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, correo ${f(d.correo)}, presento la siguiente QUEJA por la atención recibida en el establecimiento de salud ${f(d.establecimiento)}.
+
+1. HECHOS: Con fecha ${fechaLarga(d.fechaHecho)}, ocurrió lo siguiente: ${f(d.hechos)}
+
+2. AFECTACIÓN: Como consecuencia, sufrí ${f(d.afectacion)}.
+
+3. PRUEBA: Adjunto ${f(d.prueba)}
+
+4. PETICIÓN: Solicito se investigue la presente queja, se determinen las responsabilidades correspondientes y se adopten las medidas para que el hecho no se repita.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.denunciante)}
+C.I.: ${f(d.cedula)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "reclamo-aduanero-senae",
+    nombre: "Reclamo administrativo aduanero (SENAE)",
+    icon: "📦",
+    descripcion: "Genera un reclamo ante la aduana por una liquidación, valoración o retención incorrecta.",
+    campos: [
+      { key: "reclamante", label: "Tu nombre / razón social", tipo: "text" },
+      { key: "ruc", label: "RUC/C.I.", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "numeroActo", label: "N.º del acto reclamado", tipo: "text" },
+      { key: "fechaActo", label: "Fecha del acto", tipo: "date" },
+      { key: "tipoActo", label: "Tipo de acto", tipo: "text", placeholder: "Liquidación, valoración, retención, aforo" },
+      { key: "numeroImportacion", label: "N.º de importación/trámite", tipo: "text" },
+      { key: "mercancia", label: "Mercancía", tipo: "text" },
+      { key: "fundamentos", label: "Fundamentos del reclamo", tipo: "textarea" },
+      { key: "prueba", label: "Prueba que adjuntas", tipo: "textarea" },
+      { key: "peticion", label: "Qué solicitas", tipo: "text", placeholder: "Recálculo, devolución, entrega de la mercancía" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `SEÑOR/A DIRECTOR/A DISTRITAL DEL SERVICIO NACIONAL DE ADUANA DEL ECUADOR
+
+Yo, ${f(d.reclamante)}, portador/a de la cédula de ciudadanía / RUC N.º ${f(d.ruc)}, con domicilio en ${f(d.domicilio)}, comparezco y presento el siguiente RECLAMO ADMINISTRATIVO en contra del acto N.º ${f(d.numeroActo)}, de fecha ${fechaLarga(d.fechaActo)}, relacionado con ${f(d.tipoActo)}.
+
+1. ANTECEDENTES: Realicé la importación / trámite N.º ${f(d.numeroImportacion)}, correspondiente a la mercancía ${f(d.mercancia)}.
+
+2. FUNDAMENTOS DEL RECLAMO: Considero que el acto es incorrecto por lo siguiente: ${f(d.fundamentos)}
+
+3. PRUEBA: Adjunto ${f(d.prueba)}
+
+4. PETICIÓN: Solicito se rectifique o deje sin efecto el acto impugnado y se disponga ${f(d.peticion)}.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre/Razón social: ${f(d.reclamante)}
+RUC/C.I.: ${f(d.ruc)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "reclamo-compania-seguros",
+    nombre: "Reclamo a compañía de seguros",
+    icon: "🛡️",
+    descripcion: "Genera un reclamo por el pago de un siniestro o la negativa de una aseguradora.",
+    campos: [
+      { key: "compania", label: "Nombre de la compañía de seguros", tipo: "text" },
+      { key: "reclamante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "poliza", label: "N.º de póliza", tipo: "text" },
+      { key: "ramo", label: "Ramo del seguro", tipo: "text", placeholder: "Vehículos, vida, hogar, salud" },
+      { key: "fechaSiniestro", label: "Fecha del siniestro", tipo: "date" },
+      { key: "siniestro", label: "Descripción del siniestro", tipo: "textarea" },
+      { key: "fechaReporte", label: "Fecha en que lo reportaste", tipo: "date" },
+      { key: "situacion", label: "Situación del reclamo", tipo: "textarea", placeholder: "Negó el pago / pagó menos / no ha respondido" },
+      { key: "fundamentos", label: "Por qué consideras que está cubierto", tipo: "textarea" },
+      { key: "valor", label: "Valor reclamado (USD)", tipo: "number" },
+      { key: "concepto", label: "Concepto del valor reclamado", tipo: "text" },
+      { key: "prueba", label: "Prueba que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `SEÑORES
+${f(d.compania)}
+Presente.-
+
+Yo, ${f(d.reclamante)}, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, titular de la póliza N.º ${f(d.poliza)}, del ramo ${f(d.ramo)}, presento el siguiente RECLAMO:
+
+1. SINIESTRO: Con fecha ${fechaLarga(d.fechaSiniestro)} ocurrió el siguiente siniestro: ${f(d.siniestro)}, el cual reporté con fecha ${fechaLarga(d.fechaReporte)}.
+
+2. SITUACIÓN DEL RECLAMO: ${f(d.situacion)}
+
+3. FUNDAMENTOS: Considero que el siniestro está cubierto conforme a las cláusulas de mi póliza, por lo siguiente: ${f(d.fundamentos)}
+
+4. VALOR RECLAMADO: USD ${f(d.valor)}, correspondiente a ${f(d.concepto)}.
+
+5. PRUEBA: Adjunto ${f(d.prueba)}
+
+6. PETICIÓN: Solicito el pago de la indemnización correspondiente conforme a la póliza, así como una respuesta por escrito dentro del plazo legal.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.reclamante)}
+C.I.: ${f(d.cedula)}
+Póliza N.º: ${f(d.poliza)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "solicitud-concesion-minera-artesanal",
+    nombre: "Solicitud de permiso de minería artesanal",
+    icon: "⛏️",
+    descripcion: "Genera la carta para iniciar el trámite de un permiso de minería artesanal.",
+    campos: [
+      { key: "solicitante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "provincia", label: "Provincia", tipo: "text" },
+      { key: "canton", label: "Cantón", tipo: "text" },
+      { key: "parroquia", label: "Parroquia", tipo: "text" },
+      { key: "referencias", label: "Referencias/coordenadas del área", tipo: "textarea" },
+      { key: "mineral", label: "Mineral a extraer", tipo: "text", placeholder: "Material de construcción, oro de aluvial..." },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `SEÑOR/A DIRECTOR/A DE LA AUTORIDAD MINERA (ARCERNNR / MINISTERIO DE ENERGÍA Y MINAS)
+
+Yo, ${f(d.solicitante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, comparezco y solicito el otorgamiento de un PERMISO DE MINERÍA ARTESANAL, con base en lo siguiente:
+
+1. ÁREA SOLICITADA: Ubicada en la provincia de ${f(d.provincia)}, cantón ${f(d.canton)}, parroquia ${f(d.parroquia)}, con las siguientes referencias: ${f(d.referencias)}
+
+2. MINERAL: La actividad se orientará a ${f(d.mineral)}.
+
+3. MÉTODO: Utilizaré métodos y herramientas propios de la minería artesanal, sin maquinaria industrial de gran escala, comprometiéndome al manejo ambiental responsable.
+
+4. DECLARACIÓN: Declaro conocer que la actividad minera está sujeta a regulación, control y a las obligaciones ambientales y de seguridad correspondientes.
+
+5. PETICIÓN: Solicito se dé trámite a la presente y se me otorgue el permiso de minería artesanal conforme a la Ley de Minería y su reglamento.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.solicitante)}
+C.I.: ${f(d.cedula)}
+Correo: ${f(d.correo)}`,
+  },
 ];
 
 export function getDocumentoGenerable(slug: string): DocumentoGenerable | undefined {
