@@ -92,9 +92,9 @@ export const consultas: Consulta[] = [
     description: "Verifica el estado, tipo y vigencia de tu licencia de conducir.",
     campos: [{ key: "cedula", label: "Número de cédula", placeholder: "Ej: 1712345678" }],
     entidad: "ANT · Agencia Nacional de Tránsito",
-    entidadUrl: "https://www.ant.gob.ec",
+    entidadUrl: "https://consultaweb.ant.gob.ec/PortalWEB/paginas/clientes/clp_criterio_consulta.jsp",
     instrucciones:
-      "Copia tu cédula y pégala en la opción de consulta de licencias del portal oficial de la ANT.",
+      "Copia tu cédula y pégala directamente en el formulario de consulta del portal web de la ANT.",
   },
   {
     slug: "puntos-licencia",
