@@ -3,10 +3,10 @@ import { categories, getCategory } from "@/lib/categories";
 import { calculadoras } from "@/lib/calculadoras";
 import { consultas } from "@/lib/consultas";
 import { simuladores } from "@/lib/simuladores";
-import { documentosGenerables } from "@/lib/generador-documentos";
 import { getAllArticles, getArticlesByCategory } from "@/lib/content";
 import CategoryCard from "@/components/CategoryCard";
 import ArticleCard from "@/components/ArticleCard";
+import GeneradorHome from "@/components/GeneradorHome";
 
 export default function HomePage() {
   const articles = getAllArticles();
@@ -124,33 +124,23 @@ export default function HomePage() {
       {/* Generador de documentos */}
       <section className="bg-white py-12 md:py-16">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <span className="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-                🪄 Nuevo
-              </span>
-              <h2 className="mt-3 text-3xl font-bold text-slate-900">Generador de documentos</h2>
-              <p className="mt-2 text-slate-600">
-                Completa tus datos y descarga tu documento legal listo en Word.
-              </p>
-            </div>
-            <Link href="/generador" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
-              Ver todos →
-            </Link>
+          <div className="mb-8 text-center">
+            <span className="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+              🪄 Generador de documentos
+            </span>
+            <h2 className="mt-3 text-2xl font-bold text-slate-900 sm:text-3xl">
+              Crea tu documento en segundos
+            </h2>
+            <p className="mx-auto mt-2 max-w-2xl text-slate-600">
+              Elige la plantilla, completa tus datos y descarga tu documento
+              legal listo en Word — aquí mismo, sin registrarte.
+            </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {documentosGenerables.slice(0, 8).map((doc) => (
-              <Link
-                key={doc.slug}
-                href={`/generador/${doc.slug}`}
-                className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand-300 hover:shadow-sm"
-              >
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-50 text-2xl">
-                  {doc.icon}
-                </span>
-                <span className="font-semibold text-slate-800">{doc.nombre}</span>
-              </Link>
-            ))}
+          <GeneradorHome />
+          <div className="mt-8 text-center">
+            <Link href="/generador" className="font-semibold text-brand-600 hover:text-brand-700">
+              Ver todas las plantillas →
+            </Link>
           </div>
         </div>
       </section>
