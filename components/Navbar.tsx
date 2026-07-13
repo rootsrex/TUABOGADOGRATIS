@@ -6,30 +6,39 @@ import { categories } from "@/lib/categories";
 import SearchBox from "@/components/SearchBox";
 import type { SearchItem } from "@/lib/search-types";
 
+const herramientas = [
+  { href: "/generador", icon: "🪄", label: "Generador de documentos" },
+  { href: "/consultas", icon: "🔎", label: "Consultas en línea" },
+  { href: "/calculadoras", icon: "🧮", label: "Calculadoras" },
+  { href: "/simuladores", icon: "🚘", label: "Simulador de examen" },
+  { href: "/operativos", icon: "🚧", label: "Operativos viales" },
+];
+
 export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="flex items-center gap-2 font-extrabold text-brand-700">
+      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
+        <Link
+          href="/"
+          className="flex flex-shrink-0 items-center gap-2 font-extrabold text-brand-700"
+        >
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-600 text-white">⚖️</span>
           <span className="text-lg leading-tight">
             Tu Abogado <span className="text-accent-600">Gratis</span>
           </span>
         </Link>
 
-        <div className="flex items-center gap-3">
-          <SearchBox items={searchIndex} />
-        </div>
-
-        <nav className="hidden items-center gap-6 md:flex">
+        {/* Navegación de escritorio */}
+        <nav className="hidden flex-1 items-center justify-center gap-5 lg:flex">
           <Link href="/" className="text-sm font-medium text-slate-700 hover:text-brand-700">
             Inicio
           </Link>
+
           <div className="group relative">
-            <button className="text-sm font-medium text-slate-700 hover:text-brand-700">
-              Categorías ▾
+            <button className="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-brand-700">
+              Categorías <span className="text-xs">▾</span>
             </button>
             <div className="invisible absolute left-0 top-full w-64 rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100">
               {categories.map((c) => (
@@ -44,51 +53,78 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
               ))}
             </div>
           </div>
-          <Link href="/categoria/ecu911" className="text-sm font-semibold text-red-600 hover:text-red-700">
+
+          <div className="group relative">
+            <button className="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-brand-700">
+              Herramientas <span className="text-xs">▾</span>
+            </button>
+            <div className="invisible absolute left-0 top-full w-64 rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100">
+              {herramientas.map((h) => (
+                <Link
+                  key={h.href}
+                  href={h.href}
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                >
+                  <span>{h.icon}</span>
+                  {h.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <Link
+            href="/categoria/ecu911"
+            className="text-sm font-semibold text-red-600 hover:text-red-700"
+          >
             🚨 ECU911
           </Link>
-          <Link href="/generador" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
+          <Link
+            href="/generador"
+            className="text-sm font-semibold text-brand-600 hover:text-brand-700"
+          >
             🪄 Generador
-          </Link>
-          <Link href="/operativos" className="text-sm font-medium text-slate-700 hover:text-brand-700">
-            🚧 Operativos
-          </Link>
-          <Link href="/consultas" className="text-sm font-medium text-slate-700 hover:text-brand-700">
-            Consultas
-          </Link>
-          <Link href="/simuladores" className="text-sm font-medium text-slate-700 hover:text-brand-700">
-            🚘 Simulador
-          </Link>
-          <Link href="/calculadoras" className="text-sm font-medium text-slate-700 hover:text-brand-700">
-            Calculadoras
           </Link>
           <Link href="/blog" className="text-sm font-medium text-slate-700 hover:text-brand-700">
             Blog
           </Link>
+        </nav>
+
+        {/* Lado derecho: buscador + CTA + hamburguesa */}
+        <div className="flex flex-shrink-0 items-center gap-3">
+          <div className="hidden sm:block">
+            <SearchBox items={searchIndex} />
+          </div>
           <Link
             href="/contacto"
-            className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
+            className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 lg:inline-block"
           >
             Consulta gratis
           </Link>
-        </nav>
-
-        <button
-          onClick={() => setOpen(!open)}
-          className="rounded-lg border border-slate-300 p-2 md:hidden"
-          aria-label="Abrir menú"
-        >
-          <span className="block h-0.5 w-5 bg-slate-700" />
-          <span className="mt-1 block h-0.5 w-5 bg-slate-700" />
-          <span className="mt-1 block h-0.5 w-5 bg-slate-700" />
-        </button>
+          <button
+            onClick={() => setOpen(!open)}
+            className="rounded-lg border border-slate-300 p-2 lg:hidden"
+            aria-label="Abrir menú"
+          >
+            <span className="block h-0.5 w-5 bg-slate-700" />
+            <span className="mt-1 block h-0.5 w-5 bg-slate-700" />
+            <span className="mt-1 block h-0.5 w-5 bg-slate-700" />
+          </button>
+        </div>
       </div>
 
+      {/* Menú móvil */}
       {open && (
-        <div className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
+        <div className="border-t border-slate-200 bg-white px-4 py-3 lg:hidden">
+          <div className="mb-3 sm:hidden">
+            <SearchBox items={searchIndex} />
+          </div>
           <Link href="/" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
             Inicio
           </Link>
+
+          <p className="mt-2 px-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            Categorías
+          </p>
           {categories.map((c) => (
             <Link
               key={c.slug}
@@ -99,23 +135,30 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
               {c.icon} {c.name}
             </Link>
           ))}
-          <Link href="/categoria/ecu911" onClick={() => setOpen(false)} className="block py-2 font-semibold text-red-600">
+
+          <p className="mt-2 px-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            Herramientas
+          </p>
+          {herramientas.map((h) => (
+            <Link
+              key={h.href}
+              href={h.href}
+              onClick={() => setOpen(false)}
+              className="block py-2 text-slate-700"
+            >
+              {h.icon} {h.label}
+            </Link>
+          ))}
+
+          <p className="mt-2 px-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            Más
+          </p>
+          <Link
+            href="/categoria/ecu911"
+            onClick={() => setOpen(false)}
+            className="block py-2 font-semibold text-red-600"
+          >
             🚨 ECU911
-          </Link>
-          <Link href="/generador" onClick={() => setOpen(false)} className="block py-2 font-semibold text-brand-600">
-            🪄 Generador de documentos
-          </Link>
-          <Link href="/operativos" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
-            🚧 Operativos
-          </Link>
-          <Link href="/consultas" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
-            🔎 Consultas
-          </Link>
-          <Link href="/simuladores" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
-            🚘 Simulador de examen
-          </Link>
-          <Link href="/calculadoras" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
-            🧮 Calculadoras
           </Link>
           <Link href="/blog" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
             Blog
@@ -123,7 +166,7 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
           <Link
             href="/contacto"
             onClick={() => setOpen(false)}
-            className="mt-2 block rounded-lg bg-brand-600 px-4 py-2 text-center font-semibold text-white"
+            className="mt-3 block rounded-lg bg-brand-600 px-4 py-2 text-center font-semibold text-white"
           >
             Consulta gratis
           </Link>
