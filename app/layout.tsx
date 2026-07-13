@@ -39,8 +39,8 @@ export default function RootLayout({
   return (
     <html lang="es-EC">
      <head>
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossOrigin="anonymous"></script>
-        </head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1826839411838372"
+     crossorigin="anonymous"></script>        </head>
       <body>
         <Navbar searchIndex={searchIndex} />
         <main className="min-h-[60vh]">{children}</main>
