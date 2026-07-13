@@ -33,13 +33,13 @@ export default function GeneradorDetallePage({ params }: { params: { slug: strin
         <span className="text-slate-700">{doc.nombre}</span>
       </nav>
 
-      <header className="mb-8 flex items-center gap-4">
-        <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-3xl">
+      <header className="mb-8 flex items-start gap-3 sm:items-center sm:gap-4">
+        <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-2xl sm:h-16 sm:w-16 sm:text-3xl">
           {doc.icon}
         </div>
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900">{doc.nombre}</h1>
-          <p className="mt-1 text-slate-600">{doc.descripcion}</p>
+          <h1 className="text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl">{doc.nombre}</h1>
+          <p className="mt-1 text-sm text-slate-600 sm:text-base">{doc.descripcion}</p>
         </div>
       </header>
 
