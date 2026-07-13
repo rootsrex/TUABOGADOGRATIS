@@ -1485,6 +1485,349 @@ C.I.: ${f(d.cedula)}
 Correo: ${f(d.correo)}
 Teléfono: ${f(d.telefono)}`,
   },
+  {
+    slug: "accion-proteccion",
+    nombre: "Acción de protección",
+    icon: "⚖️",
+    descripcion: "Genera la acción de protección constitucional por vulneración de un derecho fundamental.",
+    campos: [
+      { key: "unidad", label: "Unidad Judicial de Garantías de", tipo: "text" },
+      { key: "accionante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "accionado", label: "Autoridad o particular accionado", tipo: "text" },
+      { key: "derecho", label: "Derecho constitucional vulnerado", tipo: "text", placeholder: "Debido proceso, salud, trabajo, igualdad..." },
+      { key: "hechos", label: "Hechos (acto u omisión)", tipo: "textarea" },
+      { key: "peticion", label: "Medida de reparación solicitada", tipo: "textarea" },
+      { key: "medidasCautelares", label: "Medidas cautelares urgentes (si aplica)", tipo: "text" },
+    ],
+    generar: (d) => `SEÑOR/A JUEZ/A DE LA UNIDAD JUDICIAL DE GARANTÍAS PENALES / CONSTITUCIONALES DE ${f(d.unidad)}
+
+Yo, ${f(d.accionante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, comparezco y presento la siguiente ACCIÓN DE PROTECCIÓN en contra de: ${f(d.accionado)}, con fundamento en los siguientes hechos y derechos:
+
+1. DERECHO VULNERADO: El derecho constitucional afectado es ${f(d.derecho)}.
+
+2. HECHOS: ${f(d.hechos)}
+
+3. INEXISTENCIA DE OTRA VÍA: No existe otro mecanismo de defensa judicial adecuado y eficaz para proteger el derecho vulnerado, por lo que procede esta garantía jurisdiccional.
+
+4. PETICIÓN: Solicito se declare la vulneración del derecho invocado y se disponga como medida de reparación: ${f(d.peticion)}
+
+5. MEDIDAS CAUTELARES: Solicito se disponga de forma urgente ${f(d.medidasCautelares, "no aplica")}.
+
+
+______________________
+Nombre: ${f(d.accionante)}
+C.I.: ${f(d.cedula)}`,
+  },
+  {
+    slug: "habeas-data",
+    nombre: "Acción de hábeas data",
+    icon: "🗂️",
+    descripcion: "Genera la acción de hábeas data para acceder, rectificar o eliminar tus datos personales.",
+    campos: [
+      { key: "unidad", label: "Unidad Judicial de Garantías de", tipo: "text" },
+      { key: "accionante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "accionado", label: "Entidad pública o privada accionada", tipo: "text" },
+      { key: "fechaSolicitud", label: "Fecha de la solicitud previa", tipo: "date" },
+      { key: "tipoSolicitud", label: "Tipo de solicitud previa", tipo: "text", placeholder: "Acceso, rectificación, eliminación" },
+      { key: "respuesta", label: "Respuesta obtenida (o falta de respuesta)", tipo: "textarea" },
+      { key: "datos", label: "Datos personales involucrados", tipo: "text" },
+      { key: "peticion", label: "Petición concreta", tipo: "textarea" },
+    ],
+    generar: (d) => `SEÑOR/A JUEZ/A DE LA UNIDAD JUDICIAL DE GARANTÍAS PENALES / CONSTITUCIONALES DE ${f(d.unidad)}
+
+Yo, ${f(d.accionante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, comparezco y presento la siguiente ACCIÓN DE HÁBEAS DATA en contra de: ${f(d.accionado)}, con fundamento en los siguientes hechos:
+
+1. ANTECEDENTES: Con fecha ${fechaLarga(d.fechaSolicitud)}, solicité a la entidad accionada ${f(d.tipoSolicitud)} de mis datos personales.
+
+2. RESPUESTA OBTENIDA: ${f(d.respuesta)}
+
+3. DATOS INVOLUCRADOS: Los datos personales sobre los que verso mi solicitud son: ${f(d.datos)}
+
+4. PETICIÓN: Solicito se ordene a la entidad accionada: ${f(d.peticion)}
+
+
+______________________
+Nombre: ${f(d.accionante)}
+C.I.: ${f(d.cedula)}`,
+  },
+  {
+    slug: "recurso-apelacion-administrativo",
+    nombre: "Recurso de apelación administrativo",
+    icon: "📋",
+    descripcion: "Genera el recurso de apelación ante el superior jerárquico de una entidad pública.",
+    campos: [
+      { key: "autoridad", label: "Autoridad superior jerárquica", tipo: "text" },
+      { key: "institucion", label: "Institución", tipo: "text" },
+      { key: "recurrente", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "numeroResolucion", label: "N.º de la resolución impugnada", tipo: "text" },
+      { key: "fechaResolucion", label: "Fecha de la resolución", tipo: "date" },
+      { key: "emisor", label: "Quién emitió la resolución", tipo: "text" },
+      { key: "antecedentes", label: "Antecedentes del trámite", tipo: "textarea" },
+      { key: "fundamentos", label: "Fundamentos de la apelación", tipo: "textarea" },
+      { key: "pruebas", label: "Pruebas que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `RECURSO DE APELACIÓN
+
+Señor/a
+${f(d.autoridad)}
+${f(d.institucion)}
+Presente.-
+
+Yo, ${f(d.recurrente)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, comparezco y presento el siguiente RECURSO DE APELACIÓN en contra de la resolución/acto administrativo N.º ${f(d.numeroResolucion)}, de fecha ${fechaLarga(d.fechaResolucion)}, emitido por ${f(d.emisor)}.
+
+1. ANTECEDENTES: ${f(d.antecedentes)}
+
+2. FUNDAMENTOS DE LA APELACIÓN: Considero que la resolución debe revocarse o modificarse por lo siguiente: ${f(d.fundamentos)}
+
+3. PRUEBA: Adjunto los siguientes documentos que sustentan mi apelación: ${f(d.pruebas)}
+
+4. PETICIÓN: Solicito se revoque/modifique la resolución impugnada y se resuelva conforme a lo solicitado en mi trámite original.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.recurrente)}
+C.I.: ${f(d.cedula)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "derecho-peticion",
+    nombre: "Derecho de petición",
+    icon: "✉️",
+    descripcion: "Genera un escrito para ejercer tu derecho constitucional de petición ante cualquier autoridad pública.",
+    campos: [
+      { key: "autoridad", label: "Autoridad", tipo: "text" },
+      { key: "institucion", label: "Institución", tipo: "text" },
+      { key: "solicitante", label: "Tu nombre completo", tipo: "text" },
+      { key: "cedula", label: "Tu cédula", tipo: "text" },
+      { key: "domicilio", label: "Tu domicilio", tipo: "text" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "antecedentes", label: "Antecedentes de tu petición", tipo: "textarea" },
+      { key: "peticion", label: "Petición concreta", tipo: "textarea" },
+      { key: "fundamentos", label: "Fundamentos", tipo: "textarea" },
+      { key: "documentos", label: "Documentos adjuntos", tipo: "text" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "telefono", label: "Tu teléfono", tipo: "text" },
+    ],
+    generar: (d) => `DERECHO DE PETICIÓN
+
+Señor/a
+${f(d.autoridad)}
+${f(d.institucion)}
+Presente.-
+
+Yo, ${f(d.solicitante)}, de nacionalidad ecuatoriana, portador/a de la cédula de ciudadanía N.º ${f(d.cedula)}, con domicilio en ${f(d.domicilio)}, correo electrónico ${f(d.correo)}, al amparo del artículo 66 numeral 23 de la Constitución de la República del Ecuador, comparezco y presento la siguiente PETICIÓN:
+
+1. ANTECEDENTES: ${f(d.antecedentes)}
+
+2. PETICIÓN CONCRETA: Solicito respetuosamente que su institución ${f(d.peticion)}
+
+3. FUNDAMENTOS: Fundamento mi petición en lo siguiente: ${f(d.fundamentos)}
+
+4. DOCUMENTOS ADJUNTOS: ${f(d.documentos)}
+
+Solicito se me otorgue una respuesta motivada dentro de los plazos legales establecidos, notificándome al correo electrónico señalado.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.solicitante)}
+C.I.: ${f(d.cedula)}
+Correo: ${f(d.correo)}
+Teléfono: ${f(d.telefono)}`,
+  },
+  {
+    slug: "reclamo-tributario-sri",
+    nombre: "Reclamo administrativo tributario ante el SRI",
+    icon: "🧾",
+    descripcion: "Genera el reclamo administrativo tributario contra un acto de determinación, liquidación o sanción del SRI.",
+    campos: [
+      { key: "reclamante", label: "Tu nombre / razón social", tipo: "text" },
+      { key: "ruc", label: "RUC/C.I.", tipo: "text" },
+      { key: "domicilio", label: "Domicilio tributario", tipo: "text" },
+      { key: "numeroActo", label: "N.º del acto reclamado", tipo: "text" },
+      { key: "fechaActo", label: "Fecha del acto", tipo: "date" },
+      { key: "tipoActo", label: "Tipo de acto", tipo: "text", placeholder: "Liquidación de pago, determinación tributaria, sanción" },
+      { key: "antecedentes", label: "Antecedentes del trámite", tipo: "textarea" },
+      { key: "fundamentos", label: "Fundamentos del reclamo", tipo: "textarea" },
+      { key: "pruebas", label: "Pruebas que adjuntas", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `RECLAMO ADMINISTRATIVO TRIBUTARIO
+
+Señor/a
+DIRECTOR/A ZONAL DEL SERVICIO DE RENTAS INTERNAS
+Presente.-
+
+Yo, ${f(d.reclamante)}, portador/a de la cédula de ciudadanía / RUC N.º ${f(d.ruc)}, con domicilio tributario en ${f(d.domicilio)}, comparezco y presento el siguiente RECLAMO ADMINISTRATIVO en contra del acto N.º ${f(d.numeroActo)}, de fecha ${fechaLarga(d.fechaActo)}, relacionado con ${f(d.tipoActo)}.
+
+1. ANTECEDENTES: ${f(d.antecedentes)}
+
+2. FUNDAMENTOS DEL RECLAMO: Considero que el acto administrativo es incorrecto por lo siguiente: ${f(d.fundamentos)}
+
+3. PRUEBA: Adjunto los siguientes documentos: ${f(d.pruebas)}
+
+4. PETICIÓN: Solicito se deje sin efecto o se modifique el acto administrativo impugnado, conforme a los fundamentos expuestos.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre/Razón social: ${f(d.reclamante)}
+RUC/C.I.: ${f(d.ruc)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "facilidades-pago-sri",
+    nombre: "Solicitud de facilidades de pago ante el SRI",
+    icon: "💳",
+    descripcion: "Genera la solicitud para fraccionar el pago de una deuda tributaria en cuotas.",
+    campos: [
+      { key: "solicitante", label: "Tu nombre / razón social", tipo: "text" },
+      { key: "ruc", label: "RUC/C.I.", tipo: "text" },
+      { key: "domicilio", label: "Domicilio tributario", tipo: "text" },
+      { key: "numeroTitulo", label: "N.º de título de crédito / liquidación", tipo: "text" },
+      { key: "concepto", label: "Concepto de la deuda", tipo: "text" },
+      { key: "valorTotal", label: "Valor total de la deuda (USD)", tipo: "number" },
+      { key: "cuotaInicial", label: "Cuota inicial propuesta (USD)", tipo: "number" },
+      { key: "plazo", label: "Plazo solicitado (meses)", tipo: "number" },
+      { key: "cuotaMensual", label: "Cuota mensual aproximada (USD)", tipo: "number" },
+      { key: "justificacion", label: "Justificación de la solicitud", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+      { key: "telefono", label: "Tu teléfono", tipo: "text" },
+    ],
+    generar: (d) => `SOLICITUD DE FACILIDADES DE PAGO
+
+Señor/a
+DIRECTOR/A ZONAL DEL SERVICIO DE RENTAS INTERNAS
+Presente.-
+
+Yo, ${f(d.solicitante)}, portador/a de la cédula de ciudadanía / RUC N.º ${f(d.ruc)}, con domicilio tributario en ${f(d.domicilio)}, comparezco y solicito FACILIDADES DE PAGO respecto de la siguiente obligación tributaria:
+
+1. DEUDA TRIBUTARIA: Título de crédito / liquidación N.º ${f(d.numeroTitulo)}, por concepto de ${f(d.concepto)}, por un valor total de USD ${f(d.valorTotal)}.
+
+2. PROPUESTA DE PAGO: Propongo cancelar dicha obligación de la siguiente manera:
+   - Cuota inicial: USD ${f(d.cuotaInicial)}
+   - Plazo solicitado: ${f(d.plazo)} meses
+   - Cuotas mensuales de aproximadamente: USD ${f(d.cuotaMensual)}
+
+3. JUSTIFICACIÓN: Solicito esta facilidad debido a ${f(d.justificacion)}
+
+4. PETICIÓN: Solicito se apruebe el fraccionamiento propuesto conforme al Código Tributario, comprometiéndome al pago puntual de las cuotas acordadas.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre/Razón social: ${f(d.solicitante)}
+RUC/C.I.: ${f(d.ruc)}
+Correo: ${f(d.correo)}
+Teléfono: ${f(d.telefono)}`,
+  },
+  {
+    slug: "solicitud-registro-marca",
+    nombre: "Solicitud de registro de marca",
+    icon: "™️",
+    descripcion: "Genera la carta de acompañamiento para solicitar el registro de una marca ante el SENADI.",
+    campos: [
+      { key: "solicitante", label: "Tu nombre / razón social", tipo: "text" },
+      { key: "ruc", label: "RUC/C.I.", tipo: "text" },
+      { key: "calidad", label: "Calidad en la que actúas", tipo: "text", placeholder: "Propietario/a, representante legal" },
+      { key: "denominacion", label: "Denominación/signo a registrar", tipo: "text" },
+      { key: "tipoMarca", label: "Tipo de marca", tipo: "text", placeholder: "Denominativa, mixta, figurativa" },
+      { key: "clase", label: "Clase internacional (Niza)", tipo: "text" },
+      { key: "descripcionClase", label: "Descripción de productos o servicios", tipo: "textarea" },
+      { key: "domicilio", label: "Domicilio del titular", tipo: "text" },
+      { key: "documentos", label: "Documentos adjuntos", tipo: "textarea" },
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "correo", label: "Tu correo electrónico", tipo: "text" },
+    ],
+    generar: (d) => `SOLICITUD DE REGISTRO DE MARCA
+
+Señor/a
+DIRECTOR/A NACIONAL DE PROPIEDAD INDUSTRIAL
+SENADI
+Presente.-
+
+Yo, ${f(d.solicitante)}, portador/a de la cédula de ciudadanía / RUC N.º ${f(d.ruc)}, en calidad de ${f(d.calidad)}, por medio de la presente solicito el REGISTRO DE MARCA de los siguientes datos:
+
+1. DENOMINACIÓN/SIGNO A REGISTRAR: ${f(d.denominacion)}.
+
+2. TIPO DE MARCA: ${f(d.tipoMarca)}.
+
+3. CLASE INTERNACIONAL (Clasificación de Niza): N.º ${f(d.clase)}, que ampara ${f(d.descripcionClase)}
+
+4. TITULAR: ${f(d.solicitante)}, con domicilio en ${f(d.domicilio)}.
+
+5. DOCUMENTOS ADJUNTOS: ${f(d.documentos)}
+
+Quedo atento/a a cualquier requerimiento adicional para completar el trámite de registro.
+
+${f(d.lugar)}, ${fechaLarga(d.fecha)}
+
+
+______________________
+Nombre: ${f(d.solicitante)}
+C.I./RUC: ${f(d.ruc)}
+Correo: ${f(d.correo)}`,
+  },
+  {
+    slug: "contrato-cesion-derechos-autor",
+    nombre: "Contrato de cesión de derechos de autor",
+    icon: "©️",
+    descripcion: "Genera el contrato para ceder los derechos patrimoniales de una obra a otra persona o empresa.",
+    campos: [
+      { key: "lugar", label: "Ciudad", tipo: "text" },
+      { key: "fecha", label: "Fecha", tipo: "date" },
+      { key: "cedente", label: "Nombre del cedente (autor/a)", tipo: "text" },
+      { key: "cedulaCedente", label: "Cédula/RUC del cedente", tipo: "text" },
+      { key: "cesionario", label: "Nombre del cesionario", tipo: "text" },
+      { key: "cedulaCesionario", label: "Cédula/RUC del cesionario", tipo: "text" },
+      { key: "obra", label: "Descripción de la obra", tipo: "textarea" },
+      { key: "tipoCesion", label: "Tipo de cesión", tipo: "text", placeholder: "Exclusiva / no exclusiva" },
+      { key: "territorio", label: "Territorio", tipo: "text" },
+      { key: "plazoCesion", label: "Plazo de la cesión", tipo: "text", placeholder: "Determinado / indefinido" },
+      { key: "monto", label: "Monto de la contraprestación (USD)", tipo: "number" },
+      { key: "formaPago", label: "Forma de pago", tipo: "text" },
+    ],
+    generar: (d) => `CONTRATO DE CESIÓN DE DERECHOS DE AUTOR
+
+En la ciudad de ${f(d.lugar)}, ${fechaLarga(d.fecha)}, comparecen por una parte ${f(d.cedente)}, con cédula/RUC N.º ${f(d.cedulaCedente)}, a quien se denominará EL CEDENTE (autor/a de la obra); y por otra parte ${f(d.cesionario)}, con cédula/RUC N.º ${f(d.cedulaCesionario)}, a quien se denominará EL CESIONARIO.
+
+PRIMERA - OBJETO: EL CEDENTE es autor/a de la obra denominada ${f(d.obra)}, y por medio del presente contrato CEDE a EL CESIONARIO los derechos patrimoniales sobre dicha obra.
+
+SEGUNDA - ALCANCE DE LA CESIÓN: La cesión es de carácter ${f(d.tipoCesion)}, para el territorio de ${f(d.territorio)}, por un plazo de ${f(d.plazoCesion)}.
+
+TERCERA - CONTRAPRESTACIÓN: EL CESIONARIO pagará a EL CEDENTE la suma de USD ${f(d.monto)} por la presente cesión, mediante ${f(d.formaPago)}.
+
+CUARTA - DERECHOS MORALES: Se deja constancia de que los derechos morales de autor (paternidad e integridad de la obra) son irrenunciables e inalienables, y permanecen en cabeza de EL CEDENTE.
+
+QUINTA - GARANTÍA DE AUTORÍA: EL CEDENTE declara que la obra es de su autoría original y que no infringe derechos de terceros.
+
+Para constancia, firman las partes:
+
+
+______________________            ______________________
+      EL CEDENTE                        EL CESIONARIO
+   C.I./RUC: ${f(d.cedulaCedente)}            C.I./RUC: ${f(d.cedulaCesionario)}`,
+  },
 ];
 
 export function getDocumentoGenerable(slug: string): DocumentoGenerable | undefined {
