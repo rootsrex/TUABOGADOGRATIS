@@ -47,6 +47,9 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
           <Link href="/categoria/ecu911" className="text-sm font-semibold text-red-600 hover:text-red-700">
             🚨 ECU911
           </Link>
+          <Link href="/generador" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
+            🪄 Generador
+          </Link>
           <Link href="/operativos" className="text-sm font-medium text-slate-700 hover:text-brand-700">
             🚧 Operativos
           </Link>
@@ -98,6 +101,9 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
           ))}
           <Link href="/categoria/ecu911" onClick={() => setOpen(false)} className="block py-2 font-semibold text-red-600">
             🚨 ECU911
+          </Link>
+          <Link href="/generador" onClick={() => setOpen(false)} className="block py-2 font-semibold text-brand-600">
+            🪄 Generador de documentos
           </Link>
           <Link href="/operativos" onClick={() => setOpen(false)} className="block py-2 text-slate-700">
             🚧 Operativos
