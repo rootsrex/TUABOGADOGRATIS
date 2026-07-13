@@ -23,7 +23,9 @@ export default function HomePage() {
             ⚖️ Tu asesor legal en casa
           </span>
           <h1 className="mx-auto mt-6 max-w-3xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
-            Trámites y consultas legales del Ecuador, explicados fácil y gratis
+            Aquí puedes practicar tu examen de licencia de conducir y generar
+            documentos con plantillas de trámites en instituciones públicas del
+            Ecuador
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-brand-100">
             Desde el IESS y las multas de la ANT hasta la pensión alimenticia y
