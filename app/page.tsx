@@ -4,15 +4,18 @@ import { calculadoras } from "@/lib/calculadoras";
 import { consultas } from "@/lib/consultas";
 import { simuladores } from "@/lib/simuladores";
 import { getAllArticles, getArticlesByCategory } from "@/lib/content";
+import { buildSearchIndex } from "@/lib/search";
 import CategoryCard from "@/components/CategoryCard";
 import ArticleCard from "@/components/ArticleCard";
 import GeneradorHome from "@/components/GeneradorHome";
+import HomeSearch from "@/components/HomeSearch";
 
 export default function HomePage() {
   const articles = getAllArticles();
   const featured = articles.slice(0, 6);
   const ecu911Category = getCategory("ecu911");
   const ecu911Articles = getArticlesByCategory("ecu911");
+  const searchIndex = buildSearchIndex();
 
   return (
     <>
@@ -32,6 +35,9 @@ export default function HomePage() {
             los bonos del Estado. Encuentra guías paso a paso y modelos de
             documentos listos para usar.
           </p>
+
+          <HomeSearch items={searchIndex} />
+
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/blog"
