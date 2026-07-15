@@ -4,6 +4,7 @@ excerpt: "El juez Jairo García aplazó al 3 de agosto la audiencia preparatoria
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/caso-goleada-audiencia-suspendida-apelacion-alvarez.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/aquiles-alvarez-caso-goleada-audiencia-asambleista-raul-chavez-jueces-juicio-127999/"

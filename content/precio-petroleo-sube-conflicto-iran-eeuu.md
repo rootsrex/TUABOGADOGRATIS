@@ -4,6 +4,7 @@ excerpt: "El WTI cerró en USD 79,60 y el Brent en USD 84,95 por barril, en una 
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/precio-petroleo-sube-conflicto-iran-eeuu.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/internacional/precio-petroleo-texas-ecuador-guerra-iran-estados-unidos-ormuz-15julio-128039/"

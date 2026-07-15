@@ -4,6 +4,7 @@ excerpt: "Con Juan Carlos Aveiga como el octavo titular de Salud bajo el gobiern
 category: "noticias"
 type: "noticia"
 date: "2026-07-14"
+image: "/noticias/crisis-hospitalaria-ecuador-rotacion-ministros-salud.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/ministerio-salud-ecuador-crisis-daniel-noboa-gobierno-127821/"

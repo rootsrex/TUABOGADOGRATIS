@@ -4,6 +4,7 @@ excerpt: "Guayas, que concentra entre el 72% y el 75% de la producción nacional
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/fenomeno-nino-amenaza-produccion-arroz-guayas.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/economia/fenomeno-elnino-amenaza-produccion-arroz-ecuador-guayas-zona-cero-impactos-127917/"

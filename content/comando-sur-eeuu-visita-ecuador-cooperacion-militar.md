@@ -4,6 +4,7 @@ excerpt: "Francis L. Donovan cumplió una visita de dos días al país, en la qu
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/comando-sur-eeuu-visita-ecuador-cooperacion-militar.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/seguridad/comando-sur-estados-unidos-ecuador-cooperacion-militar-carteles-americas-127997/"

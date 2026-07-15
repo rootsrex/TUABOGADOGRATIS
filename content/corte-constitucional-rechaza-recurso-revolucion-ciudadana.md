@@ -4,6 +4,7 @@ excerpt: "La Sala de Admisión del tribunal rechazó la acción extraordinaria d
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/corte-constitucional-rechaza-recurso-revolucion-ciudadana.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/corte-constitucional-correismo-suspension-rafael-correa-elecciones-seccionales-128008/"

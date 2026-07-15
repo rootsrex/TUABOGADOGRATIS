@@ -31,6 +31,14 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
+      {article.image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={article.image}
+          alt=""
+          className="mb-8 aspect-[1200/630] w-full rounded-2xl object-cover"
+        />
+      )}
       <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500">
         <Link href="/" className="hover:text-brand-700">Inicio</Link>
         <span>/</span>

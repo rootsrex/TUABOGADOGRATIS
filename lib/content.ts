@@ -19,6 +19,7 @@ export type Article = {
   updated?: string;
   type: "guia" | "modelo" | "noticia";
   sources: SourceLink[];
+  image?: string;
   content: string;
 };
 
@@ -43,6 +44,7 @@ export function getAllArticles(): Article[] {
       updated: data.updated ?? undefined,
       type: (data.type as "guia" | "modelo" | "noticia") ?? "guia",
       sources: Array.isArray(data.sources) ? (data.sources as SourceLink[]) : [],
+      image: typeof data.image === "string" ? data.image : undefined,
       readingTime: estimateReadingTime(content),
       content,
     } as Article;

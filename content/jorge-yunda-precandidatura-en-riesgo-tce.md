@@ -4,6 +4,7 @@ excerpt: "El Tribunal Contencioso Electoral admitió a trámite la queja de una 
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/jorge-yunda-precandidatura-en-riesgo-tce.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/elecciones/seccionales-adelantadas-2027/precandidatura-jorge-yunda-avanza-reclamo-tce-primarias-127991/"

@@ -4,6 +4,7 @@ excerpt: "El Consejo de Educación Superior aprobó la intervención de la únic
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/ces-interviene-universidad-amawtay-wasi.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/sociedad/universidad-amawtay-wasi-intervencion-designacion-comsion-rectora-128036/"

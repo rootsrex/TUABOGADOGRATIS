@@ -4,6 +4,7 @@ excerpt: "Horas antes de que el juez aceptara aplazar la audiencia preparatoria,
 category: "noticias"
 type: "noticia"
 date: "2026-07-14"
+image: "/noticias/caso-goleada-defensa-pide-suspender-audiencia.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/aquiles-alvarez-caso-goleada-guayaquil-fiscalia-juicio-127949/"

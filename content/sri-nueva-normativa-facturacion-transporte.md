@@ -4,6 +4,7 @@ excerpt: "Una nueva resolución del SRI, vigente desde el 13 de julio, obliga a 
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/sri-nueva-normativa-facturacion-transporte.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/economia/sri-reglas-transporte-ecuador-facturas-clientes-ruc-127943/"

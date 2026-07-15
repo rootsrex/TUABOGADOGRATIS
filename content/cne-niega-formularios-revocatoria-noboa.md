@@ -4,6 +4,7 @@ excerpt: "El Consejo Nacional Electoral negó por unanimidad la entrega de formu
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/cne-niega-formularios-revocatoria-noboa.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/cne-negativa-formularios-revocatoria-presidente-daniel-noboa-iza-128016/"

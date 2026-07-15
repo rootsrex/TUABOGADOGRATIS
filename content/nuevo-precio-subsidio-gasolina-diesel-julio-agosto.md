@@ -4,6 +4,7 @@ excerpt: "El sistema de bandas de precios del Gobierno redujo el subsidio a los 
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/nuevo-precio-subsidio-gasolina-diesel-julio-agosto.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/economia/subsidio-gasolina-extra-ecopais-precio-julio-agosto-petroecuador-128020/"

@@ -4,6 +4,7 @@ excerpt: "La exalcaldesa dejó Centro Democrático para postularse por el movimi
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/cynthia-viteri-precandidata-alcaldia-guayaquil.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/elecciones/seccionales-adelantadas-2027/cynthia-viteri-precandidata-adn-alcaldia-guayaquil-128022/"

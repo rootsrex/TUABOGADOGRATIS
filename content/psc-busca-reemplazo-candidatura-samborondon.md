@@ -4,6 +4,7 @@ excerpt: "María Belén Yúnez retiró su candidatura a la Alcaldía de Samboron
 category: "noticias"
 type: "noticia"
 date: "2026-07-15"
+image: "/noticias/psc-busca-reemplazo-candidatura-samborondon.svg"
 sources:
   - label: "Primicias"
     url: "https://www.primicias.ec/politica/elecciones/seccionales-adelantadas-2027/psc-alcaldia-samborondon-maria-belen-yunez-precandidatos-128031/"
