@@ -63,6 +63,14 @@ export const categories: Category[] = [
       "Modelos de demandas, contratos, cartas y certificados listos para copiar, editar y usar.",
     color: "from-sky-500 to-cyan-600",
   },
+  {
+    slug: "noticias",
+    name: "Noticias Legales",
+    icon: "📰",
+    description:
+      "Actualidad de Ecuador con relevancia legal: leyes, trámites, justicia y derechos ciudadanos, resumida en lenguaje claro.",
+    color: "from-slate-600 to-slate-800",
+  },
 ];
 
 export function getCategory(slug: string): Category | undefined {
