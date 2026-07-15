@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/lib/content";
 import { getCategory } from "@/lib/categories";
@@ -9,13 +10,25 @@ export default function ArticleCard({ article }: { article: Article }) {
       href={`/articulo/${article.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
     >
-      <div
-        className={`flex h-32 items-center justify-center bg-gradient-to-br ${
-          category?.color ?? "from-brand-500 to-brand-700"
-        } text-5xl`}
-      >
-        {category?.icon ?? "📄"}
-      </div>
+      {article.image ? (
+        <div className="relative h-32 w-full overflow-hidden">
+          <Image
+            src={article.image}
+            alt={article.title}
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          />
+        </div>
+      ) : (
+        <div
+          className={`flex h-32 items-center justify-center bg-gradient-to-br ${
+            category?.color ?? "from-brand-500 to-brand-700"
+          } text-5xl`}
+        >
+          {category?.icon ?? "📄"}
+        </div>
+      )}
       <div className="flex flex-1 flex-col p-5">
         {category && (
           <span className="mb-2 inline-block w-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">

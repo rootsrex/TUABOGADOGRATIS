@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -83,6 +84,19 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <span>· {article.readingTime} min de lectura</span>
         </div>
       </header>
+
+      {article.image && (
+        <div className="relative mb-8 h-56 w-full overflow-hidden rounded-2xl sm:h-80">
+          <Image
+            src={article.image}
+            alt={article.title}
+            fill
+            priority
+            className="object-cover"
+            sizes="(min-width: 768px) 768px, 100vw"
+          />
+        </div>
+      )}
 
       <div className="prose-legal">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>

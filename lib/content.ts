@@ -17,6 +17,7 @@ export type Article = {
   date: string;
   readingTime: number;
   updated?: string;
+  image?: string;
   type: "guia" | "modelo" | "noticia";
   sources: SourceLink[];
   content: string;
@@ -41,6 +42,7 @@ export function getAllArticles(): Article[] {
       category: data.category ?? "",
       date: data.date ?? "",
       updated: data.updated ?? undefined,
+      image: data.image ?? undefined,
       type: (data.type as "guia" | "modelo" | "noticia") ?? "guia",
       sources: Array.isArray(data.sources) ? (data.sources as SourceLink[]) : [],
       readingTime: estimateReadingTime(content),
