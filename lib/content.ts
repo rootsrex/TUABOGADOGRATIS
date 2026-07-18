@@ -17,8 +17,9 @@ export type Article = {
   date: string;
   readingTime: number;
   updated?: string;
-  type: "guia" | "modelo";
+  type: "guia" | "modelo" | "noticia";
   sources: SourceLink[];
+  image?: string;
   content: string;
 };
 
@@ -41,8 +42,9 @@ export function getAllArticles(): Article[] {
       category: data.category ?? "",
       date: data.date ?? "",
       updated: data.updated ?? undefined,
-      type: (data.type as "guia" | "modelo") ?? "guia",
+      type: (data.type as "guia" | "modelo" | "noticia") ?? "guia",
       sources: Array.isArray(data.sources) ? (data.sources as SourceLink[]) : [],
+      image: typeof data.image === "string" ? data.image : undefined,
       readingTime: estimateReadingTime(content),
       content,
     } as Article;
@@ -64,4 +66,8 @@ export function getModels(): Article[] {
 
 export function getGuides(): Article[] {
   return getAllArticles().filter((a) => a.type === "guia");
+}
+
+export function getNews(): Article[] {
+  return getAllArticles().filter((a) => a.type === "noticia");
 }

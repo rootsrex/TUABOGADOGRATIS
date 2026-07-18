@@ -9,13 +9,22 @@ export default function ArticleCard({ article }: { article: Article }) {
       href={`/articulo/${article.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
     >
-      <div
-        className={`flex h-32 items-center justify-center bg-gradient-to-br ${
-          category?.color ?? "from-brand-500 to-brand-700"
-        } text-5xl`}
-      >
-        {category?.icon ?? "📄"}
-      </div>
+      {article.image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={article.image}
+          alt=""
+          className="h-32 w-full object-cover"
+        />
+      ) : (
+        <div
+          className={`flex h-32 items-center justify-center bg-gradient-to-br ${
+            category?.color ?? "from-brand-500 to-brand-700"
+          } text-5xl`}
+        >
+          {category?.icon ?? "📄"}
+        </div>
+      )}
       <div className="flex flex-1 flex-col p-5">
         {category && (
           <span className="mb-2 inline-block w-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">

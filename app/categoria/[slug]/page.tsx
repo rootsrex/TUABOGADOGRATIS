@@ -39,7 +39,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
 
       {articles.length === 0 ? (
         <p className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">
-          Aún no hay guías publicadas en esta categoría. ¡Pronto añadiremos contenido!
+          Aún no hay contenido publicado en esta categoría. ¡Pronto añadiremos más!
         </p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

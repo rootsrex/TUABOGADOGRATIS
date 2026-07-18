@@ -11,7 +11,7 @@ export function buildSearchIndex(): SearchItem[] {
     title: a.title,
     description: a.excerpt,
     href: `/articulo/${a.slug}`,
-    type: a.type === "modelo" ? "modelo" : "guia",
+    type: a.type === "modelo" ? "modelo" : a.type === "noticia" ? "noticia" : "guia",
     icon: getCategory(a.category)?.icon ?? "📄",
   }));
 

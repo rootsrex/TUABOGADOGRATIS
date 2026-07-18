@@ -31,6 +31,14 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
+      {article.image && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={article.image}
+          alt=""
+          className="mb-8 aspect-[1200/630] w-full rounded-2xl object-cover"
+        />
+      )}
       <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500">
         <Link href="/" className="hover:text-brand-700">Inicio</Link>
         <span>/</span>
@@ -60,6 +68,11 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               📝 Modelo de documento
             </span>
           )}
+          {article.type === "noticia" && (
+            <span className="inline-block rounded-full bg-slate-700 px-3 py-1 text-xs font-semibold text-white">
+              📰 Noticia
+            </span>
+          )}
         </div>
         <h1 className="text-3xl font-extrabold leading-tight text-slate-900 md:text-4xl">
           {article.title}
@@ -86,10 +99,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       {article.sources.length > 0 && (
         <div className="mt-10 rounded-2xl border border-brand-200 bg-brand-50 p-6">
           <h2 className="flex items-center gap-2 text-lg font-bold text-brand-900">
-            🔗 Enlaces oficiales
+            🔗 {article.type === "noticia" ? "Fuente" : "Enlaces oficiales"}
           </h2>
           <p className="mt-1 text-sm text-brand-800">
-            Realiza tu trámite directamente en los portales oficiales de las instituciones:
+            {article.type === "noticia"
+              ? "Esta nota fue redactada a partir de la siguiente fuente periodística:"
+              : "Realiza tu trámite directamente en los portales oficiales de las instituciones:"}
           </p>
           <ul className="mt-4 space-y-2">
             {article.sources.map((s) => (
@@ -113,12 +128,14 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         <strong>Aviso:</strong>{" "}
         {article.type === "modelo"
           ? "este es un modelo referencial y editable. Adáptalo a tu caso y, para procesos judiciales, valida el formato con un abogado o con la unidad judicial competente."
-          : "esta guía es informativa y puede cambiar según actualizaciones de las instituciones. No sustituye la asesoría de un profesional del derecho para tu caso particular."}
+          : article.type === "noticia"
+            ? "esta nota es un resumen informativo redactado a partir de la fuente citada arriba. Verifica los detalles en la fuente original y consulta a un abogado para asesoría sobre tu caso particular."
+            : "esta guía es informativa y puede cambiar según actualizaciones de las instituciones. No sustituye la asesoría de un profesional del derecho para tu caso particular."}
       </div>
 
       {related.length > 0 && (
         <section className="mt-14">
-          <h2 className="mb-6 text-2xl font-bold text-slate-900">Guías relacionadas</h2>
+          <h2 className="mb-6 text-2xl font-bold text-slate-900">Contenido relacionado</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((a) => (
               <ArticleCard key={a.slug} article={a} />

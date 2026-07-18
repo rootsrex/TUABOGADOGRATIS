@@ -41,18 +41,27 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
               Categorías <span className="text-xs">▾</span>
             </button>
             <div className="invisible absolute left-0 top-full w-64 rounded-xl border border-slate-200 bg-white p-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100">
-              {categories.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/categoria/${c.slug}`}
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
-                >
-                  <span>{c.icon}</span>
-                  {c.name}
-                </Link>
-              ))}
+              {categories
+                .filter((c) => c.slug !== "noticias")
+                .map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/categoria/${c.slug}`}
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                  >
+                    <span>{c.icon}</span>
+                    {c.name}
+                  </Link>
+                ))}
             </div>
           </div>
+
+          <Link
+            href="/categoria/noticias"
+            className="text-lg font-extrabold uppercase tracking-wide text-slate-900 hover:text-brand-700"
+          >
+            NOTICIAS
+          </Link>
 
           <div className="group relative">
             <button className="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-brand-700">
@@ -122,19 +131,29 @@ export default function Navbar({ searchIndex }: { searchIndex: SearchItem[] }) {
             Inicio
           </Link>
 
+          <Link
+            href="/categoria/noticias"
+            onClick={() => setOpen(false)}
+            className="block py-2 text-lg font-extrabold uppercase tracking-wide text-slate-900"
+          >
+            NOTICIAS
+          </Link>
+
           <p className="mt-2 px-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
             Categorías
           </p>
-          {categories.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/categoria/${c.slug}`}
-              onClick={() => setOpen(false)}
-              className="block py-2 text-slate-700"
-            >
-              {c.icon} {c.name}
-            </Link>
-          ))}
+          {categories
+            .filter((c) => c.slug !== "noticias")
+            .map((c) => (
+              <Link
+                key={c.slug}
+                href={`/categoria/${c.slug}`}
+                onClick={() => setOpen(false)}
+                className="block py-2 text-slate-700"
+              >
+                {c.icon} {c.name}
+              </Link>
+            ))}
 
           <p className="mt-2 px-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
             Herramientas
