@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="g_car_movilidad2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b45309"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g_car_movilidad2)"/>
+  <circle cx="1040" cy="90" r="260" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="120" cy="560" r="200" fill="rgba(255,255,255,0.05)"/>
+  <g transform="translate(600,285) scale(9)" stroke="rgba(255,255,255,0.92)" stroke-width="1.15" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(-12,-12)">
+
+    <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/>
+    <circle cx="6.5" cy="16.5" r="2.5"/>
+    <circle cx="16.5" cy="16.5" r="2.5"/>
+
+    </g>
+  </g>
+
+  <text x="600" y="470" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" letter-spacing="4" fill="rgba(255,255,255,0.95)">MOVILIDAD</text>
+  <text x="600" y="505" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="3" fill="rgba(255,255,255,0.72)">REGISTRO VEHICULAR</text>
+  <text x="600" y="580" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="1" fill="rgba(255,255,255,0.55)">⚖ TU ABOGADO GRATIS · NOTICIAS</text>
+</svg>
