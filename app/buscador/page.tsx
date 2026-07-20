@@ -76,8 +76,8 @@ const [resultados, setResultados] = useState<any[]>([]);
       {resultados.length > 0 && (
         <div style={{ background: "#f9f9f9", padding: "15px", borderRadius: "5px", border: "1px solid #ddd" }}>
           <h3 style={{ marginTop: 0 }}>Resultados:</h3>
-          {resultados.map((persona, index) => (
-            <div key={index} style={{ marginBottom: "10px" }}>
+{resultados.map((persona: any, index: number) => (
+  <div key={index} style={{ marginBottom: "10px" }}>
               <p><strong>Cédula:</strong> {persona.cedula}</p>
               <p><strong>Nombre:</strong> {persona.nombre}</p>
             </div>
