@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function BuscadorCedula() {
   // Estados para manejar la interfaz
   const [cedula, setCedula] = useState("");
-  const [resultados, setResultados] = useState([]);
+const [resultados, setResultados] = useState<any[]>([]);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
 
