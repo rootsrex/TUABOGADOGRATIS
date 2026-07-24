@@ -2,10 +2,15 @@
 
 import { useState } from "react";
 
+interface Persona {
+  cedula: string | number;
+  nombre: string;
+}
+
 export default function BuscadorCedula() {
   // Estados para manejar la interfaz
   const [cedula, setCedula] = useState("");
-  const [resultados, setResultados] = useState([]);
+  const [resultados, setResultados] = useState<Persona[]>([]);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
 
@@ -21,23 +26,21 @@ export default function BuscadorCedula() {
     setResultados([]);
 
     try {
-      // Llamamos a la variable de entorno que guardaste en Vercel
-      const urlApi = `${process.env.NEXT_PUBLIC_API_CEDULAS}/buscar-cedula`;
-      
+      // Llamamos a la variable de entorno que guardaste en Vercel (con fallback local)
+      const baseUrl = process.env.NEXT_PUBLIC_API_CEDULAS || "http://127.0.0.1:8000";
+      const urlApi = `${baseUrl}/api/cedula/${cedula}`;
+
       const respuesta = await fetch(urlApi, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ dato: cedula }),
+        method: "GET",
+        redirect: "follow",
       });
 
       const datos = await respuesta.json();
-      
-      if (datos.status === "exito") {
-        setResultados(datos.datos); // Guardamos los datos para mostrarlos
+
+      if (respuesta.ok && Array.isArray(datos.resultados) && datos.resultados.length > 0) {
+        setResultados(datos.resultados);
       } else {
-        setError(datos.mensaje);
+        setError(datos.mensaje || "No se encontraron resultados para esa cédula.");
       }
     } catch (err) {
       console.error(err);
@@ -55,7 +58,7 @@ export default function BuscadorCedula() {
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
         <input 
           type="text" 
-          placeholder="Ej: 0604919415" 
+          placeholder="Ej: 1721xxxxxx"
           value={cedula}
           onChange={(e) => setCedula(e.target.value)}
           style={{ flex: 1, padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
