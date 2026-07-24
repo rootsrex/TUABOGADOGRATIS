@@ -64,6 +64,14 @@ export const categories: Category[] = [
     color: "from-sky-500 to-cyan-600",
   },
   {
+    slug: "educacion",
+    name: "Educación y Matrículas",
+    icon: "🎒",
+    description:
+      "Fechas de matrículas y traslados, régimen Sierra-Amazonía y Costa-Galápagos, y trámites del Ministerio de Educación.",
+    color: "from-indigo-500 to-blue-600",
+  },
+  {
     slug: "noticias",
     name: "Noticias Legales",
     icon: "📰",
