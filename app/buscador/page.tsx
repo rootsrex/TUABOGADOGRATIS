@@ -24,13 +24,8 @@ const [resultados, setResultados] = useState<any[]>([]);
       // Llamamos a la variable de entorno que guardaste en Vercel
 const urlApi = `${process.env.NEXT_PUBLIC_API_CEDULAS}/api/cedula/${cedula}`;      
       const respuesta = await fetch(urlApi, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ dato: cedula }),
-      });
-
+      method: "GET"
+});
       const datos = await respuesta.json();
       
       if (datos.status === "exito") {
