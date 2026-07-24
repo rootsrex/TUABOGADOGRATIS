@@ -1,4 +1,5 @@
-""use client"; // Dependiendo de tu configuración puede ser "use client"
+""use client";
+  // Dependiendo de tu configuración puede ser "use client"
 
 import { useState } from "react";
 
