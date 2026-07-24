@@ -1,20 +1,14 @@
-"use client"; // Obligatorio en Next.js (App Router) si usas useState
+"use client";
+// Dependiendo de tu configuración puede ser "use client"
 
 import { useState } from "react";
 
-interface Persona {
-  cedula: string | number;
-  nombre: string;
-}
-
-export default function BuscadorCedula() {
-  // Estados para manejar la interfaz
+export default function Home() {
   const [cedula, setCedula] = useState("");
-  const [resultados, setResultados] = useState<Persona[]>([]);
+  const [resultados, setResultados] = useState<any>(null);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState("");
 
-  // Esta es la función del Paso 5 que se conecta a Railway
   async function consultarCedula() {
     if (!cedula) {
       setError("Por favor ingresa una cédula");
@@ -26,21 +20,18 @@ export default function BuscadorCedula() {
     setResultados([]);
 
     try {
-      // Llamamos a la variable de entorno que guardaste en Vercel (con fallback local)
-      const baseUrl = process.env.NEXT_PUBLIC_API_CEDULAS || "http://127.0.0.1:8000";
-      const urlApi = `${baseUrl}/api/cedula/${cedula}`;
-
+      // Llamamos a la variable de entorno configurada en Vercel
+      const urlApi = `${process.env.NEXT_PUBLIC_API_CEDULAS}/api/cedula/${cedula}`;
       const respuesta = await fetch(urlApi, {
-        method: "GET",
-        redirect: "follow",
+        method: "GET"
       });
 
       const datos = await respuesta.json();
 
-      if (respuesta.ok && Array.isArray(datos.resultados) && datos.resultados.length > 0) {
-        setResultados(datos.resultados);
+      if (datos.resultados) {
+        setResultados(datos.resultados); 
       } else {
-        setError(datos.mensaje || "No se encontraron resultados para esa cédula.");
+        setError("No se encontró información o hubo un problema con la búsqueda.");
       }
     } catch (err) {
       console.error(err);
@@ -51,42 +42,66 @@ export default function BuscadorCedula() {
   }
 
   return (
-    <div style={{ maxWidth: "500px", margin: "20px auto", fontFamily: "sans-serif" }}>
-      <h2>Buscar Cédula en Ecuador</h2>
-      
-      {/* Campo de texto y Botón */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <input 
-          type="text" 
-          placeholder="Ej: 1721xxxxxx"
-          value={cedula}
-          onChange={(e) => setCedula(e.target.value)}
-          style={{ flex: 1, padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
-        />
-        <button 
-          onClick={consultarCedula} 
-          disabled={cargando}
-          style={{ padding: "10px 20px", background: "#0056b3", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}
-        >
-          {cargando ? "Buscando..." : "Consultar"}
-        </button>
+    <main style={{ maxWidth: "600px", margin: "40px auto", fontFamily: "sans-serif", padding: "0 20px" }}>
+      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+        <h1 style={{ fontSize: "28px", fontWeight: "bold", color: "#1e293b", marginBottom: "10px" }}>
+          Tu Abogado Gratis
+        </h1>
+        <p style={{ color: "#64748b" }}>Consulta la información pública de cédulas en Ecuador al instante.</p>
       </div>
 
-      {/* Mensaje de error si la cédula no existe */}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {/* Caja del Buscador */}
+      <div style={{ backgroundColor: "#f8fafc", padding: "25px", borderRadius: "12px", boxShadow: "0 4px 6px rgba(0,0,0,0.05)", border: "1px solid #e2e8f0" }}>
+        <h2 style={{ fontSize: "18px", marginBottom: "15px", color: "#334155" }}>Buscar Cédula en Ecuador</h2>
+        
+        <div style={{ display: "flex", gap: "10px" }}>
+          <input
+            type="text"
+            placeholder="Número de cédula..."
+            value={cedula}
+            onChange={(e) => setCedula(e.target.value)}
+            style={{
+              flex: 1,
+              padding: "12px",
+              borderRadius: "6px",
+              border: "1px solid #cbd5e1",
+              fontSize: "16px"
+            }}
+          />
+          
+          <button
+            onClick={consultarCedula}
+            disabled={cargando}
+            style={{
+              padding: "12px 24px",
+              backgroundColor: "#2563eb",
+              color: "#fff",
+              fontWeight: "bold",
+              border: "none",
+              borderRadius: "6px",
+              cursor: cargando ? "not-allowed" : "pointer",
+              fontSize: "16px"
+            }}
+          >
+            {cargando ? "Consultando..." : "Consultar"}
+          </button>
+        </div>
 
-      {/* Mostrar los resultados de la API */}
-      {resultados.length > 0 && (
-        <div style={{ background: "#f9f9f9", padding: "15px", borderRadius: "5px", border: "1px solid #ddd" }}>
-          <h3 style={{ marginTop: 0 }}>Resultados:</h3>
-          {resultados.map((persona, index) => (
-            <div key={index} style={{ marginBottom: "10px" }}>
-              <p><strong>Cédula:</strong> {persona.cedula}</p>
-              <p><strong>Nombre:</strong> {persona.nombre}</p>
-            </div>
-          ))}
+        {error && (
+          <p style={{ color: "red", marginTop: "15px", fontSize: "14px" }}>{error}</p>
+        )}
+      </div>
+
+      {/* Resultados de la búsqueda */}
+      {resultados && (
+        <div style={{ marginTop: "25px", backgroundColor: "#fff", padding: "20px", borderRadius: "8px", border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.05)" }}>
+          <h3 style={{ marginTop: 0, color: "#1e293b", borderBottom: "1px solid #e2e8f0", paddingBottom: "10px" }}>Resultados de la consulta</h3>
+          <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-all", background: "#f1f5f9", padding: "12px", borderRadius: "6px", fontSize: "14px" }}>
+            {JSON.stringify(resultados, null, 2)}
+          </pre>
         </div>
       )}
-    </div>
+    </main>
   );
 }
+
