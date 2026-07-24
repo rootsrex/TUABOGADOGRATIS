@@ -1,4 +1,5 @@
 "use client";
+// Dependiendo de tu configuración puede ser "use client"
 
 import { useState } from "react";
 
@@ -16,9 +17,10 @@ export default function Home() {
 
     setCargando(true);
     setError("");
-    setResultados(null);
+    setResultados([]);
 
     try {
+      // Llamamos a la variable de entorno configurada en Vercel
       const urlApi = `${process.env.NEXT_PUBLIC_API_CEDULAS}/api/cedula/${cedula}`;
       const respuesta = await fetch(urlApi, {
         method: "GET"
@@ -48,6 +50,7 @@ export default function Home() {
         <p style={{ color: "#64748b" }}>Consulta la información pública de cédulas en Ecuador al instante.</p>
       </div>
 
+      {/* Caja del Buscador */}
       <div style={{ backgroundColor: "#f8fafc", padding: "25px", borderRadius: "12px", boxShadow: "0 4px 6px rgba(0,0,0,0.05)", border: "1px solid #e2e8f0" }}>
         <h2 style={{ fontSize: "18px", marginBottom: "15px", color: "#334155" }}>Buscar Cédula en Ecuador</h2>
         
@@ -89,6 +92,7 @@ export default function Home() {
         )}
       </div>
 
+      {/* Resultados de la búsqueda */}
       {resultados && (
         <div style={{ marginTop: "25px", backgroundColor: "#fff", padding: "20px", borderRadius: "8px", border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.05)" }}>
           <h3 style={{ marginTop: 0, color: "#1e293b", borderBottom: "1px solid #e2e8f0", paddingBottom: "10px" }}>Resultados de la consulta</h3>
@@ -100,3 +104,4 @@ export default function Home() {
     </main>
   );
 }
+
