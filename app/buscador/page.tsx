@@ -28,11 +28,11 @@ const urlApi = `${process.env.NEXT_PUBLIC_API_CEDULAS}/api/cedula/${cedula}`;
 });
       const datos = await respuesta.json();
       
-      if (datos.status === "exito") {
-        setResultados(datos.datos); // Guardamos los datos para mostrarlos
-      } else {
-        setError(datos.mensaje);
-      }
+     if (datos.resultados) {
+      setResultados(datos.resultados); 
+    } else {
+      setError("No se encontró información o hubo un problema con la búsqueda.");
+    }
     } catch (err) {
       console.error(err);
       setError("Error al conectar con el servidor de búsqueda.");
