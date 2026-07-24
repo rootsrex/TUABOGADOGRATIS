@@ -1,269 +1,102 @@
-import Link from "next/link";
-import { categories, getCategory } from "@/lib/categories";
-import { calculadoras } from "@/lib/calculadoras";
-import { consultas } from "@/lib/consultas";
-import { simuladores } from "@/lib/simuladores";
-import { getAllArticles, getArticlesByCategory } from "@/lib/content";
-import { buildSearchIndex } from "@/lib/search";
-import CategoryCard from "@/components/CategoryCard";
-import ArticleCard from "@/components/ArticleCard";
-import GeneradorHome from "@/components/GeneradorHome";
-import HomeSearch from "@/components/HomeSearch";
+"use client";
 
-export default function HomePage() {
-  const articles = getAllArticles();
-  const featured = articles.slice(0, 6);
-  const ecu911Category = getCategory("ecu911");
-  const ecu911Articles = getArticlesByCategory("ecu911");
-  const searchIndex = buildSearchIndex();
+import { useState } from "react";
+
+export default function Home() {
+  const [cedula, setCedula] = useState("");
+  const [resultados, setResultados] = useState<any>(null);
+  const [cargando, setCargando] = useState(false);
+  const [error, setError] = useState("");
+
+  async function consultarCedula() {
+    if (!cedula) {
+      setError("Por favor ingresa una cédula");
+      return;
+    }
+
+    setCargando(true);
+    setError("");
+    setResultados(null);
+
+    try {
+      const urlApi = `${process.env.NEXT_PUBLIC_API_CEDULAS}/api/cedula/${cedula}`;
+      const respuesta = await fetch(urlApi, {
+        method: "GET"
+      });
+
+      const datos = await respuesta.json();
+
+      if (datos.resultados) {
+        setResultados(datos.resultados); 
+      } else {
+        setError("No se encontró información o hubo un problema con la búsqueda.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error al conectar con el servidor de búsqueda.");
+    } finally {
+      setCargando(false);
+    }
+  }
 
   return (
-    <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800 text-white">
-        <div className="mx-auto max-w-6xl px-4 py-14 text-center sm:py-20">
-          <span className="inline-block rounded-full bg-white/15 px-4 py-1 text-sm font-medium">
-            ⚖️ Tu asesor legal en casa
-          </span>
-          <h1 className="mx-auto mt-6 max-w-3xl text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
-            Aquí puedes practicar tu examen de licencia de conducir y generar
-            documentos con plantillas de trámites en instituciones públicas del
-            Ecuador
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-brand-100">
-            Desde el IESS y las multas de la ANT hasta la pensión alimenticia y
-            los bonos del Estado. Encuentra guías paso a paso y modelos de
-            documentos listos para usar.
-          </p>
+    <main style={{ maxWidth: "600px", margin: "40px auto", fontFamily: "sans-serif", padding: "0 20px" }}>
+      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+        <h1 style={{ fontSize: "28px", fontWeight: "bold", color: "#1e293b", marginBottom: "10px" }}>
+          Tu Abogado Gratis
+        </h1>
+        <p style={{ color: "#64748b" }}>Consulta la información pública de cédulas en Ecuador al instante.</p>
+      </div>
 
-          <HomeSearch items={searchIndex} />
-
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/blog"
-              className="rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 hover:bg-brand-50"
-            >
-              Explorar guías
-            </Link>
-            <Link
-              href="/contacto"
-              className="rounded-lg border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white/10"
-            >
-              Hacer una consulta
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ECU911 - Destacado */}
-      {ecu911Category && (
-        <section className="bg-gradient-to-br from-red-700 via-red-600 to-orange-600 py-12 md:py-16 text-white">
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <span className="inline-block rounded-full bg-white/15 px-4 py-1 text-sm font-semibold">
-                  🚨 Destacado
-                </span>
-                <h2 className="mt-3 text-2xl font-extrabold sm:text-3xl">ECU911 y Emergencias</h2>
-                <p className="mt-2 max-w-xl text-red-50">
-                  Todo lo que debes saber para actuar rápido: qué es el ECU911,
-                  cuándo llamar al 911 y qué esperar durante la atención.
-                </p>
-              </div>
-              <Link
-                href="/categoria/ecu911"
-                className="rounded-lg bg-white px-6 py-3 font-semibold text-red-700 hover:bg-red-50"
-              >
-                Ver toda la guía →
-              </Link>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {ecu911Articles.map((a) => (
-                <Link
-                  key={a.slug}
-                  href={`/articulo/${a.slug}`}
-                  className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur transition hover:bg-white/20"
-                >
-                  <span className="font-semibold leading-snug">{a.title}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Simuladores */}
-      <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <span className="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-              🚘 Nuevo
-            </span>
-            <h2 className="mt-3 text-3xl font-bold text-slate-900">Simuladores de examen</h2>
-            <p className="mt-2 text-slate-600">
-              Practica gratis para tu examen teórico de manejo antes de ir a la ANT.
-            </p>
-          </div>
-          <Link href="/simuladores" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
-            Ver todos →
-          </Link>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {simuladores.map((s) => (
-            <Link
-              key={s.slug}
-              href={`/simuladores/${s.slug}`}
-              className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand-300 hover:shadow-sm"
-            >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-50 text-2xl">
-                {s.icon}
-              </span>
-              <span>
-                <span className="block font-semibold text-slate-800">{s.name}</span>
-                <span className="block text-xs text-slate-500">{s.description}</span>
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Generador de documentos */}
-      <section className="bg-white py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-8 text-center">
-            <span className="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-              🪄 Generador de documentos
-            </span>
-            <h2 className="mt-3 text-2xl font-bold text-slate-900 sm:text-3xl">
-              Crea tu documento en segundos
-            </h2>
-            <p className="mx-auto mt-2 max-w-2xl text-slate-600">
-              Elige la plantilla, completa tus datos y descarga tu documento
-              legal listo en Word — aquí mismo, sin registrarte.
-            </p>
-          </div>
-          <GeneradorHome />
-          <div className="mt-8 text-center">
-            <Link href="/generador" className="font-semibold text-brand-600 hover:text-brand-700">
-              Ver todas las plantillas →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Consultas en línea */}
-      <section className="bg-white py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-8 flex items-end justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Consultas en línea 🔎</h2>
-              <p className="mt-2 text-slate-600">
-                Placa, cédula o nombre: busca el dato y te llevamos al portal oficial.
-              </p>
-            </div>
-            <Link href="/consultas" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
-              Ver todas →
-            </Link>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {consultas.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/consultas/${c.slug}`}
-                className="flex flex-col items-start gap-2 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand-300 hover:shadow-sm"
-              >
-                <span className="grid h-11 w-11 place-items-center rounded-lg bg-brand-50 text-2xl">
-                  {c.icon}
-                </span>
-                <span className="font-semibold text-slate-800">{c.name}</span>
-                <span className="text-xs text-slate-500">{c.description}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Categorías */}
-      <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Explora por categoría</h2>
-          <p className="mt-2 text-slate-600">
-            Organizamos los trámites del Ecuador por temas para que encuentres lo que buscas rápido.
-          </p>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((c) => (
-            <CategoryCard key={c.slug} category={c} />
-          ))}
-        </div>
-      </section>
-
-      {/* Artículos destacados */}
-      <section className="bg-white py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-8 flex items-end justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Guías recientes</h2>
-              <p className="mt-2 text-slate-600">Lo último en trámites y consultas.</p>
-            </div>
-            <Link href="/blog" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
-              Ver todo →
-            </Link>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((a) => (
-              <ArticleCard key={a.slug} article={a} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Calculadoras */}
-      <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <div className="mb-8 flex items-end justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Calculadoras 🧮</h2>
-            <p className="mt-2 text-slate-600">Estima tus derechos laborales en segundos.</p>
-          </div>
-          <Link href="/calculadoras" className="hidden font-semibold text-brand-600 hover:text-brand-700 sm:block">
-            Ver todas →
-          </Link>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {calculadoras.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/calculadoras/${c.slug}`}
-              className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand-300 hover:shadow-sm"
-            >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-50 text-2xl">
-                {c.icon}
-              </span>
-              <span>
-                <span className="block font-semibold text-slate-800">{c.name}</span>
-                <span className="block text-xs text-slate-500">{c.description}</span>
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <div className="rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 px-8 py-12 text-center text-white">
-          <h2 className="text-2xl font-bold md:text-3xl">¿Tienes una duda legal?</h2>
-          <p className="mx-auto mt-3 max-w-xl text-brand-100">
-            Cuéntanos tu caso y te orientamos con información clara sobre el
-            trámite que necesitas realizar.
-          </p>
-          <Link
-            href="/contacto"
-            className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-brand-700 hover:bg-brand-50"
+      <div style={{ backgroundColor: "#f8fafc", padding: "25px", borderRadius: "12px", boxShadow: "0 4px 6px rgba(0,0,0,0.05)", border: "1px solid #e2e8f0" }}>
+        <h2 style={{ fontSize: "18px", marginBottom: "15px", color: "#334155" }}>Buscar Cédula en Ecuador</h2>
+        
+        <div style={{ display: "flex", gap: "10px" }}>
+          <input
+            type="text"
+            placeholder="Número de cédula..."
+            value={cedula}
+            onChange={(e) => setCedula(e.target.value)}
+            style={{
+              flex: 1,
+              padding: "12px",
+              borderRadius: "6px",
+              border: "1px solid #cbd5e1",
+              fontSize: "16px"
+            }}
+          />
+          
+          <button
+            onClick={consultarCedula}
+            disabled={cargando}
+            style={{
+              padding: "12px 24px",
+              backgroundColor: "#2563eb",
+              color: "#fff",
+              fontWeight: "bold",
+              border: "none",
+              borderRadius: "6px",
+              cursor: cargando ? "not-allowed" : "pointer",
+              fontSize: "16px"
+            }}
           >
-            Consulta gratis
-          </Link>
+            {cargando ? "Consultando..." : "Consultar"}
+          </button>
         </div>
-      </section>
-    </>
+
+        {error && (
+          <p style={{ color: "red", marginTop: "15px", fontSize: "14px" }}>{error}</p>
+        )}
+      </div>
+
+      {resultados && (
+        <div style={{ marginTop: "25px", backgroundColor: "#fff", padding: "20px", borderRadius: "8px", border: "1px solid #e2e8f0", boxShadow: "0 2px 4px rgba(0,0,0,0.05)" }}>
+          <h3 style={{ marginTop: 0, color: "#1e293b", borderBottom: "1px solid #e2e8f0", paddingBottom: "10px" }}>Resultados de la consulta</h3>
+          <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-all", background: "#f1f5f9", padding: "12px", borderRadius: "6px", fontSize: "14px" }}>
+            {JSON.stringify(resultados, null, 2)}
+          </pre>
+        </div>
+      )}
+    </main>
   );
 }
