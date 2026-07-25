@@ -29,9 +29,6 @@ export default function HomePage() {
       if (!res.ok) throw new Error(`Servidor respondió con estado ${res.status}`);
 
       const data = await res.json();
-      console.log("RESPUESTA CEDULA:", data);
-      
-      // Extraemos el objeto ya sea array o propiedad
       const raw = data.resultados || data.resultado || data.data || data;
       const item = Array.isArray(raw) ? raw[0] : raw;
       setResCedula(item);
@@ -56,11 +53,17 @@ export default function HomePage() {
       if (!res.ok) throw new Error(`Servidor respondió con estado ${res.status}`);
 
       const data = await res.json();
-      console.log("RESPUESTA PLACA:", data);
+      console.log("RESPUESTA PLACA COMPLETA:", data);
       
       const raw = data.resultados || data.resultado || data.data || data;
       const item = Array.isArray(raw) ? raw[0] : raw;
-      setResPlaca(item);
+      
+      const nombrePropietario = item?.propietario || item?.titular || item?.nombre || item?.nombres || item?.name || item?.razonSocial || (typeof item === 'string' ? item : null);
+
+      setResPlaca({
+        ...item,
+        nombreFinal: nombrePropietario || 'DATOS EN CONSTRUCCIÓN'
+      });
     } catch (err: any) {
       setErrorPlaca(`Error de conexión: ${err.message}`);
     } finally {
@@ -68,7 +71,6 @@ export default function HomePage() {
     }
   };
 
-  // Función segura para extraer texto de nombres sin que salga JSON.stringify en pantalla
   const getNombre = (obj: any) => {
     if (!obj) return 'N/D';
     if (typeof obj === 'string') return obj;
@@ -150,7 +152,7 @@ export default function HomePage() {
           {resPlaca && (
             <div style={{ marginTop: '20px', padding: '15px', borderRadius: '8px', backgroundColor: '#f3f4f6', border: '1px solid #e5e7eb' }}>
               <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#111827' }}>Resultado:</h3>
-              <p style={{ margin: '5px 0' }}><strong>Propietario:</strong> {getNombre(resPlaca)}</p>
+              <p style={{ margin: '5px 0' }}><strong>Propietario:</strong> {resPlaca.nombreFinal || 'DATOS EN CONSTRUCCIÓN'}</p>
               <p style={{ margin: '5px 0' }}><strong>Placa:</strong> {getIdentificacion(resPlaca, placa.toUpperCase())}</p>
             </div>
           )}
