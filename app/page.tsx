@@ -17,8 +17,7 @@ export default function HomePage() {
   const [loadingPlaca, setLoadingPlaca] = useState(false);
   const [errorPlaca, setErrorPlaca] = useState('');
 
-  const baseUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL || process.env.REACT_APP_API_URL || 'https://backendtag-production.up.railway.app';
-
+  const baseUrl = process.env.NEXT_PUBLIC_REACT_APP_API_URL || process.env.REACT_APP_API_URL || 'https://api-busqueda-cedulas-production.up.railway.app';
   // Handler Cédula / Nombre
   const handleBuscarCedula = async (e: React.FormEvent) => {
     e.preventDefault();
