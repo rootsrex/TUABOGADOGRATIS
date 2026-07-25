@@ -28,13 +28,24 @@ export default function HomePage() {
     setResCedula(null);
 
     try {
-      const res = await fetch(`${baseUrl}/api/cedula/${encodeURIComponent(cedula.trim())}`);
+      const res = await fetch(`${baseUrl}/api/buscar/${encodeURIComponent(cedula.trim())}`);
       
       if (!res.ok) {
         throw new Error(`Servidor respondió con estado ${res.status}`);
       }
 
       const data = await res.json();
+      if (data.status === 'exito' || data.success) {
+        setResCedula(data.resultados?.data || data.resultados || data);
+      } else {
+        setErrorCedula(data.mensaje || 'No se encontraron registros.');
+      }
+    } catch (err: any) {
+      console.error("Error detallado:", err);
+      setErrorCedula(`Error de conexión: ${err.message || 'Verifica la API o CORS'}`);
+    } finally {
+      setLoadingCedula(false);
+    }
       if (data.status === 'exito' || data.success) {
         setResCedula(data.resultados?.data || data.resultados || data);
       } else {
