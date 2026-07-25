@@ -28,7 +28,7 @@ export default function HomePage() {
     setResCedula(null);
 
     try {
-      const res = await fetch(`${baseUrl}/api/cedula/${encodeURIComponent(cedula.trim())}`);
+      const res = await fetch(`${baseUrl}/api/persona/${encodeURIComponent(cedula.trim())}`);
       
       if (!res.ok) {
         throw new Error(`Servidor respondió con estado ${res.status}`);
