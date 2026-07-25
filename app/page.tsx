@@ -186,8 +186,11 @@ export default function HomePage() {
                 <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#111827' }}>Resultado de la consulta:</h3>
                 <p style={{ margin: '5px 0' }}><strong>Propietario:</strong> {resPlaca.name || resPlaca.nombre || 'N/D'}</p>
                 <p style={{ margin: '5px 0' }}><strong>Placa:</strong> {resPlaca.value || placa.toUpperCase()}</p>
-             </div>
+              </div>
+            )}
+          </div>
         )}
+
       </div>
     </div>
   );
