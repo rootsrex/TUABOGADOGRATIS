@@ -29,7 +29,10 @@ export default function HomePage() {
       if (!res.ok) throw new Error(`Servidor respondió con estado ${res.status}`);
 
       const data = await res.json();
-      setResCedula(data.resultados || data);
+      console.log("RESPUESTA CEDULA:", data);
+      // Extraemos de manera robusta el objeto interior si viene anidado
+      const item = data.resultados || data.resultado || data.data || data;
+      setResCedula(item);
     } catch (err: any) {
       setErrorCedula(`Error de conexión: ${err.message}`);
     } finally {
@@ -51,7 +54,9 @@ export default function HomePage() {
       if (!res.ok) throw new Error(`Servidor respondió con estado ${res.status}`);
 
       const data = await res.json();
-      setResPlaca(data.resultados?.data || data.resultados || data);
+      console.log("RESPUESTA PLACA:", data);
+      const item = data.resultados?.data || data.resultados || data.resultado || data.data || data;
+      setResPlaca(item);
     } catch (err: any) {
       setErrorPlaca(`Error de conexión: ${err.message}`);
     } finally {
@@ -95,8 +100,8 @@ export default function HomePage() {
           {resCedula && (
             <div style={{ marginTop: '20px', padding: '15px', borderRadius: '8px', backgroundColor: '#f3f4f6', border: '1px solid #e5e7eb' }}>
               <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#111827' }}>Resultado:</h3>
-              <p style={{ margin: '5px 0' }}><strong>Nombre:</strong> {resCedula.name || resCedula.nombre || resCedula.nombres || resCedula.full_name || 'N/D'}</p>
-              <p style={{ margin: '5px 0' }}><strong>Cédula:</strong> {resCedula.value || resCedula.cedula || cedula}</p>
+              <p style={{ margin: '5px 0' }}><strong>Nombre:</strong> {resCedula.name || resCedula.nombre || resCedula.nombres || resCedula.full_name || resCedula.razonSocial || resCedula.propietario || JSON.stringify(resCedula)}</p>
+              <p style={{ margin: '5px 0' }}><strong>Cédula:</strong> {resCedula.value || resCedula.cedula || resCedula.identificacion || cedula}</p>
             </div>
           )}
         </div>
@@ -128,8 +133,8 @@ export default function HomePage() {
           {resPlaca && (
             <div style={{ marginTop: '20px', padding: '15px', borderRadius: '8px', backgroundColor: '#f3f4f6', border: '1px solid #e5e7eb' }}>
               <h3 style={{ margin: '0 0 10px 0', fontSize: '1.1rem', color: '#111827' }}>Resultado:</h3>
-              <p style={{ margin: '5px 0' }}><strong>Propietario:</strong> {resPlaca.name || resPlaca.nombre || resPlaca.nombres || 'N/D'}</p>
-              <p style={{ margin: '5px 0' }}><strong>Placa:</strong> {resPlaca.value || placa.toUpperCase()}</p>
+              <p style={{ margin: '5px 0' }}><strong>Propietario:</strong> {resPlaca.name || resPlaca.nombre || resPlaca.nombres || resPlaca.propietario || resPlaca.razonSocial || JSON.stringify(resPlaca)}</p>
+              <p style={{ margin: '5px 0' }}><strong>Placa:</strong> {resPlaca.value || resPlaca.placa || placa.toUpperCase()}</p>
             </div>
           )}
         </div>
