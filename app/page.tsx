@@ -49,8 +49,8 @@ export default function HomePage() {
 
         {resultadoCedula && (
           <div style={{ marginTop: '1rem', background: '#f4f4f4', padding: '0.5rem' }}>
-            <p><strong>Nombre:</strong> {resultadoCedula.resultados?.nombre || "No encontrado"}</p>
-            <p><strong>Cédula:</strong> {resultadoCedula.resultados?.cedula || cedulaInput}</p>
+            <p><strong>Nombre:</strong> {resultadoCedula.resultados?.[0]?.nombre || resultadoCedula.resultados?.nombre || "No encontrado"}</p>
+            <p><strong>Cédula:</strong> {resultadoCedula.resultados?.[0]?.cedula || resultadoCedula.resultados?.cedula || cedulaInput}</p>
           </div>
         )}
       </div>
