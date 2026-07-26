@@ -10,7 +10,7 @@ export default function HomePage() {
 
   const consultarCedula = async () => {
     try {
-      const url = "https://backendtag-production.up.railway.app/api/cedula/" + cedulaInput;
+      const url = "https://api-busqueda-cedulas-production.up.railway.app/api/cedula/" + cedulaInput;
       const res = await fetch(url);
       const data = await res.json();
       setResultadoCedula(data);
@@ -21,7 +21,7 @@ export default function HomePage() {
 
   const consultarPlaca = async () => {
     try {
-      const url = "https://backendtag-production.up.railway.app/api/placa/" + placaInput;
+      const url = "https://api-busqueda-cedulas-production.up.railway.app/api/placa/" + placaInput;
       const res = await fetch(url);
       const data = await res.json();
       setResultadoPlaca(data);
@@ -76,4 +76,4 @@ export default function HomePage() {
       </div>
     </main>
   );
-} 
+}
