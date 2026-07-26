@@ -10,7 +10,8 @@ export default function HomePage() {
 
   const consultarCedula = async () => {
     try {
-      const res = await fetch(`https://backendtag-production.up.railway.app/api/cedula/${cedulaInput}`);
+      const url = "https://backendtag-production.up.railway.app/api/cedula/" + cedulaInput;
+      const res = await fetch(url);
       const data = await res.json();
       setResultadoCedula(data);
     } catch (error) {
@@ -20,7 +21,8 @@ export default function HomePage() {
 
   const consultarPlaca = async () => {
     try {
-      const res = await fetch(`https://backendtag-production.up.railway.app/api/placa/${placaInput}`);
+      const url = "https://backendtag-production.up.railway.app/api/placa/" + placaInput;
+      const res = await fetch(url);
       const data = await res.json();
       setResultadoPlaca(data);
     } catch (error) {
@@ -47,8 +49,8 @@ export default function HomePage() {
 
         {resultadoCedula && (
           <div style={{ marginTop: '1rem', background: '#f4f4f4', padding: '0.5rem' }}>
-            <p><strong>Nombre:</strong> {resultadoCedula.resultados?.nombre}</p>
-            <p><strong>Cédula:</strong> {resultadoCedula.resultados?.cedula}</p>
+            <p><strong>Nombre:</strong> {resultadoCedula.resultados?.nombre || "No encontrado"}</p>
+            <p><strong>Cédula:</strong> {resultadoCedula.resultados?.cedula || cedulaInput}</p>
           </div>
         )}
       </div>
