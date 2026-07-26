@@ -69,8 +69,8 @@ export default function HomePage() {
 
         {resultadoPlaca && (
           <div style={{ marginTop: '1rem', background: '#f4f4f4', padding: '0.5rem' }}>
-            <p><strong>Propietario / Estado:</strong> {resultadoPlaca.resultados?.nombre}</p>
-            <p><strong>Placa:</strong> {resultadoPlaca.resultados?.value}</p>
+            <p><strong>Propietario / Estado:</strong> {resultadoPlaca.resultados?.[0]?.nombre || resultadoPlaca.resultados?.nombre || "No encontrado"}</p>
+            <p><strong>Placa:</strong> {resultadoPlaca.resultados?.[0]?.value || resultadoPlaca.resultados?.value || placaInput}</p>
           </div>
         )}
       </div>
