@@ -35,7 +35,7 @@ export default function HomePage() {
 
   const consultarCamara = async () => {
     try {
-      const url = "https://api-busqueda-cedulas-production.up.railway.app/api/camara/" + camaraInput;
+      const url = "https://api-busqueda-cedulas-production.up.railway.app/api/camara/" + encodeURIComponent(camaraInput.trim());
       const res = await fetch(url);
       const data = await res.json();
       setResultadoCamara(data);
@@ -96,7 +96,7 @@ export default function HomePage() {
           type="text" 
           value={camaraInput} 
           onChange={(e) => setCamaraInput(e.target.value)} 
-          placeholder="Ingrese código de cámara" 
+          placeholder="Ingrese nombre, código o dirección" 
           style={{ padding: '0.5rem', width: '70%', marginRight: '1rem' }}
         />
         <button onClick={consultarCamara} style={{ padding: '0.5rem 1rem' }}>Consultar</button>
