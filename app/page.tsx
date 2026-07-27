@@ -35,8 +35,8 @@ export default function HomePage() {
 
   const consultarCamara = async () => {
     try {
-      const url = "https://api-busqueda-cedulas-production.up.railway.app/api/camara/" + encodeURIComponent(camaraInput.trim());
-      const res = await fetch(url);
+      const endpoint = "https://api-busqueda-cedulas-production.up.railway.app/api/camara/" + encodeURIComponent(camaraInput.trim());
+      const res = await fetch(endpoint);
       const data = await res.json();
       setResultadoCamara(data);
     } catch (error) {
