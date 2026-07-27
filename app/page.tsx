@@ -5,8 +5,11 @@ import { useState } from 'react';
 export default function HomePage() {
   const [cedulaInput, setCedulaInput] = useState('');
   const [placaInput, setPlacaInput] = useState('');
+  const [camaraInput, setCamaraInput] = useState('');
+  
   const [resultadoCedula, setResultadoCedula] = useState<any>(null);
   const [resultadoPlaca, setResultadoPlaca] = useState<any>(null);
+  const [resultadoCamara, setResultadoCamara] = useState<any>(null);
 
   const consultarCedula = async () => {
     try {
@@ -30,10 +33,21 @@ export default function HomePage() {
     }
   };
 
+  const consultarCamara = async () => {
+    try {
+      const url = "https://api-busqueda-cedulas-production.up.railway.app/api/camara/" + camaraInput;
+      const res = await fetch(url);
+      const data = await res.json();
+      setResultadoCamara(data);
+    } catch (error) {
+      console.error("Error al consultar cámara", error);
+    }
+  };
+
   return (
     <main style={{ padding: '2rem', fontFamily: 'Arial, sans-serif', maxWidth: '600px', margin: '0 auto' }}>
       <h1>Tu Abogado Gratis</h1>
-      <p>Consulta información pública de cédulas y vehículos en Ecuador al instante.</p>
+      <p>Consulta información pública de cédulas, vehículos y cámaras en Ecuador al instante.</p>
 
       {/* Sección Cédula */}
       <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
@@ -71,6 +85,26 @@ export default function HomePage() {
           <div style={{ marginTop: '1rem', background: '#f4f4f4', padding: '0.5rem' }}>
             <p><strong>Propietario / Estado:</strong> {resultadoPlaca.resultados?.[0]?.nombre || resultadoPlaca.resultados?.nombre || "No encontrado"}</p>
             <p><strong>Placa:</strong> {resultadoPlaca.resultados?.[0]?.value || resultadoPlaca.resultados?.value || placaInput}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Sección Cámaras y Direcciones */}
+      <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
+        <h2>Buscar Cámara / Dirección</h2>
+        <input 
+          type="text" 
+          value={camaraInput} 
+          onChange={(e) => setCamaraInput(e.target.value)} 
+          placeholder="Ingrese código de cámara" 
+          style={{ padding: '0.5rem', width: '70%', marginRight: '1rem' }}
+        />
+        <button onClick={consultarCamara} style={{ padding: '0.5rem 1rem' }}>Consultar</button>
+
+        {resultadoCamara && (
+          <div style={{ marginTop: '1rem', background: '#f4f4f4', padding: '0.5rem' }}>
+            <p><strong>Cámara:</strong> {resultadoCamara.resultados?.[0]?.nombre || "No encontrado"}</p>
+            <p><strong>Dirección:</strong> {resultadoCamara.resultados?.[0]?.direccion || "No disponible"}</p>
           </div>
         )}
       </div>
