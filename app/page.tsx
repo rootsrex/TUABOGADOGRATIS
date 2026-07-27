@@ -101,10 +101,15 @@ export default function HomePage() {
         />
         <button onClick={consultarCamara} style={{ padding: '0.5rem 1rem' }}>Consultar</button>
 
-        {resultadoCamara && (
-          <div style={{ marginTop: '1rem', background: '#f4f4f4', padding: '0.5rem' }}>
-            <p><strong>Cámara:</strong> {resultadoCamara.resultados?.[0]?.nombre || "No encontrado"}</p>
-            <p><strong>Dirección:</strong> {resultadoCamara.resultados?.[0]?.direccion || "No disponible"}</p>
+        {/* AQUÍ ESTÁ LA MAGIA: Recorremos toda la lista de resultados para mostrarlos todos */}
+        {resultadoCamara && resultadoCamara.resultados && (
+          <div style={{ marginTop: '1rem' }}>
+            {resultadoCamara.resultados.map((camara: any, index: number) => (
+              <div key={index} style={{ background: '#f4f4f4', padding: '1rem', marginBottom: '0.5rem', borderRadius: '4px', borderLeft: '4px solid #007bff' }}>
+                <p style={{ margin: '0 0 0.5rem 0' }}><strong>Opción {index + 1}:</strong> {camara.nombre}</p>
+                <p style={{ margin: '0' }}><strong>Dirección:</strong> {camara.direccion}</p>
+              </div>
+            ))}
           </div>
         )}
       </div>
