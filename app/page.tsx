@@ -45,25 +45,17 @@ export default function HomePage() {
     }
   };
 
-  // Lista de trámites para que el buscador superior funcione
   const listaTramites = [
     { cat: "LABORAL", titulo: "Calculadora de jubilación del IESS", url: "https://www.iess.gob.ec" },
     { cat: "LABORAL", titulo: "IESS Citas Médicas: Agendar o Consultar", url: "https://www.iess.gob.ec" },
     { cat: "LABORAL", titulo: "Recuperar clave del IESS", url: "https://www.iess.gob.ec" },
     { cat: "LABORAL", titulo: "Certificado de No estar afiliado al IESS", url: "https://www.iess.gob.ec" },
-    { cat: "LABORAL", titulo: "Fondos de Reserva del IESS", url: "https://www.iess.gob.ec" },
-    { cat: "LABORAL", titulo: "Décimo cuarto sueldo", url: "https://www.trabajo.gob.ec" },
     { cat: "ALIMENTOS", titulo: "Calculadora de pensión alimenticia", url: "https://www.funcionjudicial.gob.ec" },
-    { cat: "ALIMENTOS", titulo: "Tabla de pensiones alimenticias", url: "https://www.funcionjudicial.gob.ec" },
     { cat: "ALIMENTOS", titulo: "Consulta de Pensiones - SUPA", url: "https://supa.funcionjudicial.gob.ec" },
-    { cat: "DIVORCIOS", titulo: "Trámite de Divorcio en Ecuador, cómo proceder", url: "#" },
-    { cat: "DIVORCIOS", titulo: "Nulidad del matrimonio: Causas y pasos", url: "#" },
-    { cat: "DIVORCIOS", titulo: "Divorcio por mutuo consentimiento", url: "#" },
     { cat: "TRÁMITES Y ANT", titulo: "Consultar puntos de la licencia de conducir", url: "https://www.ant.gob.ec" },
     { cat: "TRÁMITES Y ANT", titulo: "Simulador ANT", url: "https://www.ant.gob.ec" },
     { cat: "TRÁMITES Y ANT", titulo: "Consulta de Multas de tránsito ANT", url: "https://www.ant.gob.ec" },
-    { cat: "TRÁMITES Y ANT", titulo: "Certificado de Antecedentes penales", url: "https://www.gob.ec" },
-    { cat: "TRÁMITES Y ANT", titulo: "Consulta de RUC", url: "https://www.sri.gob.ec" }
+    { cat: "TRÁMITES Y ANT", titulo: "Certificado de Antecedentes penales", url: "https://www.gob.ec" }
   ];
 
   const tramitesFiltrados = busquedaTramite.trim() === "" 
@@ -73,30 +65,28 @@ export default function HomePage() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', fontFamily: 'Arial, sans-serif', background: '#fff', color: '#111' }}>
       
-      {/* Contenido Principal */}
       <main style={{ padding: '2rem 3rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
         
-        {/* Barra de búsqueda superior funcional */}
-        <div style={{ marginBottom: '2.5rem', maxWidth: '700px', position: 'relative' }}>
-          <div style={{ display: 'flex', border: '1px solid #1a365d', borderRadius: '6px', overflow: 'hidden', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
+        {/* Barra de búsqueda superior centrada y estilizada */}
+        <div style={{ marginBottom: '2.5rem', maxWidth: '700px', position: 'relative', zIndex: 50 }}>
+          <div style={{ display: 'flex', border: '2px solid #1a365d', borderRadius: '6px', overflow: 'hidden', background: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
             <input 
               type="text" 
               value={busquedaTramite}
               onChange={(e) => setBusquedaTramite(e.target.value)}
-              placeholder="Buscar trámite o servicio (ej: jubilacion, licencia, iess)..." 
+              placeholder="Buscar trámite o servicio (ej: licencia, iess, jubilacion)..." 
               style={{ padding: '0.9rem 1rem', flex: 1, border: 'none', outline: 'none', fontSize: '1rem' }}
             />
-            <button style={{ padding: '0 1.5rem', background: '#1a365d', border: 'none', color: '#fff', cursor: 'pointer' }}>
+            <button style={{ padding: '0 1.5rem', background: '#1a365d', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '1.1rem' }}>
               🔍
             </button>
           </div>
-          <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.5rem' }}>Escribe para filtrar trámites instantáneamente abajo.</p>
 
-          {/* Resultados flotantes del buscador superior */}
+          {/* Menú desplegable de resultados del buscador */}
           {tramitesFiltrados.length > 0 && (
-            <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', border: '1px solid #cbd5e1', borderRadius: '6px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', zIndex: 10, maxHeight: '250px', overflowY: 'auto', marginTop: '5px' }}>
+            <div style={{ position: 'absolute', top: '105%', left: 0, right: 0, background: '#fff', border: '1px solid #cbd5e1', borderRadius: '6px', boxShadow: '0 10px 20px rgba(0,0,0,0.15)', maxHeight: '250px', overflowY: 'auto' }}>
               {tramitesFiltrados.map((t, idx) => (
-                <a key={idx} href={t.url} target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '0.7rem 1rem', borderBottom: '1px solid #f1f5f9', color: '#0066cc', textDecoration: 'none', fontSize: '0.9rem' }}>
+                <a key={idx} href={t.url} target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '0.8rem 1rem', borderBottom: '1px solid #f1f5f9', color: '#0066cc', textDecoration: 'none', fontSize: '0.9rem' }}>
                   <strong>[{t.cat}]</strong> {t.titulo}
                 </a>
               ))}
@@ -175,7 +165,7 @@ export default function HomePage() {
 
         </div>
 
-        {/* Columnas de Categorías con Links Operativos */}
+        {/* Columnas de Categorías */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem', borderTop: '2px solid #e2e8f0', paddingTop: '2rem' }}>
           
           <div>
@@ -185,8 +175,6 @@ export default function HomePage() {
               <li><a href="https://www.iess.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>IESS Citas Médicas: Agendar o Consultar</a></li>
               <li><a href="https://www.iess.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Recuperar clave del IESS</a></li>
               <li><a href="https://www.iess.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Certificado de No estar afiliado al IESS</a></li>
-              <li><a href="https://www.iess.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Fondos de Reserva del IESS</a></li>
-              <li><a href="https://www.trabajo.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Décimo cuarto sueldo</a></li>
             </ul>
           </div>
 
@@ -196,16 +184,6 @@ export default function HomePage() {
               <li><a href="https://www.funcionjudicial.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Calculadora de pensión alimenticia</a></li>
               <li><a href="https://www.funcionjudicial.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Tabla de pensiones alimenticias</a></li>
               <li><a href="https://supa.funcionjudicial.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Consulta de Pensiones - SUPA</a></li>
-              <li><a href="https://www.funcionjudicial.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Pasos para presentar Demanda de alimentos</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 style={{ color: '#1a365d', fontSize: '1.1rem', borderBottom: '2px solid #1a365d', paddingBottom: '0.4rem', marginBottom: '1rem' }}>DIVORCIOS</h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: '2rem', fontSize: '0.9rem' }}>
-              <li><span style={{ color: '#0066cc', cursor: 'pointer' }} onClick={() => alert("Trámite disponible en notarías y judicaturas de Ecuador.")}>Trámite de Divorcio en Ecuador, cómo proceder</span></li>
-              <li><span style={{ color: '#0066cc', cursor: 'pointer' }} onClick={() => alert("Revisa los requisitos en el Consejo de la Judicatura.")}>Nulidad del matrimonio: Causas y pasos</span></li>
-              <li><span style={{ color: '#0066cc', cursor: 'pointer' }} onClick={() => alert("Divorcio por mutuo acuerdo vía notarial.")}>Divorcio por mutuo consentimiento</span></li>
             </ul>
           </div>
 
@@ -216,7 +194,6 @@ export default function HomePage() {
               <li><a href="https://www.ant.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Simulador ANT</a></li>
               <li><a href="https://www.ant.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Consulta de Multas de tránsito ANT</a></li>
               <li><a href="https://www.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Certificado de Antecedentes penales</a></li>
-              <li><a href="https://www.sri.gob.ec" target="_blank" rel="noreferrer" style={{ textDecoration: 'none', color: '#0066cc' }}>Consulta de RUC</a></li>
             </ul>
           </div>
 
@@ -224,7 +201,6 @@ export default function HomePage() {
 
       </main>
 
-      {/* Pie de página */}
       <footer style={{ background: '#1a365d', color: '#fff', padding: '1.5rem', textAlign: 'center', fontSize: '0.9rem', marginTop: '3rem' }}>
         <p style={{ margin: '0' }}>Tu Abogado Gratis — Información legal y trámites del Ecuador explicados de forma clara.</p>
       </footer>
