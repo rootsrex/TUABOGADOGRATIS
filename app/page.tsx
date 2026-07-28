@@ -1,13 +1,14 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import Link from "next/link";
+import { useState, useMemo } from "react";
 
 export default function HomePage() {
-  const [cedulaInput, setCedulaInput] = useState('');
-  const [placaInput, setPlacaInput] = useState('');
-  const [camaraInput, setCamaraInput] = useState('');
-  const [busquedaTramite, setBusquedaTramite] = useState('');
-  
+  const [cedulaInput, setCedulaInput] = useState("");
+  const [placaInput, setPlacaInput] = useState("");
+  const [camaraInput, setCamaraInput] = useState("");
+  const [busquedaTramite, setBusquedaTramite] = useState("");
+
   // Estados de carga (Loading)
   const [loadingCedula, setLoadingCedula] = useState(false);
   const [loadingPlaca, setLoadingPlaca] = useState(false);
@@ -62,202 +63,282 @@ export default function HomePage() {
     }
   };
 
-  // Base completa de trámites apuntando a TUS carpetas internas
+  // Base completa de trámites apuntando a las secciones y páginas reales del sitio
   const todosLosTramites = [
-    { cat: "LEGAL", titulo: "Otorgamiento de Poderes y Minutas", url: "/generador" },
+    { cat: "LEGAL", titulo: "Otorgamiento de Poderes y Minutas", url: "/generador/poder-general" },
     { cat: "LABORAL", titulo: "Calculadora de jubilación del IESS", url: "/calculadoras" },
-    { cat: "LABORAL", titulo: "IESS Citas Médicas: Agendar o Consultar", url: "/consultas" },
-    { cat: "LABORAL", titulo: "Recuperar clave del IESS", url: "/consultas" },
-    { cat: "LABORAL", titulo: "Certificado de No estar afiliado al IESS", url: "/consultas" },
-    { cat: "ALIMENTOS", titulo: "Calculadora de pensión alimenticia", url: "/calculadoras" },
-    { cat: "ALIMENTOS", titulo: "Tabla de pensiones alimenticias", url: "/consultas" },
-    { cat: "ALIMENTOS", titulo: "Consulta de Pensiones - SUPA", url: "/consultas" },
-    { cat: "TRÁMITES Y ANT", titulo: "Consultar puntos de la licencia de conducir", url: "/consultas" },
-    { cat: "TRÁMITES Y ANT", titulo: "Simulador ANT", url: "/simuladores" },
-    { cat: "TRÁMITES Y ANT", titulo: "Consulta de Multas de tránsito ANT", url: "/consultas" },
-    { cat: "TRÁMITES Y ANT", titulo: "Certificado de Antecedentes penales", url: "/consultas" }
+    { cat: "LABORAL", titulo: "IESS Citas Médicas: Agendar o Consultar", url: "/categoria/laboral-iess" },
+    { cat: "LABORAL", titulo: "Recuperar clave del IESS", url: "/categoria/laboral-iess" },
+    { cat: "LABORAL", titulo: "Certificado de No estar afiliado al IESS", url: "/categoria/laboral-iess" },
+    { cat: "ALIMENTOS", titulo: "Calculadora de pensión alimenticia", url: "/articulo/pension-alimenticia-ecuador" },
+    { cat: "ALIMENTOS", titulo: "Tabla de pensiones alimenticias", url: "/articulo/pension-alimenticia-ecuador" },
+    { cat: "ALIMENTOS", titulo: "Consulta de Pensiones - SUPA", url: "/articulo/pension-alimenticia-ecuador" },
+    { cat: "TRÁMITES Y ANT", titulo: "Consultar puntos de la licencia de conducir", url: "/consultas/puntos-licencia" },
+    { cat: "TRÁMITES Y ANT", titulo: "Simulador ANT", url: "/simuladores/licencia-tipo-b" },
+    { cat: "TRÁMITES Y ANT", titulo: "Consulta de Multas de tránsito ANT", url: "/consultas/multas-transito" },
+    { cat: "TRÁMITES Y ANT", titulo: "Certificado de Antecedentes penales", url: "/consultas/antecedentes-penales" },
   ];
 
   // Filtro inteligente y ultra rápido
   const tramitesFiltrados = useMemo(() => {
     if (busquedaTramite.trim() === "") return [];
-    const busquedaLimpia = busquedaTramite.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    
-    return todosLosTramites.filter(t => 
-      t.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(busquedaLimpia) ||
-      t.cat.toLowerCase().includes(busquedaLimpia)
+    const busquedaLimpia = busquedaTramite.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+    return todosLosTramites.filter(
+      (t) =>
+        t.titulo.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(busquedaLimpia) ||
+        t.cat.toLowerCase().includes(busquedaLimpia)
     );
   }, [busquedaTramite]);
 
+  const columnas = [
+    {
+      titulo: "LABORAL",
+      links: [
+        { label: "Calculadora de jubilación del IESS", url: "/calculadoras" },
+        { label: "IESS Citas Médicas: Agendar o Consultar", url: "/categoria/laboral-iess" },
+        { label: "Recuperar clave del IESS", url: "/categoria/laboral-iess" },
+        { label: "Certificado de No estar afiliado al IESS", url: "/categoria/laboral-iess" },
+        { label: "Fondos de Reserva del IESS", url: "/calculadoras" },
+        { label: "Décimo cuarto sueldo", url: "/calculadoras" },
+      ],
+    },
+    {
+      titulo: "ALIMENTOS",
+      links: [
+        { label: "Calculadora de pensión alimenticia", url: "/articulo/pension-alimenticia-ecuador" },
+        { label: "Tabla de pensiones alimenticias", url: "/articulo/pension-alimenticia-ecuador" },
+        { label: "Consulta de Pensiones - SUPA", url: "/articulo/pension-alimenticia-ecuador" },
+        { label: "Pasos para presentar Demanda de alimentos", url: "/articulo/pension-alimenticia-ecuador" },
+      ],
+    },
+    {
+      titulo: "DIVORCIOS",
+      links: [
+        { label: "Trámite de Divorcio en Ecuador, cómo proceder", url: "/categoria/familia" },
+        { label: "Nulidad del matrimonio: Causas y pasos", url: "/categoria/familia" },
+        { label: "Divorcio por mutuo consentimiento", url: "/generador/demanda-divorcio-mutuo-acuerdo" },
+      ],
+    },
+    {
+      titulo: "TRÁMITES Y ANT",
+      links: [
+        { label: "Consultar puntos de la licencia de conducir", url: "/consultas/puntos-licencia" },
+        { label: "Simulador ANT", url: "/simuladores/licencia-tipo-b" },
+        { label: "Consulta de Multas de tránsito ANT", url: "/consultas/multas-transito" },
+        { label: "Certificado de Antecedentes penales", url: "/consultas/antecedentes-penales" },
+        { label: "Consulta de RUC", url: "/consultas/nombre-por-cedula" },
+      ],
+    },
+  ];
+
+  const tramitesFrecuentes = [
+    { label: "Calculadora de jubilación del IESS", url: "/calculadoras" },
+    { label: "Consulta de Multas de tránsito ANT", url: "/consultas/multas-transito" },
+    { label: "Simulador ANT", url: "/simuladores/licencia-tipo-b" },
+    { label: "Calculadora de pensión alimenticia", url: "/articulo/pension-alimenticia-ecuador" },
+    { label: "Trámite de Divorcio en Ecuador", url: "/generador/demanda-divorcio-mutuo-acuerdo" },
+    { label: "Certificado de Antecedentes penales", url: "/consultas/antecedentes-penales" },
+    { label: "Consulta de RUC", url: "/consultas/nombre-por-cedula" },
+    { label: "Otorgamiento de Poderes y Minutas", url: "/generador/poder-general" },
+  ];
+
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', fontFamily: 'Arial, sans-serif', background: '#fff', color: '#111' }}>
-      
-      <main style={{ padding: '2rem 3rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
-        
-        {/* BUSCADOR SUPERIOR */}
-        <div style={{ marginBottom: '2.5rem', maxWidth: '700px', position: 'relative', zIndex: 50 }}>
-          <div style={{ display: 'flex', border: '2px solid #1a365d', borderRadius: '6px', overflow: 'hidden', background: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', transition: 'border-color 0.2s' }}>
-            <input 
-              type="text" 
-              value={busquedaTramite}
-              onChange={(e) => setBusquedaTramite(e.target.value)}
-              placeholder="Buscar trámite o servicio (ej: poder, licencia, iess)..." 
-              style={{ padding: '0.9rem 1rem', flex: 1, border: 'none', outline: 'none', fontSize: '1rem' }}
-            />
-            <button style={{ padding: '0 1.5rem', background: '#1a365d', border: 'none', color: '#fff', fontSize: '1.1rem' }}>
-              🔍
-            </button>
-          </div>
+    <div className="bg-slate-50">
+      {/* HERO + BUSCADOR DE TRÁMITES */}
+      <section className="bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800 pb-14 pt-10 text-white sm:pb-20 sm:pt-14">
+        <div className="mx-auto max-w-6xl px-4">
+          <h1 className="text-3xl font-extrabold sm:text-4xl">
+            Tu asesor legal en casa <span className="text-accent-500">gratis</span>
+          </h1>
+          <p className="mt-2 max-w-2xl text-brand-100">
+            Trámites, consultas y calculadoras legales del Ecuador, explicados de forma clara.
+          </p>
 
-          {busquedaTramite.trim() !== "" && (
-            <div style={{ position: 'absolute', top: '105%', left: 0, right: 0, background: '#fff', border: '1px solid #cbd5e1', borderRadius: '6px', boxShadow: '0 10px 20px rgba(0,0,0,0.15)', maxHeight: '280px', overflowY: 'auto' }}>
-              {tramitesFiltrados.length > 0 ? (
-                tramitesFiltrados.map((t, idx) => (
-                  <a key={idx} href={t.url} style={{ display: 'block', padding: '0.8rem 1rem', borderBottom: '1px solid #f1f5f9', color: '#0066cc', textDecoration: 'none', fontSize: '0.9rem' }}>
-                    <strong>[{t.cat}]</strong> {t.titulo}
-                  </a>
-                ))
-              ) : (
-                <div style={{ padding: '1rem', color: '#666', fontSize: '0.9rem', textAlign: 'center' }}>
-                  No encontramos "{busquedaTramite}". Revisa las opciones abajo.
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* HERRAMIENTAS ACTIVAS (Cédula, Placa, Cámara) */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
-          
-          {/* Cédula */}
-          <div style={{ padding: '1.2rem', border: '1px solid #e2e8f0', borderRadius: '8px', background: '#f8fafc', transition: 'all 0.3s' }}>
-            <h4 style={{ margin: '0 0 0.8rem 0', color: '#1a365d' }}>Buscar Cédula / Nombre</h4>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input 
-                type="text" 
-                value={cedulaInput} 
-                onChange={(e) => setCedulaInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && consultarCedula()} 
-                placeholder="Ingrese cédula" 
-                style={{ padding: '0.5rem', flex: 1, border: '1px solid #cbd5e1', borderRadius: '4px', outline: 'none' }}
+          <div className="relative z-30 mx-auto mt-8 max-w-2xl">
+            <div className="flex items-center overflow-hidden rounded-full bg-white shadow-lg ring-1 ring-black/5">
+              <span className="pl-5 text-slate-400" aria-hidden>
+                🔍
+              </span>
+              <input
+                type="text"
+                value={busquedaTramite}
+                onChange={(e) => setBusquedaTramite(e.target.value)}
+                placeholder="Buscar trámite o servicio (ej: poder, licencia, iess)..."
+                className="w-full bg-transparent px-3 py-4 text-slate-800 outline-none placeholder:text-slate-400"
+                aria-label="Buscar trámite o servicio"
               />
-              <button onClick={consultarCedula} disabled={loadingCedula} style={{ padding: '0.5rem 1rem', background: loadingCedula ? '#64748b' : '#1a365d', color: '#fff', border: 'none', borderRadius: '4px', cursor: loadingCedula ? 'not-allowed' : 'pointer', minWidth: '90px' }}>
-                {loadingCedula ? '⌛...' : 'Buscar'}
+              <button className="grid h-full shrink-0 place-items-center bg-brand-600 px-6 py-4 font-semibold text-white hover:bg-brand-700">
+                Buscar
+              </button>
+            </div>
+
+            {busquedaTramite.trim() !== "" && (
+              <div className="absolute left-0 right-0 top-full mt-2 overflow-hidden rounded-2xl bg-white text-left shadow-2xl ring-1 ring-black/5">
+                {tramitesFiltrados.length > 0 ? (
+                  <ul className="max-h-72 overflow-y-auto p-2">
+                    {tramitesFiltrados.map((t, idx) => (
+                      <li key={idx}>
+                        <Link
+                          href={t.url}
+                          className="flex items-center gap-2 rounded-xl px-3 py-3 text-sm text-slate-700 hover:bg-slate-50"
+                        >
+                          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-500">
+                            {t.cat}
+                          </span>
+                          {t.titulo}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="p-4 text-center text-sm text-slate-500">
+                    No encontramos &quot;{busquedaTramite}&quot;. Revisa las opciones abajo.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <main className="mx-auto max-w-6xl px-4 py-12">
+        {/* HERRAMIENTAS ACTIVAS (Cédula, Placa, Cámara) */}
+        <div className="-mt-20 mb-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:-mt-24">
+          {/* Cédula */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-md">
+            <h4 className="mb-3 font-bold text-brand-800">🪪 Buscar Cédula / Nombre</h4>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={cedulaInput}
+                onChange={(e) => setCedulaInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && consultarCedula()}
+                placeholder="Ingrese cédula"
+                className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+              />
+              <button
+                onClick={consultarCedula}
+                disabled={loadingCedula}
+                className="min-w-[90px] rounded-lg bg-brand-700 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+              >
+                {loadingCedula ? "⌛..." : "Buscar"}
               </button>
             </div>
             {resultadoCedula && (
-              <div style={{ marginTop: '0.8rem', background: '#fff', padding: '0.8rem', borderRadius: '4px', borderLeft: '3px solid #28a745', fontSize: '0.9rem', animation: 'fadeIn 0.5s' }}>
-                <p style={{ margin: '0 0 0.3rem 0' }}><strong>Nombre:</strong> {resultadoCedula.resultados?.[0]?.nombre || "No encontrado"}</p>
-                <p style={{ margin: '0' }}><strong>Cédula:</strong> {resultadoCedula.resultados?.[0]?.cedula || cedulaInput}</p>
+              <div className="mt-3 rounded-lg border-l-4 border-emerald-500 bg-emerald-50 p-3 text-sm">
+                <p className="mb-1">
+                  <strong>Nombre:</strong> {resultadoCedula.resultados?.[0]?.nombre || "No encontrado"}
+                </p>
+                <p>
+                  <strong>Cédula:</strong> {resultadoCedula.resultados?.[0]?.cedula || cedulaInput}
+                </p>
               </div>
             )}
           </div>
 
           {/* Placa */}
-          <div style={{ padding: '1.2rem', border: '1px solid #e2e8f0', borderRadius: '8px', background: '#f8fafc', transition: 'all 0.3s' }}>
-            <h4 style={{ margin: '0 0 0.8rem 0', color: '#1a365d' }}>Buscar Placa</h4>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input 
-                type="text" 
-                value={placaInput} 
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-md">
+            <h4 className="mb-3 font-bold text-brand-800">🚗 Buscar Placa</h4>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={placaInput}
                 onChange={(e) => setPlacaInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && consultarPlaca()} 
-                placeholder="Ej: AAA6789" 
-                style={{ padding: '0.5rem', flex: 1, border: '1px solid #cbd5e1', borderRadius: '4px', outline: 'none' }}
+                onKeyDown={(e) => e.key === "Enter" && consultarPlaca()}
+                placeholder="Ej: AAA6789"
+                className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
               />
-              <button onClick={consultarPlaca} disabled={loadingPlaca} style={{ padding: '0.5rem 1rem', background: loadingPlaca ? '#64748b' : '#1a365d', color: '#fff', border: 'none', borderRadius: '4px', cursor: loadingPlaca ? 'not-allowed' : 'pointer', minWidth: '90px' }}>
-                {loadingPlaca ? '⌛...' : 'Buscar'}
+              <button
+                onClick={consultarPlaca}
+                disabled={loadingPlaca}
+                className="min-w-[90px] rounded-lg bg-brand-700 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+              >
+                {loadingPlaca ? "⌛..." : "Buscar"}
               </button>
             </div>
             {resultadoPlaca && (
-              <div style={{ marginTop: '0.8rem', background: '#fff', padding: '0.8rem', borderRadius: '4px', borderLeft: '3px solid #ffc107', fontSize: '0.9rem', animation: 'fadeIn 0.5s' }}>
-                <p style={{ margin: '0 0 0.3rem 0' }}><strong>Propietario:</strong> {resultadoPlaca.resultados?.[0]?.nombre || "No encontrado"}</p>
-                <p style={{ margin: '0' }}><strong>Placa:</strong> {resultadoPlaca.resultados?.[0]?.value || placaInput}</p>
+              <div className="mt-3 rounded-lg border-l-4 border-amber-500 bg-amber-50 p-3 text-sm">
+                <p className="mb-1">
+                  <strong>Propietario:</strong> {resultadoPlaca.resultados?.[0]?.nombre || "No encontrado"}
+                </p>
+                <p>
+                  <strong>Placa:</strong> {resultadoPlaca.resultados?.[0]?.value || placaInput}
+                </p>
               </div>
             )}
           </div>
 
           {/* Cámara */}
-          <div style={{ padding: '1.2rem', border: '1px solid #e2e8f0', borderRadius: '8px', background: '#f8fafc', transition: 'all 0.3s' }}>
-            <h4 style={{ margin: '0 0 0.8rem 0', color: '#1a365d' }}>Buscar Cámara / Dirección</h4>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input 
-                type="text" 
-                value={camaraInput} 
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-md">
+            <h4 className="mb-3 font-bold text-brand-800">📷 Buscar Cámara / Dirección</h4>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={camaraInput}
                 onChange={(e) => setCamaraInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && consultarCamara()} 
-                placeholder="Ej: bolivar" 
-                style={{ padding: '0.5rem', flex: 1, border: '1px solid #cbd5e1', borderRadius: '4px', outline: 'none' }}
+                onKeyDown={(e) => e.key === "Enter" && consultarCamara()}
+                placeholder="Ej: bolivar"
+                className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
               />
-              <button onClick={consultarCamara} disabled={loadingCamara} style={{ padding: '0.5rem 1rem', background: loadingCamara ? '#64748b' : '#1a365d', color: '#fff', border: 'none', borderRadius: '4px', cursor: loadingCamara ? 'not-allowed' : 'pointer', minWidth: '90px' }}>
-                {loadingCamara ? '⌛...' : 'Buscar'}
+              <button
+                onClick={consultarCamara}
+                disabled={loadingCamara}
+                className="min-w-[90px] rounded-lg bg-brand-700 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+              >
+                {loadingCamara ? "⌛..." : "Buscar"}
               </button>
             </div>
             {resultadoCamara && resultadoCamara.resultados && (
-              <div style={{ marginTop: '0.8rem', maxHeight: '150px', overflowY: 'auto', animation: 'fadeIn 0.5s' }}>
+              <div className="mt-3 max-h-40 space-y-2 overflow-y-auto">
                 {resultadoCamara.resultados.map((camara: any, index: number) => (
-                  <div key={index} style={{ background: '#fff', padding: '0.6rem', marginBottom: '0.4rem', borderRadius: '4px', borderLeft: '3px solid #007bff', fontSize: '0.85rem' }}>
-                    <p style={{ margin: '0 0 0.2rem 0', color: '#444' }}>{camara.direccion}</p>
+                  <div
+                    key={index}
+                    className="rounded-lg border-l-4 border-sky-500 bg-sky-50 p-2 text-sm text-slate-700"
+                  >
+                    {camara.direccion}
                   </div>
                 ))}
               </div>
             )}
           </div>
-
         </div>
 
-        {/* COLUMNAS INFORMATIVAS INTERNAS */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem', borderTop: '2px solid #e2e8f0', paddingTop: '2rem' }}>
-          
-          <div>
-            <h3 style={{ color: '#1a365d', fontSize: '1.1rem', borderBottom: '2px solid #1a365d', paddingBottom: '0.4rem', marginBottom: '1rem' }}>LABORAL</h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: '2rem', fontSize: '0.9rem' }}>
-              <li><a href="/calculadoras" style={{ textDecoration: 'none', color: '#0066cc' }}>Calculadora de jubilación del IESS</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>IESS Citas Médicas: Agendar o Consultar</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Recuperar clave del IESS</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Certificado de No estar afiliado al IESS</a></li>
-              <li><a href="/calculadoras" style={{ textDecoration: 'none', color: '#0066cc' }}>Fondos de Reserva del IESS</a></li>
-              <li><a href="/calculadoras" style={{ textDecoration: 'none', color: '#0066cc' }}>Décimo cuarto sueldo</a></li>
-            </ul>
+        {/* COLUMNAS INFORMATIVAS + SIDEBAR DE TRÁMITES FRECUENTES */}
+        <div className="grid gap-10 border-t border-slate-200 pt-10 lg:grid-cols-[1fr_280px]">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {columnas.map((col) => (
+              <div key={col.titulo}>
+                <h3 className="mb-4 border-b-2 border-brand-700 pb-2 text-base font-bold text-brand-800">
+                  {col.titulo}
+                </h3>
+                <ul className="space-y-3 text-sm">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link href={link.url} className="text-brand-600 hover:text-brand-800 hover:underline">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
-          <div>
-            <h3 style={{ color: '#1a365d', fontSize: '1.1rem', borderBottom: '2px solid #1a365d', paddingBottom: '0.4rem', marginBottom: '1rem' }}>ALIMENTOS</h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: '2rem', fontSize: '0.9rem' }}>
-              <li><a href="/calculadoras" style={{ textDecoration: 'none', color: '#0066cc' }}>Calculadora de pensión alimenticia</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Tabla de pensiones alimenticias</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Consulta de Pensiones - SUPA</a></li>
-              <li><a href="/generador" style={{ textDecoration: 'none', color: '#0066cc' }}>Pasos para presentar Demanda de alimentos</a></li>
+          <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h3 className="mb-4 text-base font-bold text-slate-900">Trámites frecuentes</h3>
+            <ul className="space-y-3 text-sm">
+              {tramitesFrecuentes.map((t) => (
+                <li key={t.label}>
+                  <Link href={t.url} className="text-brand-600 hover:text-brand-800 hover:underline">
+                    {t.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </div>
-
-          <div>
-            <h3 style={{ color: '#1a365d', fontSize: '1.1rem', borderBottom: '2px solid #1a365d', paddingBottom: '0.4rem', marginBottom: '1rem' }}>DIVORCIOS</h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: '2rem', fontSize: '0.9rem' }}>
-              <li><a href="/generador" style={{ textDecoration: 'none', color: '#0066cc' }}>Trámite de Divorcio en Ecuador, cómo proceder</a></li>
-              <li><a href="/generador" style={{ textDecoration: 'none', color: '#0066cc' }}>Nulidad del matrimonio: Causas y pasos</a></li>
-              <li><a href="/generador" style={{ textDecoration: 'none', color: '#0066cc' }}>Divorcio por mutuo consentimiento</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 style={{ color: '#1a365d', fontSize: '1.1rem', borderBottom: '2px solid #1a365d', paddingBottom: '0.4rem', marginBottom: '1rem' }}>TRÁMITES Y ANT</h3>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: '2rem', fontSize: '0.9rem' }}>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Consultar puntos de la licencia de conducir</a></li>
-              <li><a href="/simuladores" style={{ textDecoration: 'none', color: '#0066cc' }}>Simulador ANT</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Consulta de Multas de tránsito ANT</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Certificado de Antecedentes penales</a></li>
-              <li><a href="/consultas" style={{ textDecoration: 'none', color: '#0066cc' }}>Consulta de RUC</a></li>
-            </ul>
-          </div>
-
+          </aside>
         </div>
-
       </main>
-
-      <footer style={{ background: '#1a365d', color: '#fff', padding: '1.5rem', textAlign: 'center', fontSize: '0.9rem', marginTop: '3rem' }}>
-        <p style={{ margin: '0' }}>Tu Abogado Gratis — Información legal y trámites del Ecuador explicados de forma clara.</p>
-      </footer>
     </div>
   );
 }
