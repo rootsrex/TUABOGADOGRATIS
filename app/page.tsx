@@ -45,12 +45,15 @@ export default function HomePage() {
     }
   };
 
+  // Base amplia de trámites para el buscador superior
   const listaTramites = [
+    { cat: "LEGAL", titulo: "Otorgamiento de Poderes y Minutas", url: "#" },
     { cat: "LABORAL", titulo: "Calculadora de jubilación del IESS", url: "https://www.iess.gob.ec" },
     { cat: "LABORAL", titulo: "IESS Citas Médicas: Agendar o Consultar", url: "https://www.iess.gob.ec" },
     { cat: "LABORAL", titulo: "Recuperar clave del IESS", url: "https://www.iess.gob.ec" },
     { cat: "LABORAL", titulo: "Certificado de No estar afiliado al IESS", url: "https://www.iess.gob.ec" },
     { cat: "ALIMENTOS", titulo: "Calculadora de pensión alimenticia", url: "https://www.funcionjudicial.gob.ec" },
+    { cat: "ALIMENTOS", titulo: "Tabla de pensiones alimenticias", url: "https://www.funcionjudicial.gob.ec" },
     { cat: "ALIMENTOS", titulo: "Consulta de Pensiones - SUPA", url: "https://supa.funcionjudicial.gob.ec" },
     { cat: "TRÁMITES Y ANT", titulo: "Consultar puntos de la licencia de conducir", url: "https://www.ant.gob.ec" },
     { cat: "TRÁMITES Y ANT", titulo: "Simulador ANT", url: "https://www.ant.gob.ec" },
@@ -67,14 +70,14 @@ export default function HomePage() {
       
       <main style={{ padding: '2rem 3rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
         
-        {/* Barra de búsqueda superior centrada y estilizada */}
+        {/* Barra de búsqueda superior con despliegue inteligente */}
         <div style={{ marginBottom: '2.5rem', maxWidth: '700px', position: 'relative', zIndex: 50 }}>
           <div style={{ display: 'flex', border: '2px solid #1a365d', borderRadius: '6px', overflow: 'hidden', background: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
             <input 
               type="text" 
               value={busquedaTramite}
               onChange={(e) => setBusquedaTramite(e.target.value)}
-              placeholder="Buscar trámite o servicio (ej: licencia, iess, jubilacion)..." 
+              placeholder="Buscar trámite o servicio (ej: poder, licencia, iess)..." 
               style={{ padding: '0.9rem 1rem', flex: 1, border: 'none', outline: 'none', fontSize: '1rem' }}
             />
             <button style={{ padding: '0 1.5rem', background: '#1a365d', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '1.1rem' }}>
@@ -82,14 +85,20 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* Menú desplegable de resultados del buscador */}
-          {tramitesFiltrados.length > 0 && (
+          {/* Menú desplegable dinámico */}
+          {busquedaTramite.trim() !== "" && (
             <div style={{ position: 'absolute', top: '105%', left: 0, right: 0, background: '#fff', border: '1px solid #cbd5e1', borderRadius: '6px', boxShadow: '0 10px 20px rgba(0,0,0,0.15)', maxHeight: '250px', overflowY: 'auto' }}>
-              {tramitesFiltrados.map((t, idx) => (
-                <a key={idx} href={t.url} target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '0.8rem 1rem', borderBottom: '1px solid #f1f5f9', color: '#0066cc', textDecoration: 'none', fontSize: '0.9rem' }}>
-                  <strong>[{t.cat}]</strong> {t.titulo}
-                </a>
-              ))}
+              {tramitesFiltrados.length > 0 ? (
+                tramitesFiltrados.map((t, idx) => (
+                  <a key={idx} href={t.url} target="_blank" rel="noopener noreferrer" style={{ display: 'block', padding: '0.8rem 1rem', borderBottom: '1px solid #f1f5f9', color: '#0066cc', textDecoration: 'none', fontSize: '0.9rem' }}>
+                    <strong>[{t.cat}]</strong> {t.titulo}
+                  </a>
+                ))
+              ) : (
+                <div style={{ padding: '0.8rem 1rem', color: '#666', fontSize: '0.9rem' }}>
+                  No se encontraron trámites exactos para "{busquedaTramite}". Revisa las categorías de abajo.
+                </div>
+              )}
             </div>
           )}
         </div>
