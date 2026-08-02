@@ -19,27 +19,28 @@ export default function ConsultaMatricula() {
     setResultado(null);
 
     try {
-      // AQUÍ VA LA CONEXIÓN A TU SERVIDOR (EJ. RAILWAY)
-      // Ejemplo: const res = await fetch(`https://tu-api.up.railway.app/api/matricula/${criterio}`);
-      
-      // Simulador de tiempo de respuesta para la UI
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      // Datos simulados que tu API debería devolver
-      const dataFalsa = {
-        placa: criterio.toUpperCase(),
-        marca: "CHEVROLET",
-        modelo: "AVEO",
-        anio: 2018,
-        valorMatricula: "$124.50",
-        multasANT: "$0.00",
-        totalPagar: "$124.50",
-        estado: "Pendiente de pago"
-      };
+      // Petición real al endpoint interno /api/matricula
+      const res = await fetch("/api/matricula", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ placa: criterio.trim() }),
+      });
 
-      setResultado(dataFalsa);
-    } catch (err) {
-      setError("No se pudo conectar con el servidor. Intente más tarde.");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "No se pudo consultar el servidor.");
+      }
+
+      if (data.datos && data.datos.vehiculo) {
+        setResultado(data.datos.vehiculo);
+      } else {
+        setError("No se encontraron registros para el vehículo ingresado.");
+      }
+    } catch (err: any) {
+      setError(err.message || "No se pudo conectar con el servidor. Intente más tarde.");
     } finally {
       setLoading(false);
     }
@@ -75,7 +76,7 @@ export default function ConsultaMatricula() {
             value={criterio}
             onChange={(e) => setCriterio(e.target.value.toUpperCase())}
             onKeyDown={(e) => e.key === "Enter" && consultarValores()}
-            placeholder="Ej: PCQ6000"
+            placeholder="Ej: PBQ3456"
             className="w-full rounded-lg border border-slate-300 px-4 py-3 text-lg font-medium text-slate-800 outline-none uppercase placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
           />
           
@@ -95,21 +96,37 @@ export default function ConsultaMatricula() {
           </div>
         </div>
 
-        {/* Zona de Resultados */}
+        {/* Zona de Resultados con datos reales de la API */}
         {resultado && (
           <div className="animate-fadeIn rounded-xl border border-emerald-200 bg-emerald-50 p-6">
             <h3 className="mb-4 border-b border-emerald-200 pb-2 text-lg font-bold text-emerald-800">
-              Resultados para: {resultado.placa}
+              Resultados para: {resultado.numeroPlaca}
             </h3>
             <div className="grid grid-cols-2 gap-4 text-sm text-slate-700">
-              <div><span className="font-semibold block">Marca:</span> {resultado.marca}</div>
-              <div><span className="font-semibold block">Modelo:</span> {resultado.modelo}</div>
-              <div><span className="font-semibold block">Año:</span> {resultado.anio}</div>
-              <div><span className="font-semibold block">Estado:</span> <span className="text-amber-600 font-bold">{resultado.estado}</span></div>
-            </div>
-            <div className="mt-4 rounded-lg bg-white p-4 border border-emerald-100 flex justify-between items-center shadow-sm">
-              <span className="font-bold text-slate-700 text-lg">Total a Pagar:</span>
-              <span className="text-2xl font-black text-emerald-600">{resultado.totalPagar}</span>
+              <div>
+                <span className="font-semibold block">Marca:</span> 
+                {resultado.descripcionMarca || "N/A"}
+              </div>
+              <div>
+                <span className="font-semibold block">Modelo:</span> 
+                {resultado.descripcionModelo || "N/A"}
+              </div>
+              <div>
+                <span className="font-semibold block">Año del modelo:</span> 
+                {resultado.anioModelo || "N/A"}
+              </div>
+              <div>
+                <span className="font-semibold block">País de origen:</span> 
+                {resultado.descripcionPais || "N/A"}
+              </div>
+              <div>
+                <span className="font-semibold block">Cámara / CPN:</span> 
+                {resultado.numeroCamvCpn || "N/A"}
+              </div>
+              <div>
+                <span className="font-semibold block">Código de Vehículo:</span> 
+                {resultado.codigoVehiculo || "N/A"}
+              </div>
             </div>
           </div>
         )}
